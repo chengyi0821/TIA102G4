@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
+import com.tia102g4.admin.model.Admin;
+import com.tia102g4.member.model.Member;
+import com.tia102g4.rest.model.Restaurant;
 
 @Entity
 @Table(name = "customer_service")
@@ -60,20 +63,20 @@ public class CustomerService {
 	@Expose
 	private Boolean deletedAdmin;		// 後台人員刪除狀態
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")
-//	@Expose
-//	private Restaurant restaurant;		// 餐廳ID
-//	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "member_id", referencedColumnName = "member_id")
-//	@Expose
-//	private Member member;				// 會員ID
-//	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "admin_id", referencedColumnName = "admin_id")
-//	@Expose
-//	private Admin admin;				// 後台人員ID
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")
+	@Expose
+	private Restaurant restaurant;		// 餐廳ID
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id")
+	@Expose
+	private Member member;				// 會員ID
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "admin_id", referencedColumnName = "admin_id")
+	@Expose
+	private Admin admin;				// 後台人員ID
 	
 	public CustomerService() {
 		super();
@@ -184,29 +187,29 @@ public class CustomerService {
 		this.deletedAdmin = deletedAdmin;
 	}
 
-//	public Restaurant getRestaurant() {
-//		return restaurant;
-//	}
-//
-//	public void setRestaurant(Restaurant restaurant) {
-//		this.restaurant = restaurant;
-//	}
-//
-//	public Member getMember() {
-//		return member;
-//	}
-//
-//	public void setMember(Member member) {
-//		this.member = member;
-//	}
-//
-//	public Admin getAdmin() {
-//		return admin;
-//	}
-//
-//	public void setAdmin(Admin admin) {
-//		this.admin = admin;
-//	}
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public Admin getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
 
 	@Override
 	public String toString() {
