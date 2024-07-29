@@ -14,8 +14,8 @@ public class Event {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "event_no", updatable = false)
-	private Integer eventNo;
+	@Column(name = "event_id", updatable = false)
+	private Long eventNo;
 	
 //	@ManyToOne 	//關聯到會員VO
 //	@JoinColumn(name="eventmemberno", referencedColumnName = "member_id")
@@ -65,11 +65,11 @@ public class Event {
 
 
 
-	public Integer getEventno() {
+	public Long getEventno() {
 		return eventNo;
 	}
 
-	public void setEventno(Integer eventno) {
+	public void setEventno(Long eventno) {
 		this.eventNo = eventno;
 	}
 

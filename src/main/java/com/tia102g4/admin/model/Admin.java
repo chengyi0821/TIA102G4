@@ -1,6 +1,9 @@
 package com.tia102g4.admin.model;
 
 import javax.persistence.*;
+
+import com.google.gson.annotations.Expose;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -14,6 +17,7 @@ public class Admin {
     private Long adminId; // 後台人員ID
 
     @Column(name = "name", nullable = false)
+    @Expose
     private String name; // 名稱
 
     @Column(name = "account", nullable = false, unique = true)

@@ -17,6 +17,8 @@ import javax.persistence.TemporalType;
 //
 //import org.hibernate.validator.constraints.*;
 
+import com.google.gson.annotations.Expose;
+
 	/*
 	 * 註1: classpath必須有javax.persistence-api-x.x.jar 
 	 * 註2: Annotation可以添加在屬性上，也可以添加在getXxx()方法之上
@@ -41,6 +43,7 @@ import javax.persistence.TemporalType;
 	    private Date regisDate; // 註冊日期
 
 	    @Column(name = "name")
+	    @Expose
 //	    @NotEmpty(message="會員姓名: 請勿空白")
 //	    @Pattern(regexp = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$", message = "會員姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間")
 	    private String name; // 會員姓名

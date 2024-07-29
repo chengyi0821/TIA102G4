@@ -1,9 +1,9 @@
 package com.tia102g4.rest.model;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.google.gson.annotations.Expose;
 
 //import com.tia102g4.favorite.model.Favorite;
 
@@ -27,11 +28,12 @@ public class Restaurant {
 	@Column(name = "rest_id")
 	private Long restId; // 餐廳ID
 
-	@ManyToOne
-	@JoinColumn(name = "type_id", nullable = false)
-	private Long typeId; // 餐廳類型
+//	@ManyToOne
+//	@JoinColumn(name = "type_id", nullable = false)
+//	private Long typeId; // 餐廳類型
 
 	@Column(name = "rest_name", nullable = false, unique = true)
+	@Expose
 	private String restName; // 餐廳名稱
 
 	@Column(name = "description", nullable = false)
@@ -44,31 +46,25 @@ public class Restaurant {
 	private String phone; // 餐廳電話
 
 	@Column(name = "regist_time", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date registTime; // 註冊時間
+	private Timestamp registTime; // 註冊時間
 
 	@Column(name = "email", nullable = false, unique = true)
 	private String email; // 餐廳信箱
 
 	@Column(name = "open_day", nullable = false)
-	@Temporal(TemporalType.DATE)
 	private String openDay; // 營業日: 0.公休 1.營業
 
 	@Column(name = "open_time1", nullable = false)
-	@Temporal(TemporalType.TIME)
-	private Date openTime1; // 營業時段1
+	private Time openTime1; // 營業時段1
 
 	@Column(name = "close_time1", nullable = false)
-	@Temporal(TemporalType.TIME)
-	private Date closeTime1; // 打烊時間1
+	private Time closeTime1; // 打烊時間1
 
 	@Column(name = "open_time2")
-	@Temporal(TemporalType.TIME)
-	private Date openTime2; // 營業時段2
+	private Time openTime2; // 營業時段2
 
 	@Column(name = "close_time2")
-	@Temporal(TemporalType.TIME)
-	private Date closeTime2; // 打烊時間2
+	private Time closeTime2; // 打烊時間2
 
 	@Column(name = "password", nullable = false)
 	private String password; // 餐廳密碼
@@ -131,13 +127,13 @@ public class Restaurant {
 		this.restId = restId;
 	}
 
-	public Long getTypeId() {
-		return typeId;
-	}
-
-	public void setType(Long typeId) {
-		this.typeId = typeId;
-	}
+//	public Long getTypeId() {
+//		return typeId;
+//	}
+//
+//	public void setType(Long typeId) {
+//		this.typeId = typeId;
+//	}
 
 	public String getRestName() {
 		return restName;
@@ -171,11 +167,11 @@ public class Restaurant {
 		this.phone = phone;
 	}
 
-	public Date getRegistTime() {
+	public Timestamp getRegistTime() {
 		return registTime;
 	}
 
-	public void setRegistTime(Date registTime) {
+	public void setRegistTime(Timestamp registTime) {
 		this.registTime = registTime;
 	}
 
@@ -195,27 +191,27 @@ public class Restaurant {
 		this.openDay = openDay;
 	}
 
-	public Date getOpenTime1() {
+	public Time getOpenTime1() {
 		return openTime1;
 	}
 
-	public void setOpenTime1(Date openTime1) {
+	public void setOpenTime1(Time openTime1) {
 		this.openTime1 = openTime1;
 	}
 
-	public Date getCloseTime1() {
+	public Time getCloseTime1() {
 		return closeTime1;
 	}
 
-	public void setCloseTime1(Date closeTime1) {
+	public void setCloseTime1(Time closeTime1) {
 		this.closeTime1 = closeTime1;
 	}
 
-	public Date getOpenTime2() {
+	public Time getOpenTime2() {
 		return openTime2;
 	}
 
-	public void setOpenTime2(Date openTime2) {
+	public void setOpenTime2(Time openTime2) {
 		this.openTime2 = openTime2;
 	}
 
@@ -223,7 +219,7 @@ public class Restaurant {
 		return closeTime2;
 	}
 
-	public void setCloseTime2(Date closeTime2) {
+	public void setCloseTime2(Time closeTime2) {
 		this.closeTime2 = closeTime2;
 	}
 
@@ -329,7 +325,6 @@ public class Restaurant {
 	public String toString() {
 	    return "Restaurant {" +
 	           "restId=" + restId +
-	           ", typeId='" + typeId + '\'' +
 	           ", restName='" + restName + '\'' +
 	           ", description='" + description + '\'' +
 	           ", location='" + location + '\'' +

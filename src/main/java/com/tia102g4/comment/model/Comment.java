@@ -11,7 +11,8 @@ public class Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer commentId;
+	@Column(name = "comment_id")
+	private Long commentId;
 
 //	@ManyToOne
 //	@JoinColumn(name = "comrestno", referencedColumnName="event_id")
@@ -38,11 +39,11 @@ public class Comment {
 //		this.content = content;
 //	}
 
-	public Integer getCommentId() {
+	public Long getCommentId() {
 		return commentId;
 	}
 
-	public void setCommentId(Integer commentId) {
+	public void setCommentId(Long commentId) {
 		this.commentId = commentId;
 	}
 
