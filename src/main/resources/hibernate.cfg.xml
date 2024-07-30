@@ -22,6 +22,8 @@
 		<mapping class="com.tia102g4.member.model.Member" />
 		<mapping class="com.tia102g4.myorder.model.MyOrder" />
 		<mapping class="com.tia102g4.rest.model.Restaurant" />
+		<mapping class="com.tia102g4.vote.model.Vote" />
+		<mapping class="com.tia102g4.room.model.Room" />
 
 	</session-factory>
 </hibernate-configuration>

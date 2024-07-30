@@ -1,8 +1,8 @@
 package common;
 
 public enum AnnoType {
-	SYSTEM(1),
-	FOOD_SAFETY(2);
+	SYSTEM(1),		//系統公告
+	FOOD_SAFETY(2); //食安新聞
 
 	private final Integer typeId;
 
@@ -13,14 +13,14 @@ public enum AnnoType {
 	public Integer getTypeId() {
 		return typeId;
 	}
-
+	
 	@Override
 	public String toString() {
 		switch (this) {
 		case SYSTEM:
-			return "System Announcement";
+			return "系統公告";
 		case FOOD_SAFETY:
-			return "Food Safety News";
+			return "食安新聞";
 		default:
 			return "";
 		}
