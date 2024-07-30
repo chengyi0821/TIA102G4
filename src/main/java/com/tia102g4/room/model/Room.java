@@ -27,10 +27,10 @@ public class Room {
 //	@JoinColumn(name="roomeventno", referencedColumnName="room_id")
 //    private Event event;
 	
-	@Column(name="estTime")
+	@Column(name="est_time")
 	private Timestamp estTime;
 	
-	@Column(name="joinTime")
+	@Column(name="join_time")
 	private Timestamp joinTime;
 	
 	@Column(name="status")

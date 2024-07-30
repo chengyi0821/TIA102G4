@@ -240,7 +240,7 @@ $(document).ready(function() {
 								if (!allowedTypes.includes(file.type)) {
 									alert('Please select a valid image file (JPEG, PNG, GIF).');
 									$(this).val(''); // 清空文件選擇框
-									$('#current-image').attr('src', ''); // 清空當前圖片显示
+									$('#current-image').attr('src', ''); // 清空當前圖片顯示
 									imageFile = null; // 清空 imageFile 
 									return;
 								}

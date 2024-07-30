@@ -2,15 +2,18 @@ package com.tia102g4.cs.to.req;
 
 import java.sql.Timestamp;
 
+import common.CSFeedbackType;
+import common.CSReplyHeading;
+
 public class CSReqTo {
 	
-	private String feedbackType;
+	private CSFeedbackType feedbackType;
 	
 	private String feedbackContent;
 	
 	private Timestamp feedbackTime;
 	
-	private String replyHeading;
+	private CSReplyHeading replyHeading;
 	
 	private String replyContent;
 	
@@ -25,8 +28,8 @@ public class CSReqTo {
 	public CSReqTo() {
 	}
 
-	public CSReqTo(String feedbackType, String feedbackContent, Timestamp feedbackTime,
-			String replyHeading, String replyContent, Timestamp replyTime, Boolean replyStatus, Boolean deletedAdmin,
+	public CSReqTo(CSFeedbackType feedbackType, String feedbackContent, Timestamp feedbackTime,
+			CSReplyHeading replyHeading, String replyContent, Timestamp replyTime, Boolean replyStatus, Boolean deletedAdmin,
 			String restName) {
 		super();
 		this.feedbackType = feedbackType;
@@ -40,7 +43,7 @@ public class CSReqTo {
 		this.restName = restName;
 	}
 
-	public String getFeedbackType() {
+	public CSFeedbackType getFeedbackType() {
 		return feedbackType;
 	}
 
@@ -52,7 +55,7 @@ public class CSReqTo {
 		return feedbackTime;
 	}
 
-	public String getReplyHeading() {
+	public CSReplyHeading getReplyHeading() {
 		return replyHeading;
 	}
 
@@ -75,4 +78,42 @@ public class CSReqTo {
 	public String getRestName() {
 		return restName;
 	}
+
+	public void setFeedbackType(CSFeedbackType feedbackType) {
+		this.feedbackType = feedbackType;
+	}
+
+	public void setFeedbackContent(String feedbackContent) {
+		this.feedbackContent = feedbackContent;
+	}
+
+	public void setFeedbackTime(Timestamp feedbackTime) {
+		this.feedbackTime = feedbackTime;
+	}
+
+	public void setReplyHeading(CSReplyHeading replyHeading) {
+		this.replyHeading = replyHeading;
+	}
+
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
+	}
+
+	public void setReplyTime(Timestamp replyTime) {
+		this.replyTime = replyTime;
+	}
+
+	public void setReplyStatus(Boolean replyStatus) {
+		this.replyStatus = replyStatus;
+	}
+
+	public void setDeletedAdmin(Boolean deletedAdmin) {
+		this.deletedAdmin = deletedAdmin;
+	}
+
+	public void setRestName(String restName) {
+		this.restName = restName;
+	}
+	
+	
 }
