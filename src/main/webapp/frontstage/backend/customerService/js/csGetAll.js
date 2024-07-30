@@ -8,8 +8,9 @@ $(document).ready(function() {
 		window.location.href = 'cs.html';
 	}
 	//=======================================創建loadAnnouncements=======================================
-	// 初次加載公告數據
+	// 初次加載客服數據
 	loadCustomerServices(currentPage, contextPath);
+	
 	// 分頁按鈕事件
 	//上一頁
 	$('#prev-page').on('click', function() {
@@ -28,7 +29,7 @@ $(document).ready(function() {
 	//最後一頁
 	$('#last-page').on('click', function() {
 		$.ajax({
-			url: `${contextPath}/cs/cs.do?action=getAll`,
+			url: `${contextPath}/cs/csMember.do?action=getAll`,
 			type: 'GET',
 			success: function(data) {
 				currentPage = data.totalPageQty;
@@ -42,7 +43,7 @@ $(document).ready(function() {
 	//=======================================查詢全部=======================================
 	function loadCustomerServices(page, contextPath) {
 		$.ajax({
-			url: `${contextPath}/cs/cs.do?action=getAll`,
+			url: `${contextPath}/cs/csMember.do?action=getAll`,
 			type: 'GET',
 			data: {
 				page: page,
@@ -58,7 +59,7 @@ $(document).ready(function() {
 							? cs.feedbackContent.substring(0, maxContentLength) + "..."
 							: cs.feedbackContent;
 							
-						// 設定類型1.帳號問題2.食安問題3.訂單問題4.系統問題5.其他
+						// 設定類型 1.帳號問題 2.食安問題 3.訂單問題 4.系統問題 5.其他
 						var feedbackType;
 						switch(cs.feedbackType){
 							case 1 :
@@ -88,7 +89,7 @@ $(document).ready(function() {
 						dataList.append(`
                         <tr>
                             <td>${cs.csId}</td>
-                            <td>${cs.restaurant.restName}</td>
+                            <td>${cs.member.name}</td>
                             <td>${feedbackType}</td>
                             <td>${feedbackContentText}</td>
                             <td>${replyStatus}</td>
