@@ -18,7 +18,7 @@ import com.tia102g4.cs.service.CSRestServiceImlp;
 import com.tia102g4.cs.service.CSService;
 import com.tia102g4.util.BaseResponse;
 
-@WebServlet("/cs/cs.do")
+@WebServlet("/cs/csRest.do")
 public class CSRestServlet extends HttpServlet {
 
 	private CSService customerServiceRest;
@@ -65,8 +65,8 @@ public class CSRestServlet extends HttpServlet {
 		int totalPageQty = customerServiceRest.getPageTotal();
 		List<CustomerService> csList = customerServiceRest.getAllCS(currentPage);
 
-		if (req.getSession().getAttribute("annoPageQty") == null) {
-			req.getSession().setAttribute("annoPageQty", totalPageQty);
+		if (req.getSession().getAttribute("csRestPageQty") == null) {
+			req.getSession().setAttribute("csRestPageQty", totalPageQty);
 		}
 		return baseResponse.gsonBuilderForJsonResponse(csList, currentPage, totalPageQty);
 	}
