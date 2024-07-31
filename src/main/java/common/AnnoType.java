@@ -14,6 +14,19 @@ public enum AnnoType {
 		return typeId;
 	}
 	
+	public static AnnoType fromTypeId(Integer typeId) {
+        if (typeId == null) {
+            throw new IllegalArgumentException("Type ID cannot be null");
+        }
+        for (AnnoType type : AnnoType.values()) {
+            if (type.getTypeId().equals(typeId)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("No AnnoType found for Type ID: " + typeId);
+    }
+	
+	
 	@Override
 	public String toString() {
 		switch (this) {

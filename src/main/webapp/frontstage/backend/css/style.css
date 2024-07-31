@@ -120,6 +120,7 @@ textarea#content {
 	width: 262px;
 	height: 91px;
 	max-height: 91px;
+	font-weight: bold;
 }
 
 input#heading {

@@ -140,7 +140,7 @@ $(document).ready(function() {
 			reader.readAsDataURL(file);
 		});
 	});
-	//=======================================編輯一筆資料=======================================
+	//=======================================更新一筆資料=======================================
 	var imageNotChange;
 	$('#data-table').on('click', '#update-button', function() {
 		var annoId = $(this).val();
@@ -154,20 +154,17 @@ $(document).ready(function() {
 				console.log('Response:', response);
 				if (Array.isArray(response.List)) {
 					var announcement = response.List.find(a => a.annoId === Number(annoId));
-
+					console.log(announcement);
 					if (announcement) {
 						var heading = announcement.heading;
 						var type = announcement.type;
 						var content = announcement.content;
 						var startDate = announcement.startDate;
 						var endDate = announcement.endDate;
-						var imageByteArray = announcement.image;
-						// 轉換日期格式為 "yyyy-MM-dd"
-						var startDateFormatted = convertDateToISO(startDate);
-						var endDateFormatted = convertDateToISO(endDate);
+						var imageBase64 = announcement.image;
+						
 						// 拼接 Base64 數據
-						var imageToChar = arrayBufferToBase64(imageByteArray);
-						imageNotChange = imageToChar;
+						imageNotChange = imageBase64;
 						$('#filter-form').remove();
 						$('#data-table').remove();
 						$('#data-list').remove();
@@ -182,9 +179,9 @@ $(document).ready(function() {
 		                            <div id="announcement-form">
 			                            <div id="form-content">
 			                                <label for="start-date" class="label">起始日期:</label>
-			                                <input type="date" id="start-date" name="start-date" value="${startDateFormatted}"><br>
+			                                <input type="date" id="start-date" name="start-date" value="${startDate}"><br>
 			                                <label for="end-date" class="label">結束日期:</label>
-			                                <input type="date" id="end-date" name="end-date" value="${endDateFormatted}"><br>
+			                                <input type="date" id="end-date" name="end-date" value="${endDate}"><br>
 			                                <label for="type" class="label">類型:</label>
 			                                <select id="type" name="type">
 			                                    <option value="SYSTEM" ${type === 1 ? 'selected' : ''}>系統公告</option>
@@ -213,7 +210,7 @@ $(document).ready(function() {
                         </div>
                     `);
 						//將圖片二進位轉為正常字元之後交給id為current-image                    
-						$('#current-image').attr('src', 'data:image/jpeg;base64,' + imageToChar);
+						$('#current-image').attr('src', 'data:image/jpeg;base64,' + imageBase64);
 
 						// 處理編輯圖片按鈕的點擊事件
 						$('#custom-file-upload').on('click', function() {
@@ -337,35 +334,6 @@ $(document).ready(function() {
 		var date = new Date(dateString);
 		return date.toISOString();
 	}
-
-	function convertDateToISO(dateString) {
-		var months = {
-			"1": "01", "2": "02", "3": "03", "4": "04", "5": "05", "6": "06",
-			"7": "07", "8": "08", "9": "09", "10": "10", "11": "11", "12": "12"
-		};
-		if (typeof dateString === 'string') {
-			var parts = dateString.split(" ");
-			var month = months[parts[0].replace("月", "")];
-			var day = parts[1].replace(",", "");
-			var year = parts[2];
-
-			day = day.padStart(2, '0');  // 確保日期有兩位數
-
-			return `${year}-${month}-${day}`;
-		} else {
-			throw new Error('日期格式不正確');
-		}
-	}
-	//二進制轉為正常字元
-	function arrayBufferToBase64(buffer) {
-		let binary = '';
-		let bytes = new Uint8Array(buffer);
-		let len = bytes.byteLength;
-		for (let i = 0; i < len; i++) {
-			binary += String.fromCharCode(bytes[i]);
-		}
-		return window.btoa(binary);
-	}
 	//=======================================複合查詢=======================================
 	// 加载复合查询公告数据的函数
 	function loadCompositeQuery(startDate, endDate, searchQuery, contextPath) {
@@ -386,11 +354,11 @@ $(document).ready(function() {
 					data.List.forEach(announcement => {
 						let type;
 						switch (announcement.type) {
-							case 1: type = '系統公告'; break;
-							case 2: type = '食安新聞'; break;
+							case "SYSTEM": type = '系統公告'; break;
+							case "FOOD_SAFETY": type = '食安新聞'; break;
 							default: type = '';
 						}
-						let maxLength = 31;
+						let maxLength = 20;
 						let contentText = announcement.content.length > maxLength
 							? announcement.content.substring(0, maxLength) + "..."
 							: announcement.content;
@@ -498,8 +466,8 @@ $(document).ready(function() {
 					data.List.forEach(announcement => {
 						let type;
 						switch (announcement.type) {
-							case 1: type = '系統公告'; break;
-							case 2: type = '食安新聞'; break;
+							case "SYSTEM": type = '系統公告'; break;
+							case "FOOD_SAFETY": type = '食安新聞'; break;
 							default: type = '';
 						}
 						//如果content超過31個字用三元運算的方式讓它31後面只顯示...
