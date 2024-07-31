@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.tia102g4.anno.model.Anno;
@@ -32,7 +35,7 @@ public class AnnoServlet extends HttpServlet {
     public void init() throws ServletException {
         annoService = new AnnoServiceImpl();
     }
-
+    
 	@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -70,43 +73,50 @@ public class AnnoServlet extends HttpServlet {
         res.getWriter().write(gson.toJson(jsonObject));
     }
 
+	//將資料庫所有資料傳給前端
     private JsonObject getAllAnnos(HttpServletRequest req) {
         String page = req.getParameter("page");
         int currentPage = (page == null) ? 1 : Integer.parseInt(page);
         int totalPageQty = annoService.getPageTotal();
-        List<Anno> annoList = annoService.getAllAnnos(currentPage);
+        List<AnnoReqTO> reqTOList = annoService.getAllAnnos(currentPage);
 
         if (req.getSession().getAttribute("annoPageQty") == null) {
             req.getSession().setAttribute("annoPageQty", totalPageQty);
         }
-        return baseResponse.jsonResponse(annoList, currentPage, totalPageQty);
+        return baseResponse.jsonResponse(reqTOList, currentPage, totalPageQty);
     }
 
+    //模糊查詢
     private JsonObject getCompositeAnnosQuery(HttpServletRequest req, HttpServletResponse res) {
         Map<String, String[]> map = req.getParameterMap();
       
-        if (map != null) {
-            List<Anno> annoList = annoService.getAnnosByCompositeQuery(map);
-            
-            int currentPage = Integer.parseInt(req.getParameter("currentPage") != null ? req.getParameter("currentPage") : "1");
-            int totalPageQty = annoService.getPageTotal();  
-            
-            return baseResponse.jsonResponse(annoList, currentPage, totalPageQty);
+        //如果map沒資料就回傳空值
+        if (map == null) {
+        	return null;
         }
-        return null;
+        
+        List<AnnoReqTO> reqTOList = annoService.getAnnosByCompositeQuery(map);
+        
+        int currentPage = Integer.parseInt(req.getParameter("currentPage") != null ? req.getParameter("currentPage") : "1");
+        int totalPageQty = annoService.getPageTotal();  
+        
+        return baseResponse.jsonResponse(reqTOList, currentPage, totalPageQty);
     }
     
+    //新增資料
     private void add(String requestBody) {
         AnnoReqTO reqTO = gson.fromJson(requestBody, AnnoReqTO.class);
     	annoService.create(reqTO);
     }
     
+    //更新資料
     private void update(String requestBody) {
-        AnnoUpdateReqTO reqTO = gson.fromJson(requestBody, AnnoUpdateReqTO.class);
+    	AnnoUpdateReqTO reqTO = gson.fromJson(requestBody, AnnoUpdateReqTO.class);
         System.out.println(reqTO);
     	annoService.update(reqTO);
     }
     
+    //刪除資料
     private void delete(String requestBody) {
     	AnnoDeleteReqTO reqTO = gson.fromJson(requestBody, AnnoDeleteReqTO.class);
     	annoService.delete(reqTO);
