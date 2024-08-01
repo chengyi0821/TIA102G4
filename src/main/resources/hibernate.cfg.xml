@@ -24,6 +24,7 @@
 		<mapping class="com.tia102g4.rest.model.Restaurant" />
 		<mapping class="com.tia102g4.vote.model.Vote" />
 		<mapping class="com.tia102g4.room.model.Room" />
+		<mapping class="com.tia102g4.restNews.model.RestaurantNews" />
 
 	</session-factory>
 </hibernate-configuration>

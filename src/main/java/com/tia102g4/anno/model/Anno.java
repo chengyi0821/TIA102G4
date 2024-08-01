@@ -34,7 +34,7 @@ public class Anno {
 	@Column(name = "type")
 	private Integer type;	//類型
 	
-	@Column(name = "image" ,columnDefinition = "LONGBLOB")
+	@Column(name = "image", columnDefinition = "LONGBLOB")
 	private Byte[] image;	//圖片
 	
 	@Column(name = "deleted")
