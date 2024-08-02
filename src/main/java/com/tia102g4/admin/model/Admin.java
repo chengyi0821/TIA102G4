@@ -1,11 +1,16 @@
 package com.tia102g4.admin.model;
 
-import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-
-import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "admin")
@@ -30,8 +35,7 @@ public class Admin {
     private Integer permission; // 權限: 1.管理員 2.一般
 
     @Column(name = "regis_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date regisDate; // 註冊日期
+    private Timestamp regisDate; // 註冊時間
 
 //    // 一對多關係：一個後台人員可以處理多個客服
 //    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
@@ -87,7 +91,7 @@ public class Admin {
 		return regisDate;
 	}
 
-	public void setRegisDate(Date regisDate) {
+	public void setRegisDate(Timestamp regisDate) {
 		this.regisDate = regisDate;
 	}
 

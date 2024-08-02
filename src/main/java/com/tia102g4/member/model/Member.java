@@ -1,6 +1,7 @@
 package com.tia102g4.member.model;
 
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -11,23 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-//import javax.validation.constraints.Pattern;
-//
-//import org.hibernate.validator.constraints.*;
 
 import com.google.gson.annotations.Expose;
 
-	/*
-	 * 註1: classpath必須有javax.persistence-api-x.x.jar 
-	 * 註2: Annotation可以添加在屬性上，也可以添加在getXxx()方法之上
-	 */
 
 
 	@SuppressWarnings("deprecation")
-	@Entity  //要加上@Entity才能成為JPA的一個Entity類別
-	@Table(name = "member") //代表這個class是對應到資料庫的實體table，目前對應的table是member
+	@Entity
+	@Table(name = "member") 
 	public class Member implements java.io.Serializable {
 		private static final long serialVersionUID = 1L;
 	
@@ -39,8 +31,7 @@ import com.google.gson.annotations.Expose;
 	    private Long memberId; // 會員ID
 
 	    @Column(name = "regis_date")
-	    @Temporal(TemporalType.TIMESTAMP)
-	    private Date regisDate; // 註冊日期
+	    private Timestamp regisDate; // 註冊時間
 
 	    @Column(name = "name")
 	    @Expose
@@ -73,7 +64,7 @@ import com.google.gson.annotations.Expose;
 	    private String mobileNo; // 手機號碼
 
 	    @Column(name = "sticker", columnDefinition = "LONGBLOB")
-//		@NotEmpty(message="會員照片: 請上傳照片") --> 由MemberEmpController.java 第60行處理錯誤信息
+//		@NotEmpty(message="會員照片: 請上傳照片")
 	    @Lob
 	    private byte[] sticker; // 頭貼
 
@@ -127,7 +118,7 @@ import com.google.gson.annotations.Expose;
 			return regisDate;
 		}
 
-		public void setRegisDate(Date regisDate) {
+		public void setRegisDate(Timestamp regisDate) {
 			this.regisDate = regisDate;
 		}
 
