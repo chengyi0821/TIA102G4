@@ -17,6 +17,7 @@ import com.google.gson.annotations.Expose;
 public class Admin {
 	
     @Id
+    @Expose
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "admin_id")
     private Long adminId; // 後台人員ID

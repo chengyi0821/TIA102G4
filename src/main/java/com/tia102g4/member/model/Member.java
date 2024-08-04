@@ -26,6 +26,7 @@ import com.google.gson.annotations.Expose;
 		
 		
 	    @Id
+	    @Expose
 	    @Column(name = "member_id")
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long memberId; // 會員ID

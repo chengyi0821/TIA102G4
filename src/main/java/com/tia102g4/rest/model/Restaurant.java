@@ -24,6 +24,7 @@ import com.google.gson.annotations.Expose;
 public class Restaurant {
 	
 	@Id
+	@Expose
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "rest_id")
 	private Long restId; // 餐廳ID
