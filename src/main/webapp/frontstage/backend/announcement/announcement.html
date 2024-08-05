@@ -7,6 +7,11 @@
 <!-- 載入 jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="../css/style.css" rel="stylesheet">
+<style>
+.container-fluid.position-relative.nav-bar.p-0 li {
+	color: black !important;
+}
+</style>
 </head>
 
 <body>
@@ -26,21 +31,62 @@
 	<!-- Topbar End -->
 
 	<!-- Navbar Start -->
+
 	<div class="container-fluid position-relative nav-bar p-0">
-		<div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
-			<nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
-				<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+		<div class="container-lg position-relative p-0 px-lg-3"
+			style="z-index: 9;">
+			<nav
+				class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
+
+				<div class="collapse navbar-collapse justify-content-between"
+					id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
-						<a href="page.html" class="nav-item nav-link">後台帳戶</a> 
-						<a href="page2.html" class="nav-item nav-link">會員管理</a> 
-						<a href="../announcement/anno.html" class="nav-item nav-link active">公告管理</a>
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link">後台帳戶</a>
+							<ul class="orderlist">
+								<li><a style="color: black;" href="#">後台帳戶</a></li>
+							</ul>
+						</div>
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link">會員管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;" href="#">會員列表</a></li>
+								<li><a style="color: black;" href="#">店家列表</a></li>
+
+							</ul>
+
+
+						</div>
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link active">公告管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;"
+									href="../announcement/announcement.html">系統公告</a></li>
+								<li><a style="color: black;" href="#">店家廣告</a></li>
+							</ul>
+						</div>
 					</div>
+
 					<div class="navbar-nav mr-auto py-0">
-						<a href="page4.html" class="nav-item nav-link">訂單管理</a> 
-						<a href="../customerService/cs.html" class="nav-item nav-link">客服管理</a>
+						<div class="orderblock">
+							<a
+								href="${pageContext.request.contextPath}/admin_order_index.jsp"
+								class="nav-item nav-link">訂單管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;"
+									href="${pageContext.request.contextPath}/admin_order_index.jsp">訂單列表</a></li>
+
+							</ul>
+						</div>
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link">客服管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;"
+									href="../customerService/member-email.html">會員信件</a></li>
+								<li><a style="color: black;" href="#">餐廳信件</a></li>
+
+							</ul>
+						</div>
 					</div>
 				</div>
 			</nav>
@@ -56,10 +102,10 @@
 				<div id="search-bar">
 					<input type="text" id="search-input" placeholder="搜尋公告...">
 				</div>
-				<label for="start-date" id="start">開始日期:</label> 
-				<input type="date" id="start-Date" name="start-date">
-				<label for="end-date" id="end">結束日期:</label>
-				<input type="date" id="end-Date" name="end-date">
+				<label for="start-date" id="start">開始日期:</label> <input type="date"
+					id="start-Date" name="start-date"> <label for="end-date"
+					id="end">結束日期:</label> <input type="date" id="end-Date"
+					name="end-date">
 				<button id="search">搜尋</button>
 				<button type="button" id="add-button">新增</button>
 			</form>
@@ -101,7 +147,7 @@
 		<h5 class="footerh5">隱私權條款</h5>
 		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 	</footer>
-	<script src="js/anno.js"></script>
+	<script src="js/announcement.js"></script>
 </body>
 
 </html>

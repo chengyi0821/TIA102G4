@@ -3,6 +3,7 @@ package com.tia102g4.cs.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.tia102g4.cs.model.CustomerService;
 import com.tia102g4.cs.service.CSMemberServiceImpl;
 import com.tia102g4.cs.service.CSService;
+import com.tia102g4.cs.to.req.CSReqTO;
+import com.tia102g4.cs.to.req.CSUpdateReqTO;
 import com.tia102g4.util.BaseResponse;
 
 @WebServlet("/cs/csMember.do")
@@ -47,11 +49,16 @@ public class CSMemberServlet extends HttpServlet {
 
 		switch (action) {
 		case "getAll":
-			jsonObject = getAllCS(req);
+			jsonObject = getAll(req);
 			break;
 		case "compositeQuery":
+			jsonObject = getCompositeCSQuery(req, res);
 			break;
 		case "add":
+			update(requestBody);
+			break;
+		case "deleted":
+			delete(requestBody);
 			break;
 		}
 		res.setContentType("application/json");
@@ -59,18 +66,44 @@ public class CSMemberServlet extends HttpServlet {
 		res.getWriter().write(gson.toJson(jsonObject));
 	}
 
-	private JsonObject getAllCS(HttpServletRequest req) {
+	// 查詢所有資料
+	private JsonObject getAll(HttpServletRequest req) {
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		int totalPageQty = customerServiceMember.getPageTotal();
-		List<CustomerService> csList = customerServiceMember.getAllCS(currentPage);
+		List<CSReqTO> reqTOList = customerServiceMember.getAllCS(currentPage);
 
 		if (req.getSession().getAttribute("csMemberPageQty") == null) {
 			req.getSession().setAttribute("csMemberPageQty", totalPageQty);
 		}
-		return baseResponse.gsonBuilderForJsonResponse(csList, currentPage, totalPageQty);
+		return baseResponse.gsonBuilderForJsonResponse(reqTOList, currentPage, totalPageQty);
 	}
 
+	// 複合查詢
+	private JsonObject getCompositeCSQuery(HttpServletRequest req, HttpServletResponse res) {
+		Map<String, String[]> map = req.getParameterMap();
+
+		// 如果map沒資料就回傳空值
+		if (map == null) {
+			return null;
+		}
+		List<CSReqTO> reqTOList = customerServiceMember.getCSByCompositeQuery(map);
+
+		return baseResponse.gsonBuilderForJsonResponse(reqTOList);
+	}
+
+	// 回覆訊息
+	private void update(String requestBody) {
+		CSReqTO reqTO = gson.fromJson(requestBody, CSReqTO.class);
+	    customerServiceMember.update(reqTO);
+	}
+	
+	// 刪除單筆信件
+	private void delete(String requestBody) {
+		CSReqTO reqTO = gson.fromJson(requestBody, CSReqTO.class);
+		customerServiceMember.delete(reqTO);
+	}
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);

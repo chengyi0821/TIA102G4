@@ -3,13 +3,7 @@ $(document).ready(function() {
 	let currentPage = 1;  // 當前頁碼
 	const dataList = $('#data-list');
 
-	//cs.html路徑位置
-	function goToCSPage() {
-		window.location.href = 'cs.html';
-	}
 	//=======================================創建loadAnnouncements=======================================
-	// 初次加載客服數據
-	loadCustomerServices(currentPage, contextPath);
 	
 	// 分頁按鈕事件
 	//上一頁
@@ -60,21 +54,21 @@ $(document).ready(function() {
 							: cs.feedbackContent;
 							
 						// 設定類型 1.帳號問題 2.食安問題 3.訂單問題 4.系統問題 5.其他
-						var feedbackType;
+						let feedbackType;
 						switch(cs.feedbackType){
-							case 1 :
+							case "ACCOUNT_ISSUE" :
 								feedbackType = "帳號問題"
 								break;
-							case 2 :
+							case "FOOD_SAFETY_ISSUE" :
 								feedbackType = "食安問題"
 								break;
-							case 3 :
+							case "ORDER_ISSUE" :
 								feedbackType = "訂單問題"
 								break;
-							case 4 :
+							case "SYSTEM_ISSUE" :
 								feedbackType = "系統問題"
 								break;
-							case 5 :
+							case "OTHER_ISSUES" :
 								feedbackType = "其他"
 								break;
 						}
@@ -89,7 +83,7 @@ $(document).ready(function() {
 						dataList.append(`
                         <tr>
                             <td>${cs.csId}</td>
-                            <td>${cs.member.name}</td>
+                            <td>${cs.memberName}</td>
                             <td>${feedbackType}</td>
                             <td>${feedbackContentText}</td>
                             <td>${replyStatus}</td>
@@ -122,5 +116,5 @@ $(document).ready(function() {
 		});
 	}
 	let page = 1;  // 默認設置為第1頁
-	loadCustomerServices(page, contextPath);
+	loadCustomerServices(page, contextPath); //加載會員信件數據
 });

@@ -1,19 +1,17 @@
 package com.tia102g4.cs.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
 import com.tia102g4.cs.model.CustomerService;
+import com.tia102g4.cs.to.req.CSUpdateReqTO;
 
 public interface CSDAO {
 	
-	int insert(CustomerService entity);
+	void update(Long csId, Integer replyHeading, String replyContent,Timestamp replyTime ,Boolean replyStatus, Long adminId);
 	
-	int update(CustomerService entity);
-	
-	int delete(Integer id);
-	
-	List<CustomerService> getAll();
+	void delete(Long csId, Boolean deletedAdmin);
 	
 	List<CustomerService> getByCompositeQuery(Map<String, String> map);
 	
