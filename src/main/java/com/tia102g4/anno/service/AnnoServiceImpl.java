@@ -27,8 +27,7 @@ import common.AnnoType;
 public class AnnoServiceImpl implements AnnoService {
 	
 	private AnnoDAO dao;
-	Base64Util base64Util = new Base64Util();
-	AnnoMapper annoMapper = new AnnoMapper();
+	private AnnoMapper annoMapper = new AnnoMapper();
 	
 	public AnnoServiceImpl() {
 		dao = new AnnoDAOImpl();

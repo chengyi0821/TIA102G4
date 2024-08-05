@@ -9,7 +9,7 @@ function removeDataUrlHeader(dataUrl) {
 };
 
 function goToAnnoPage() {
-	window.location.href = 'anno.html';
+	window.location.href = 'announcement.html';
 }
 
 $(document).ready(function() {
@@ -134,7 +134,7 @@ $(document).ready(function() {
 			}
 			else {
 				alert("新增成功!");
-				window.location.href = 'anno.html';
+				window.location.href = 'announcement.html';
 			}
 			// 讀取圖片檔
 			reader.readAsDataURL(file);
@@ -150,8 +150,6 @@ $(document).ready(function() {
 			url: `${contextPath}/anno/anno.do?action=compositeQuery`,
 			type: 'GET',
 			success: function(response) {
-				console.log(page);
-				console.log('Response:', response);
 				if (Array.isArray(response.List)) {
 					var announcement = response.List.find(a => a.annoId === Number(annoId));
 					console.log(announcement);
@@ -201,7 +199,7 @@ $(document).ready(function() {
 						                    	</div>
 				                    		</div>
 					                        <div id="buttons-Edit">
-						                        <button type="button" id="submit-announcement" href="anno.html">確定</button>
+						                        <button type="button" id="submit-announcement" href="announcement.html">確定</button>
 						                        <button type="button" id="cancel" class="label" onclick="goToAnnoPage()">取消</button>
 				                        	</div>
 				                        </div>
@@ -323,7 +321,7 @@ $(document).ready(function() {
 								});
 							}
 							alert("編輯成功!")
-							window.location.href = 'anno.html';
+							window.location.href = 'announcement.html';
 						});
 					}
 				}
@@ -349,7 +347,6 @@ $(document).ready(function() {
 				searchQuery: searchQuery || ""
 			},
 			success: function(data) {
-				console.log(data);
 				if (data && Array.isArray(data.List)) {
 					data.List.forEach(announcement => {
 						let type;
@@ -404,6 +401,9 @@ $(document).ready(function() {
 		const searchQuery = $('#search-input').val();
 		const startDate = $('input#start-Date').val();
 		const endDate = $('input#end-Date').val();
+		if(!searchQuery && !startDate && !endDate){
+			return goToAnnoPage();
+		}
 		currentPage = 1;  // 重置頁碼
 		loadCompositeQuery(startDate, endDate, searchQuery, contextPath);
 	});
@@ -452,7 +452,7 @@ $(document).ready(function() {
 		});
 	});
 	//=======================================查詢全部=======================================
-	// 加载公告数据的函数
+	// 加载公告數據
 	function loadAnnouncements(page, contextPath) {
 		$.ajax({
 			url: `${contextPath}/anno/anno.do?action=getAll`,

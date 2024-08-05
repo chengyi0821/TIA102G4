@@ -1,7 +1,5 @@
 package com.tia102g4.anno.to.req;
 
-import java.util.Date;
-
 import common.AnnoType;
 
 public class AnnoReqTO {

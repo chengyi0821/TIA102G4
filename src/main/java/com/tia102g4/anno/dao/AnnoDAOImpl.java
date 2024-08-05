@@ -57,15 +57,8 @@ public class AnnoDAOImpl implements AnnoDAO {
 	}
 
 	@Override
-	public List<Anno> getAll() {
-		return getSession().createQuery("from Anno where deleted = false", Anno.class).list();
-	}
-
-	@Override
 	public List<Anno> getByCompositeQuery(Map<String, String> map) {
-		if (map.size() == 0)
-			return getAll();
-
+		
 		// 創建各種查詢條件
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
 		// 指定查詢的返回類型為Anno
@@ -128,5 +121,4 @@ public class AnnoDAOImpl implements AnnoDAO {
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from Anno where deleted = false", Long.class).uniqueResult();
 	}
-
 }

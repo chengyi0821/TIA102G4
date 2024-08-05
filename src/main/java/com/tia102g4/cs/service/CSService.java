@@ -3,20 +3,18 @@ package com.tia102g4.cs.service;
 import java.util.List;
 import java.util.Map;
 
-import com.tia102g4.cs.model.CustomerService;
-import com.tia102g4.cs.to.req.CSReqTo;
+import com.tia102g4.cs.to.req.CSReqTO;
+import com.tia102g4.cs.to.req.CSUpdateReqTO;
 
 public interface CSService { 
 	
-	void create(CSReqTo reqTO);
+	void update(CSReqTO reqTO);
 	
-	void update(CSReqTo reqTO);
+	void delete(CSReqTO reqTO);
 	
-	void delete(CSReqTo reqTO);
-	
-	List<CustomerService> getAllCS(int currentPage);
+	List<CSReqTO> getAllCS(int currentPage);
 	
 	int getPageTotal();
 	
-	List<CustomerService> getCSByCompositeQuery(Map<String, String[]> map);
+	List<CSReqTO> getCSByCompositeQuery(Map<String, String[]> map);
 }
