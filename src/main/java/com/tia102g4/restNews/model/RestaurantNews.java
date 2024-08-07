@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
 import com.tia102g4.rest.model.Restaurant;
 
 
@@ -24,31 +25,40 @@ public class RestaurantNews {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "news_id", updatable = false)
+	@Expose
 	private Long newsId;	//消息編號
 	
 	@Column(name = "type")
+	@Expose
 	private Integer type;	//消息類別 1.公告 2.廣告
 	
 	@Column(name = "start_date")
+	@Expose
 	private Date startDate; //開始日期
 	
 	@Column(name = "end_date")
+	@Expose
 	private Date endDate;	//結束日期
 	
 	@Column(name = "heading")
+	@Expose
 	private String heading;	//主旨
 	
 	@Column(name = "content")
+	@Expose
 	private String content;	//內容
 	
 	@Column(name = "image", columnDefinition = "LONGBLOB")
+	@Expose
 	private Byte[] image;	//圖片
 	
 	@Column(name = "deleted")
+	@Expose
 	private Boolean deleted;//刪除狀態
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")
+	@Expose
 	private Restaurant restaurant;
 
 	public RestaurantNews() {

@@ -121,6 +121,7 @@ textarea#content {
 	height: 91px;
 	max-height: 91px;
 	font-weight: bold;
+	resize: none; /* 禁用調整大小 */
 }
 
 input#heading {

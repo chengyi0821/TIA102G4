@@ -29,7 +29,7 @@ public class CustomerServiceMapper {
 		reqTO.setDeletedRest(customerService.getDeletedRest());
 		reqTO.setReplyStatus(customerService.getReplyStatus());
 		
-		//Lambda表達式 創建Optional容器 如果有值就回傳 沒值Optional為空容器
+		// 創建Optional容器 如果有值就回傳 沒值Optional為空容器
 		reqTO.setReplyHeading(Optional.ofNullable(customerService.getReplyHeading())
 								  	  .map(CSReplyHeading::fromHeadingId)
 								  	  .orElse(null));
