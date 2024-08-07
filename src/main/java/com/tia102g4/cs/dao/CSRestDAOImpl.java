@@ -91,7 +91,7 @@ public class CSRestDAOImpl implements CSDAO {
 				}
 
 				for (Map.Entry<String, String> row : map.entrySet()) {
-					// 會員名稱模糊查詢
+					// 餐廳名稱模糊查詢
 					if ("searchQuery".equals(row.getKey())) {
 						Join<CustomerService, Member> memberJoin = root.join("restaurant");
 						predicates.add(builder.like(memberJoin.get("restName"), "%" + row.getValue() + "%"));

@@ -120,6 +120,8 @@ textarea#content {
 	width: 262px;
 	height: 91px;
 	max-height: 91px;
+	font-weight:bold;
+	resize: none; /* 禁用調整大小 */
 }
 
 input#heading {
@@ -315,11 +317,11 @@ div#main-content3 {
 
 #search-bar input {
 	width: 100%;
-	padding: 6px;
-	font-weight:bold;
-	margin-right: 73px;
-	border: 3px solid #fdc001;
-	border-radius: 5px;
+    padding: 6px;
+    font-weight: bold;
+    margin-right: -8px;
+    border: 3px solid #fdc001;
+    border-radius: 5px;
 }
 
 #search-bar {
@@ -328,13 +330,13 @@ div#main-content3 {
 
 #filter-form {
 	padding-bottom: 9px;
-	padding-top: 20px;
-	position: relative;
-	margin: -6px auto; /* 設置表單與其他內容的間距 */
-	border-radius: 8px; /* 圓角邊框 */
-	display: flex;
-	align-items: center; /* 垂直置中 */
-	gap: 5px; /* 控制表單內元素之間的間距 */
+    padding-top: 20px;
+    position: relative;
+    margin: -5px 21px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 form#filter-form input[type="date"] {
@@ -388,12 +390,12 @@ p {
 }
 
 #announcement-title {
-	font-size: 35px;
+	font-size: 19px;
 	font-weight: bold;
 	color: #492f1c;
 	margin: 10px auto;
 	position: relative;
-	padding-right: 77%;
+	padding-right: 68%;
 	padding-top: 10%;
 }
 

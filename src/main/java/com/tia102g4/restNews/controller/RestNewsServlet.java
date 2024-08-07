@@ -1,4 +1,4 @@
-package com.tia102g4.anno.controller;
+package com.tia102g4.restNews.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,29 +11,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.tia102g4.anno.model.Anno;
-import com.tia102g4.anno.service.AnnoService;
-import com.tia102g4.anno.service.AnnoServiceImpl;
-import com.tia102g4.anno.to.req.AnnoDeleteReqTO;
-import com.tia102g4.anno.to.req.AnnoReqTO;
-import com.tia102g4.anno.to.req.AnnoUpdateReqTO;
+import com.tia102g4.restNews.service.RestNewsService;
+import com.tia102g4.restNews.service.RestNewsServiceImpl;
+import com.tia102g4.restNews.to.req.RestNewsDeleteReqTO;
+import com.tia102g4.restNews.to.req.RestNewsReqTO;
 import com.tia102g4.util.BaseResponse;
 
-@WebServlet("/anno/anno.do")
-public class AnnoServlet extends HttpServlet {
-
-	private AnnoService annoService;
+@WebServlet("/restNews/restNews.do")
+public class RestNewsServlet extends HttpServlet {
+	private RestNewsService restNewsService;
 	private BaseResponse baseResponse = new BaseResponse();
 	private Gson gson = new Gson();
 
 	@Override
 	public void init() throws ServletException {
-		annoService = new AnnoServiceImpl();
+		restNewsService = new RestNewsServiceImpl();
 	}
 
 	@Override
@@ -53,10 +47,10 @@ public class AnnoServlet extends HttpServlet {
 
 		switch (action) {
 		case "getAll":
-			jsonObject = getAllAnnos(req);
+			jsonObject = getAll(req);
 			break;
 		case "compositeQuery":
-			jsonObject = getCompositeAnnosQuery(req, res);
+			jsonObject = getCompositeQuery(req, res);
 			break;
 		case "add":
 			add(requestBody);
@@ -74,46 +68,46 @@ public class AnnoServlet extends HttpServlet {
 	}
 
 	// 查詢所有資料
-	private JsonObject getAllAnnos(HttpServletRequest req) {
+	private JsonObject getAll(HttpServletRequest req) {
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		int totalPageQty = annoService.getPageTotal();
-		List<AnnoReqTO> reqTOList = annoService.getAllAnnos(currentPage);
+		int totalPageQty = restNewsService.getPageTotal();
+		List<RestNewsReqTO> reqTOList = restNewsService.getAllRestNews(currentPage);
 
-		if (req.getSession().getAttribute("annoPageQty") == null) {
-			req.getSession().setAttribute("annoPageQty", totalPageQty);
+		if (req.getSession().getAttribute("RestNewsPageQty") == null) {
+			req.getSession().setAttribute("RestNewsPageQty", totalPageQty);
 		}
 		return baseResponse.jsonResponse(reqTOList, currentPage, totalPageQty);
 	}
 
 	// 複合查詢
-	private JsonObject getCompositeAnnosQuery(HttpServletRequest req, HttpServletResponse res) {
+	private JsonObject getCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
 		Map<String, String[]> map = req.getParameterMap();
 
 		// 如果map沒資料就回傳空值
 		if (map == null) {
 			return null;
 		}
-		List<AnnoReqTO> reqTOList = annoService.getAnnosByCompositeQuery(map);
+		List<RestNewsReqTO> reqTOList = restNewsService.getRestNewsByCompositeQuery(map);
 		return baseResponse.jsonResponse(reqTOList);
 	}
 
 	// 新增資料
 	private void add(String requestBody) {
-		AnnoReqTO reqTO = gson.fromJson(requestBody, AnnoReqTO.class);
-		annoService.create(reqTO);
+		RestNewsReqTO reqTO = gson.fromJson(requestBody, RestNewsReqTO.class);
+		restNewsService.create(reqTO);
 	}
 
 	// 更新資料
 	private void update(String requestBody) {
-		AnnoUpdateReqTO reqTO = gson.fromJson(requestBody, AnnoUpdateReqTO.class);
-		annoService.update(reqTO);
+		RestNewsReqTO reqTO = gson.fromJson(requestBody, RestNewsReqTO.class);
+		restNewsService.update(reqTO);
 	}
 
 	// 刪除資料
 	private void delete(String requestBody) {
-		AnnoDeleteReqTO reqTO = gson.fromJson(requestBody, AnnoDeleteReqTO.class);
-		annoService.delete(reqTO);
+		RestNewsDeleteReqTO reqTO = gson.fromJson(requestBody, RestNewsDeleteReqTO.class);
+		restNewsService.delete(reqTO);
 	}
 
 	@Override

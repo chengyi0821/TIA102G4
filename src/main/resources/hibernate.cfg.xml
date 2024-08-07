@@ -26,6 +26,7 @@
 		<mapping class="com.tia102g4.room.model.Room" />
 		<mapping class="com.tia102g4.restNews.model.RestaurantNews" />
 		<mapping class="com.tia102g4.restType.model.RestType" />
+		<mapping class="com.tia102g4.menuImage.model.MenuImage" />
 
 	</session-factory>
 </hibernate-configuration>

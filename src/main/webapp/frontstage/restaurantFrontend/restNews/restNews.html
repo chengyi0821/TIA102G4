@@ -3,25 +3,25 @@
 
 <head>
 <meta charset="UTF-8">
-<title>公告管理</title>
+<title>客服管理</title>
 <!-- 載入 jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="../css/style.css" rel="stylesheet">
+<link href="css/restNews.css" rel="stylesheet">
 <style>
-.container-fluid.position-relative.nav-bar.p-0 li {
-	color: black !important;
-}
 </style>
 </head>
 
 <body>
+	<!-- Topbar Start -->
 	<div class="container-fluid bg-primary py-3 d-none d-md-block">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
 					<div class="d-inline-flex align-items-center">
-						<a href="anno.html" class="navbar-brand mx-5 d-none d-lg-block"></a>
-						<img id="logo" src="../image/logo.png">
+						<a href="page1.html" class="navbar-brand mx-5 d-none d-lg-block">
+							<img class="logo" src="../image/logo.png">
+						</a>
 						<h1 class="m-0 display-4 text-primary">Chugether</h1>
 					</div>
 				</div>
@@ -30,61 +30,48 @@
 	</div>
 	<!-- Topbar End -->
 
-	<!-- Navbar Start -->
-
 	<div class="container-fluid position-relative nav-bar p-0">
 		<div class="container-lg position-relative p-0 px-lg-3"
 			style="z-index: 9;">
 			<nav
 				class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
-
 				<div class="collapse navbar-collapse justify-content-between"
 					id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">後台帳戶</a>
+							<a href="#" class="nav-item nav-link">會員中心</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">後台帳戶</a></li>
+								<li><a style="color: black;" href="#">修改資料</a></li>
+								<li><a style="color: black;" href="#">登出會員</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">會員管理</a>
+							<a href="#" class="nav-item nav-link active">店家資訊</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">會員列表</a></li>
-								<li><a style="color: black;" href="#">店家列表</a></li>
-
+								<li><a style="color: black;" href="#">關於我們</a></li>
+								<li><a style="color: black;" href="restNews.html">最新消息</a></li>
+								<li><a style="color: black;" href="#">菜單瀏覽</a></li>
+								<li><a style="color: black;" href="#">營業資訊</a></li>
+								<li><a style="color: black;" href="#">顧客評價</a></li>
 							</ul>
 
 
 						</div>
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link active">公告管理</a>
+							<a href="" class="nav-item nav-link">訂單系統</a>
 							<ul class="orderlist">
-								<li><a style="color: black;"
-									href="../announcement/announcement.html">系統公告</a></li>
-								<li><a style="color: black;" href="#">店家廣告</a></li>
+								<li><a style="color: black;" href="#">訂單管理</a></li>
+								<li><a style="color: black;" href="#">黑名單</a></li>
 							</ul>
 						</div>
 					</div>
 
 					<div class="navbar-nav mr-auto py-0">
 						<div class="orderblock">
-							<a
-								href="${pageContext.request.contextPath}/admin_order_index.jsp"
-								class="nav-item nav-link">訂單管理</a>
+							<a href="#" class="nav-item nav-link">聯絡客服</a>
 							<ul class="orderlist">
-								<li><a style="color: black;"
-									href="${pageContext.request.contextPath}/admin_order_index.jsp">訂單列表</a></li>
-
-							</ul>
-						</div>
-						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">客服管理</a>
-							<ul class="orderlist">
-								<li><a style="color: black;"
-									href="../customerService/member-email.html">會員信件</a></li>
-								<li><a style="color: black;" href="../customerService/restaurant-email.html">餐廳信件</a></li>
-
+								<li><a style="color: black;" href="#">意見反應</a></li>
+								<li><a style="color: black;" href="#">系統公告</a></li>
 							</ul>
 						</div>
 					</div>
@@ -92,16 +79,22 @@
 			</nav>
 		</div>
 	</div>
+	<!-- Navbar End -->
 	<div id="main-content1"></div>
 	<div id="main-content2">
 		<a href="#" class="btn btn-secondary px-2 back-to-top"><i
 			class="fa fa-angle-double-up"></i></a>
-		<div id="announcement-title">系統公告</div>
+		<div id="announcement-title">首頁 | 店家資訊 | 最新消息</div>
 		<div id="filter-form">
 			<form id="filter-form" onsubmit="return false;">
 				<div id="search-bar">
 					<input type="text" id="search-input" placeholder="搜尋公告...">
 				</div>
+				<select id="type1" name="type">
+					<option value="" style="color: gray;">類型:</option>
+					<option value="1">公告</option>
+					<option value="2">廣告</option>
+				</select>
 				<label for="start-date" id="start">開始日期:</label> <input type="date"
 					id="start-Date" name="start-date"> <label for="end-date"
 					id="end">結束日期:</label> <input type="date" id="end-Date"
@@ -114,7 +107,7 @@
 			<table id="data-table">
 				<thead>
 					<tr>
-						<th class="fixed-width">公告編號</th>
+						<th class="fixed-width">消息編號</th>
 						<th class="fixed-width">主旨</th>
 						<th class="fixed-width">類型</th>
 						<th class="content-column">內容</th>
@@ -138,6 +131,8 @@
 			<button id="last-page">最後一頁</button>
 		</div>
 	</div>
+	<div class="table-container"></div>
+
 	<div id="main-content3"></div>
 	<footer id="footer">
 		<h5 class="footerh5_1">chugether 揪來鳩去有限公司</h5>
@@ -147,11 +142,11 @@
 		<h5 class="footerh5">隱私權條款</h5>
 		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 	</footer>
-	<script src="js/anno-deleted.js"></script>
-	<script src="js/anno-create.js"></script>
-	<script src="js/anno-edit.js"></script>
-	<script src="js/anno-composite-query.js"></script>
-	<script src="js/anno-view-all.js"></script>
+	<script src="js/restNews-view-all.js"></script>
+	<script src="js/restNews-add.js"></script>
+	<script src="js/restNews-composite-query.js"></script>
+	<script src="js/restNews-edit.js"></script>
+	<script src="js/restNews-deleted.js"></script>
 </body>
 
 </html>
