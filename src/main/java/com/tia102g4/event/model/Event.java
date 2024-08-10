@@ -15,7 +15,11 @@ public class Event {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "event_id", updatable = false)
-	private Long eventNo;
+	private Long eventId;
+	
+	@Column(name="member_id", updatable = false)
+	private Long memberId;
+	
 	
 //	@ManyToOne 	//關聯到會員VO
 //	@JoinColumn(name="eventmemberno", referencedColumnName = "member_id")
@@ -65,14 +69,15 @@ public class Event {
 
 
 
-	public Long getEventno() {
-		return eventNo;
+	public Long getEventId() {
+		return eventId;
 	}
 
-	public void setEventno(Long eventno) {
-		this.eventNo = eventno;
+	public void setEventId(Long eventId) {
+		this.eventId = eventId;
 	}
 
+	
 //	public Member getMember() {
 //		return member;
 //	}
@@ -80,6 +85,23 @@ public class Event {
 //	public void setMember(Integer memberid) {
 //		this.member = member;
 //	}
+
+
+	public Long getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(Long memberId) {
+		this.memberId = memberId;
+	}
+
+	public Integer getMaxSeat() {
+		return maxSeat;
+	}
+
+	public void setMaxSeat(Integer maxSeat) {
+		this.maxSeat = maxSeat;
+	}
 
 	public String getName() {
 		return name;
