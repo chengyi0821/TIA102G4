@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tia102g4.util.JedisUtil;
-import com.tia102g4.rest.model.RestaurantVO;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -77,9 +76,8 @@ public class JedisOptionHandler extends HttpServlet{
 			selectedRestaurantIds.add(Long.parseLong(id));
 		}
 		
-		List<RestaurantVO> selectedRestaurants = RestaurantVO.getRestaurantsByIds(restIds);
-		
-		req.getSession().setAttribute("selectedRestaurants", selectedRestaurants);
+//		List<RestaurantVO> selectedRestaurants = RestaurantVO.getRestaurantsByIds(restIds);
+//		req.getSession().setAttribute("selectedRestaurants", selectedRestaurants);
 		
 		return "/frontstage/memberFrontend/vote/voting.jsp";
 	}
