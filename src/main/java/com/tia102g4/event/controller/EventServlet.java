@@ -1,6 +1,11 @@
 package com.tia102g4.event.controller;
 
 import java.io.IOException;
+import java.util.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tia102g4.event.model.Event;
+import com.tia102g4.member.model.Member;
+import com.tia102g4.util.CodeMaker;
+import com.tia102g4.util.MakeFriends;
 import com.tia102g4.event.service.EventService;
 import com.tia102g4.event.service.EventServiceImpl;
 
@@ -32,11 +41,8 @@ public class EventServlet extends HttpServlet{
 		case "add":
 			forwardPath = addEvent(req,res);
 			break;
-		case "reduce":
-			forwardPath = reduceSeat(req,res);
-			break;
-		case "change":
-			forwardPath = changeLeader(req,res);
+		case "getInfo":
+			forwardPath = getEventInfo(req,res);
 			break;
 		default:
 			forwardPath = "/index.jsp";
@@ -48,16 +54,39 @@ public class EventServlet extends HttpServlet{
 	}
 	
 	private String addEvent(HttpServletRequest req, HttpServletResponse res) {
-		return "/event/info.jsp";
+		String time = req.getParameter("time");
+		String date = req.getParameter("date");
+		String timeSteap =time+":00";
+		String code = CodeMaker.invitationCode();
+		Time mealtime = Time.valueOf(timeSteap);
+		Event entity = new Event();
+		entity.setName(String.valueOf(req.getParameter("name").trim()));
+		entity.setInfo(String.valueOf(req.getParameter("info").trim()));
+		entity.setDate(Date.valueOf(req.getParameter("date")));
+		entity.setMemberId(1L);
+		entity.setTime(mealtime);
+		entity.setMaxseat(Integer.valueOf(req.getParameter("maxseat")));
+		entity.setCode(code);
+		evtsvc.addEvent(entity);
+		List<Event> eventList = new ArrayList<Event>();
+		eventList.add(entity);
+		MakeFriends friends = new MakeFriends();
+		List<Member> memberList = friends.ImaginaryFriend(4);
+		req.getSession().setAttribute("eventList", eventList);
+		req.getSession().setAttribute("memberList", memberList);
+		return "/frontstage/memberFrontend/event/fellow.jsp";
 	}
 	
-	private String reduceSeat(HttpServletRequest req, HttpServletResponse res) {
-		return "/event/info.jsp";
+	private String getEventInfo(HttpServletRequest req, HttpServletResponse res) {
+		String code = req.getParameter("code");
+		List<Event> eventList = evtsvc.getInfo(code);
+		MakeFriends friends = new MakeFriends();
+		List<Member> memberList = friends.ImaginaryFriend(4);
+		req.setAttribute("eventList", eventList);		
+		req.getSession().setAttribute("memberList", memberList);
+		return "/frontstage/memberFrontend/event/fellow.jsp";
 	}
-	
-	private String changeLeader(HttpServletRequest req, HttpServletResponse res) {
-		return "/event/info.jsp";
-	}
+		
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 

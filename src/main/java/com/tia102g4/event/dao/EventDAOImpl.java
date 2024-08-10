@@ -1,46 +1,44 @@
 package com.tia102g4.event.dao;
 
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.tia102g4.event.model.Event;
-//import com.tia102g4.util.HibernateUtil;
+import com.tia102g4.util.HibernateUtil;
 
 public class EventDAOImpl implements EventDAO{
 	
 	private SessionFactory factory;
 	
-//	public EventDAOImpl() {
-//		factory = HibernateUtil.getSessionFactory();
-//	}
+	public EventDAOImpl() {
+		factory = HibernateUtil.getSessionFactory();
+	}
 	
 	private Session getSession() {
-		return factory.getCurrentSession();
+		return factory.openSession();
 	}
 
 	@Override
-	public int addEvent(Event entity) {
-		return (Integer) getSession().save(entity);
-	}
-
-	@Override
-	public int reduce(Event entity) {
+	public void addEvent(Event entity) {
 		try {
-			getSession().update(entity);
-			return 1;
+		getSession().save(entity);
 		}catch(Exception e) {
-			return -1;
+			e.printStackTrace();
 		}
 	}
-
+	
+	
 	@Override
-	public int changeLeader(Event entity) {
-		try {
-			getSession().update(entity);
-			return 1;
-		}catch(Exception e) {
-			return -1;
-		}
+	public List<Event> getByCode(String code) { //不使用PK去查詢資料，使用HQL
+		String hql = "FROM Event e WHERE e.code = :code";
+	    return getSession().createQuery(hql , Event.class)
+	            .setParameter("code", code)
+	            .list();
+	    
 	}
 
 }
