@@ -15,6 +15,8 @@ public interface RestNewsService {
 	void delete(RestNewsDeleteReqTO reqTO);
 
 	List<RestNewsReqTO> getAllRestNews(int currentPage);
+	
+	List<RestNewsReqTO> getAllRestNews();
 
 	int getPageTotal();
 

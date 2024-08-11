@@ -4,11 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.tia102g4.cs.to.req.CSReqTO;
-import com.tia102g4.cs.to.req.CSUpdateReqTO;
 
 public interface CSService { 
 	
-	void update(CSReqTO reqTO);
+	void insert(CSReqTO reqTO);
 	
 	void delete(CSReqTO reqTO);
 	

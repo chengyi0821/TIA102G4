@@ -17,7 +17,6 @@ import com.google.gson.JsonObject;
 import com.tia102g4.cs.service.CSMemberServiceImpl;
 import com.tia102g4.cs.service.CSService;
 import com.tia102g4.cs.to.req.CSReqTO;
-import com.tia102g4.cs.to.req.CSUpdateReqTO;
 import com.tia102g4.util.BaseResponse;
 
 @WebServlet("/cs/csMember.do")
@@ -95,7 +94,7 @@ public class CSMemberServlet extends HttpServlet {
 	// 回覆訊息
 	private void update(String requestBody) {
 		CSReqTO reqTO = gson.fromJson(requestBody, CSReqTO.class);
-	    customerServiceMember.update(reqTO);
+	    customerServiceMember.insert(reqTO);
 	}
 	
 	// 刪除單筆信件

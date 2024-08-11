@@ -8,27 +8,37 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import com.tia102g4.anno.model.Anno;
 import com.tia102g4.restNews.dao.RestNewsDAO;
 import com.tia102g4.restNews.dao.RestNewsDAOImpl;
 import com.tia102g4.restNews.mapper.RestNewsMapper;
 import com.tia102g4.restNews.model.RestaurantNews;
 import com.tia102g4.restNews.to.req.RestNewsDeleteReqTO;
 import com.tia102g4.restNews.to.req.RestNewsReqTO;
-import com.tia102g4.restNews.to.req.RestNewsUpdateReqTO;
 
 public class RestNewsServiceImpl implements RestNewsService {
 
 	private RestNewsDAO dao;
 	private RestNewsMapper restNewsMapper = new RestNewsMapper();
+	private Validator validator;
 
 	public RestNewsServiceImpl() {
 		dao = new RestNewsDAOImpl();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
 	}
 
 	@Override
 	public void create(RestNewsReqTO reqTO) {
 		RestaurantNews restNews = restNewsMapper.setRestNews(reqTO);
 		Long restId = reqTO.getRestId();
+		validateRestNews(restNews); // 驗證
 		dao.insert(restNews, restId);
 	}
 
@@ -36,6 +46,7 @@ public class RestNewsServiceImpl implements RestNewsService {
 	public void update(RestNewsReqTO reqTO) {
 		RestaurantNews restNews = restNewsMapper.setRestNews(reqTO);
 		Long restId = reqTO.getRestId();
+		validateRestNews(restNews); // 驗證
 		dao.update(restNews, restId);
 	}
 
@@ -50,6 +61,17 @@ public class RestNewsServiceImpl implements RestNewsService {
 	@Override
 	public List<RestNewsReqTO> getAllRestNews(int currentPage) {
 		List<RestaurantNews> restNews = dao.getAll(currentPage);
+		List<RestNewsReqTO> reqTOs = new ArrayList<>();
+		for (RestaurantNews restNew : restNews) {
+			RestNewsReqTO dto = restNewsMapper.setRestNewsReqTO(restNew);
+			reqTOs.add(dto);
+		}
+		return reqTOs;
+	}
+	
+	@Override
+	public List<RestNewsReqTO> getAllRestNews() {
+		List<RestaurantNews> restNews = dao.getAll();
 		List<RestNewsReqTO> reqTOs = new ArrayList<>();
 		for (RestaurantNews restNew : restNews) {
 			RestNewsReqTO dto = restNewsMapper.setRestNewsReqTO(restNew);
@@ -94,5 +116,16 @@ public class RestNewsServiceImpl implements RestNewsService {
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
+	
+	private void validateRestNews(RestaurantNews restNews) {
+        Set<ConstraintViolation<RestaurantNews>> violations = validator.validate(restNews);
+        if (!violations.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (ConstraintViolation<RestaurantNews> violation : violations) {
+                sb.append(violation.getMessage());
+            }
+            throw new ConstraintViolationException(violations);
+        }
+    }
 
 }

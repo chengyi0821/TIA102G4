@@ -28,7 +28,9 @@ public class AnnoMapper {
 			anno.setStartDate(startDateSql);
 			anno.setEndDate(endDateSql);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			System.out.println("日期為空值");
+		} catch (NullPointerException e) {
+			System.out.println("日期為空值");
 		}
 		anno.setAnnoId(reqTO.getId());
 		anno.setHeading(reqTO.getHeading());

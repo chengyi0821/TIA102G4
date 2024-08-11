@@ -2,6 +2,7 @@ package com.tia102g4.restNews.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ValidationException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -44,19 +46,24 @@ public class RestNewsServlet extends HttpServlet {
 		String requestBody = stringBuilder.toString();
 
 		JsonObject jsonObject = null;
-
+		try {
 		switch (action) {
 		case "getAll":
 			jsonObject = getAll(req);
+			break;
+		case "getAllForMember":
+			jsonObject = getAllForMember(req);
 			break;
 		case "compositeQuery":
 			jsonObject = getCompositeQuery(req, res);
 			break;
 		case "add":
 			add(requestBody);
+			res.setStatus(HttpServletResponse.SC_OK);
 			break;
 		case "update":
 			update(requestBody);
+			res.setStatus(HttpServletResponse.SC_OK);
 			break;
 		case "delete":
 			delete(requestBody);
@@ -65,6 +72,14 @@ public class RestNewsServlet extends HttpServlet {
 		res.setContentType("application/json");
 		res.setCharacterEncoding("UTF-8");
 		res.getWriter().write(gson.toJson(jsonObject));
+		}catch (ValidationException e) {
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(e.getMessage());
+			out.flush();
+		}
 	}
 
 	// 查詢所有資料
@@ -78,6 +93,11 @@ public class RestNewsServlet extends HttpServlet {
 			req.getSession().setAttribute("RestNewsPageQty", totalPageQty);
 		}
 		return baseResponse.jsonResponse(reqTOList, currentPage, totalPageQty);
+	}
+	// 查詢所有資料給會員前台
+	private JsonObject getAllForMember(HttpServletRequest req) {
+		List<RestNewsReqTO> reqTOList = restNewsService.getAllRestNews();
+		return baseResponse.jsonResponse(reqTOList);
 	}
 
 	// 複合查詢
