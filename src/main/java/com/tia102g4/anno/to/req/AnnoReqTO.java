@@ -1,14 +1,14 @@
 package com.tia102g4.anno.to.req;
 
-import java.util.Date;
-
 import common.AnnoType;
 
 public class AnnoReqTO {
 
-	private Date startDate;
+	private Long annoId;
 
-	private Date endDate;
+	private String startDate;
+
+	private String endDate;
 
 	private String heading;
 
@@ -17,14 +17,16 @@ public class AnnoReqTO {
 	private AnnoType type;
 
 	private String image;
-	
+
 	private Boolean deleted;
 
 	public AnnoReqTO() {
 	}
 
-	public AnnoReqTO(Date startDate, Date endDate, String heading, String content, AnnoType type, String image, Boolean deleted) {
+	public AnnoReqTO(Long annoId, String startDate, String endDate, String heading, String content, AnnoType type, String image,
+			Boolean deleted) {
 		super();
+		this.annoId = annoId;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.heading = heading;
@@ -34,11 +36,15 @@ public class AnnoReqTO {
 		this.deleted = deleted;
 	}
 
-	public Date getStartDate() {
+	public Long getId() {
+		return annoId;
+	}
+
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
@@ -62,5 +68,35 @@ public class AnnoReqTO {
 		return deleted;
 	}
 
-	
+	public void setId(Long annoId) {
+		this.annoId = annoId;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setHeading(String heading) {
+		this.heading = heading;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setType(AnnoType type) {
+		this.type = type;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
 }

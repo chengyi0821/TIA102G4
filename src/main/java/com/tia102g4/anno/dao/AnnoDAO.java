@@ -13,8 +13,6 @@ public interface AnnoDAO {
 	
 	void delete(Anno entity);
 	
-	List<Anno> getAll();
-	
 	List<Anno> getByCompositeQuery(Map<String, String> map);
 	
 	List<Anno> getAll(int currentPage);

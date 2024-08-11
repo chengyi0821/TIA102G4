@@ -16,9 +16,9 @@ public interface AnnoService {
 
 	void delete(AnnoDeleteReqTO reqTO);
 
-	List<Anno> getAllAnnos(int currentPage);
+	List<AnnoReqTO> getAllAnnos(int currentPage);
 
 	int getPageTotal();
 
-	List<Anno> getAnnosByCompositeQuery(Map<String, String[]> map);
+	List<AnnoReqTO> getAnnosByCompositeQuery(Map<String, String[]> map);
 }

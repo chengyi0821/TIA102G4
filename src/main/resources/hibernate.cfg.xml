@@ -15,10 +15,18 @@
 
 		<mapping class="com.tia102g4.anno.model.Anno" />
 		<mapping class="com.tia102g4.cs.model.CustomerService" />
-		<mapping class="com.tia102g4.member.model.Member" />
-		<mapping class="com.tia102g4.rest.model.Restaurant" />
 		<mapping class="com.tia102g4.admin.model.Admin" />
-		<mapping class="com.tia102g4.restType.model.RestaurantType" />
+		<mapping class="com.tia102g4.blacklist.model.BlackList" />
+		<mapping class="com.tia102g4.comment.model.Comment" />
+		<mapping class="com.tia102g4.event.model.Event" />
+		<mapping class="com.tia102g4.member.model.Member" />
+		<mapping class="com.tia102g4.myorder.model.MyOrder" />
+		<mapping class="com.tia102g4.rest.model.Restaurant" />
+		<mapping class="com.tia102g4.vote.model.Vote" />
+		<mapping class="com.tia102g4.room.model.Room" />
+		<mapping class="com.tia102g4.restNews.model.RestaurantNews" />
+		<mapping class="com.tia102g4.restType.model.RestType" />
+		<mapping class="com.tia102g4.menuImage.model.MenuImage" />
 
 	</session-factory>
 </hibernate-configuration>
