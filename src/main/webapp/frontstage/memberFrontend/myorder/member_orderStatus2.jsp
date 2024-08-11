@@ -181,21 +181,21 @@
 							</div>
 						</div>
 						<div class="reser_form_right" style="padding-top: 10px;">
-							<img src="../img/woklogo.png" alt=""
+							<img src="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/image/woklogo.png" alt=""
 								style="width: 165px; height: 80px; padding-left: 10px;">
 							<div class="search_rest">
 								<a href="" style="color: black; text-decoration: none;">查看餐廳</a>
 							</div>
 							<div class="edit_cancel">
-<!-- 								<form -->
-<%-- 									action="${pageContext.request.contextPath}/favorite/favorite.do" --%>
-<!-- 									method="post" -->
-<!-- 									onsubmit="this.querySelector('button').disabled = true;"> -->
-<!-- 									<input type="hidden" name="action" value="addFav"> <input -->
-<!-- 										type="hidden" name="restId" -->
-<%-- 										value="${myorder.restaurant.restId}"> --%>
-<!-- 									<button type="submit" class="edit-button favorite">收藏餐廳</button> -->
-<!-- 								</form> -->
+								<form
+									action="<%=request.getContextPath() %>/favorite/favorite.do"
+									method="post"
+									onsubmit="this.querySelector('button').disabled = true;">
+									<input type="hidden" name="action" value="addFav"> <input
+										type="hidden" name="restId"
+										value="${myorder.restaurant.restId}">
+									<button type="submit" class="edit-button favorite">收藏餐廳</button>
+								</form>
 							</div>
 						</div>
 					</div>

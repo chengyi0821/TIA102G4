@@ -3,19 +3,21 @@ package com.tia102g4.rest.model;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.google.gson.annotations.Expose;
+import com.tia102g4.blacklist.model.BlackList;
+import com.tia102g4.favorite.model.Favorite;
+import com.tia102g4.myorder.model.MyOrder;
 
 //import com.tia102g4.favorite.model.Favorite;
 
@@ -82,21 +84,21 @@ public class Restaurant {
 //	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 //	private Set<Comment> comments;
 //
-//	// 一對多關係：一個餐廳可以有多個訂單
-//	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-//	private Set<MyOrder> myOrders;
+	// 一對多關係：一個餐廳可以有多個訂單
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	private Set<MyOrder> myorder;
 //
-//	// 一對多關係：一個餐廳可以有多個黑名單
-//	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-//	private Set<BlackList> blackLists;
+	// 一對多關係：一個餐廳可以有多個黑名單
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	private Set<BlackList> blackList;
 //
 //	// 一對多關係：一個餐廳可以有多個客戶服務
 //	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 //	private Set<CustomerService> customerServices;
 //
-//	// 一對多關係：一個餐廳可以被多次收藏
-//	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-//	private Set<FavoriteRestaurant> favoriteRestaurants;
+	// 一對多關係：一個餐廳可以被多次收藏
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	private Set<Favorite> favorite;
 //
 //	// 一對多關係：一個餐廳可以有多個活動
 //	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
@@ -256,13 +258,13 @@ public class Restaurant {
 //		this.comments = comments;
 //	}
 //
-//	public Set<MyOrder> getMyOrders() {
-//		return myOrders;
-//	}
-//
-//	public void setMyOrders(Set<MyOrder> myOrders) {
-//		this.myOrders = myOrders;
-//	}
+	public Set<MyOrder> getMyOrders() {
+		return myorder;
+	}
+
+	public void setMyOrders(Set<MyOrder> myorder) {
+		this.myorder = myorder;
+	}
 //
 //	public Set<BlackList> getBlackLists() {
 //		return blackLists;

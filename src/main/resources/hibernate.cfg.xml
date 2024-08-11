@@ -27,6 +27,7 @@
 		<mapping class="com.tia102g4.restNews.model.RestaurantNews" />
 		<mapping class="com.tia102g4.restType.model.RestType" />
 		<mapping class="com.tia102g4.menuImage.model.MenuImage" />
+		<mapping class="com.tia102g4.favorite.model.Favorite" />
 
 	</session-factory>
 </hibernate-configuration>
