@@ -11,8 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-//import com.tia102g4.member.model.Member;
-//import com.tia102g4.rest.model.Restaurant;
+import com.tia102g4.member.model.Member;
+import com.tia102g4.rest.model.Restaurant;
 
 @Entity
 @Table(name = "favorite_restaurant")
@@ -26,25 +26,25 @@ public class Favorite {
 	@Column(name="add_time", nullable = false)
 	private Timestamp addTime;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "rest_id", nullable = false)
-//	 private Restaurant restaurant;
-//	
-//	@ManyToOne
-//	@JoinColumn(name = "member_id", nullable = false)
-//	private Member member;
+	@ManyToOne
+	@JoinColumn(name = "rest_id", nullable = false)
+	private Restaurant restaurant;
+	
+	@ManyToOne
+	@JoinColumn(name = "member_id", nullable = false)
+	private Member member;
 
 	public Favorite() {
 		super();
 	}
 
-//	public Favorite(Long favoriteId, Timestamp addTime, Restaurant restaurant, Member member) {
-//		super();
-//		this.favoriteId = favoriteId;
-//		this.addTime = addTime;
-//		this.restaurant = restaurant;
-//		this.member = member;
-//	}
+	public Favorite(Long favoriteId, Timestamp addTime, Restaurant restaurant, Member member) {
+		super();
+		this.favoriteId = favoriteId;
+		this.addTime = addTime;
+		this.restaurant = restaurant;
+		this.member = member;
+	}
 
 	public Long getFavoriteId() {
 		return favoriteId;
@@ -62,22 +62,19 @@ public class Favorite {
 		this.addTime = addTime;
 	}
 
-//	public Restaurant getRestaurant() {
-//		return restaurant;
-//	}
-//
-//	public void setRestaurant(Restaurant restaurant) {
-//		this.restaurant = restaurant;
-//	}
-//
-//	public Member getMember() {
-//		return member;
-//	}
-//
-//	public void setMember(Member member) {
-//		this.member = member;
-//	}
-//	
-	
-	
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
 }

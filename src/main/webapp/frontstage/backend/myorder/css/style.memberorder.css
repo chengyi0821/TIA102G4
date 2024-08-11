@@ -1,0 +1,383 @@
+@charset "UTF-8";
+
+.member_reser1 {
+	border: 4px solid #ffc107;
+	border-left: none;
+	border-right: none;
+	height: 55px;
+	width: 250px;
+	border-radius: 10px;
+	font-size: 25px;
+	text-align: center;
+	margin-top: 20px;
+	margin-left: 0px;
+	background-color: #F3F6FF;
+	margin-right: 10px;
+	margin-bottom: 20px;
+}
+
+.member_reser2 {
+	border: 4px solid #ffc107;
+	border-left: none;
+	border-right: none;
+	height: 55px;
+	width: 250px;
+	border-radius: 10px;
+	font-size: 25px;
+	text-align: center;
+	margin-top: 20px;
+	margin-left: 0px;
+	background-color: #F3F6FF;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+}
+
+.member_reser3 {
+	border: 4px solid #ffc107;
+	border-left: none;
+	border-right: none;
+	height: 55px;
+	width: 250px;
+	border-radius: 10px;
+	font-size: 25px;
+	text-align: center;
+	margin-top: 20px;
+	margin-left: 0px;
+	background-color: #F3F6FF;
+	margin-left: 10px;
+	margin-bottom: 20px;
+}
+
+.member_reser1:hover, .member_reser2:hover, .member_reser3:hover {
+	background-color: #ffc107;
+}
+
+.reserform {
+	border: 1px solid #ffd967;
+	width: 800px;
+	height: 270px;
+	margin-left: 0px;
+	margin-right: auto;
+	margin-top: 15px;
+	display: flex;
+	flex-wrap: nowrap;
+	background-color: #fddd7d;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+}
+
+.reser_form_feft {
+	border: 2px solid #fffbeb;
+	width: 50px;
+	height: 230px;
+	margin-top: 20px;
+	margin-left: 15px;
+	border-right: none;
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+	background-color: white;
+	font-family: 'Times New Roman', Times, serif;
+	background-color: #fffbeb;
+}
+
+.reser_form_main {
+	border-top: 2px solid #fffbeb;
+	border-left: 2px dashed #ffc107;
+	border-right: 2px dashed #ffc107;
+	width: 500px;
+	height: 230px;
+	margin-top: 20px;
+	border-radius: 15px;
+	background-color: white;
+	background-color: #fffbeb;
+}
+
+.reser_form_right {
+	border: 2px solid #fffbeb;
+	width: 230px;
+	height: 230px;
+	margin-top: 20px;
+	margin-right: 15px;
+	border-left: none;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+	background-color: white;
+	background-color: #fffbeb;
+}
+
+.vertical {
+	font-size: 16px;
+	padding-top: 20px;
+	margin-top: 35px;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.event_name {
+	font-size: 25px;
+	border-radius: 10px;
+	width: 400px;
+	border-top: none;
+	border-bottom: none;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	height: 40px;
+	margin-left: 40px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	font-weight: 700;
+}
+
+.column1_2 {
+	height: 150px;
+	width: 490px;
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.column1 {
+	width: 245px;
+	height: 150px;
+	text-align: left;
+	margin-left: 5px;
+}
+
+.column2 {
+	width: 245px;
+	height: 150px;
+	margin-left: 5px;
+	text-align: left;
+	margin-right: 10px;
+}
+
+.member_name2 {
+	border: 2px solid #ccc;
+	border-radius: 10px;
+	border-top: none;
+	text-align: center;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding-top: 1.5px;
+	padding-bottom: 1.5px;
+	font-weight: 600;
+}
+
+.member_name1 {
+	font-size: 13px;
+	margin-left: 10px;
+}
+
+.rest_name1 {
+	font-size: 13px;
+	margin-left: 10px;
+}
+
+.rest_name2 {
+	/* 	border: 1px solid rgb(96, 96, 96); */
+	border: 2px solid #ccc;
+	border-radius: 10px;
+	border-top: none;
+	text-align: center;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding-top: 1.5px;
+	padding-bottom: 1.5px;
+	font-weight: 600;
+}
+
+.search_rest {
+	border: 1px solid #ccc;
+	border-right: none;
+	border-left: none;
+	width: 200px;
+	height: 40px;
+	text-align: center;
+	margin-top: 15px;
+	padding-top: 15px;
+	margin-left: 10px;
+	font-size: 20px;
+}
+
+.edit_cancel {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.edit_order {
+	border: 4px solid #ccc;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-radius: 15px;
+	width: 40%;
+	height: 40px;
+	font-size: 20px;
+	padding-top: 7%;
+	margin-top: 20px;
+	margin-left: 15px;
+}
+
+.cancel_order {
+	border: 4px solid #ccc;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-radius: 15px;
+	width: 40%;
+	height: 40px;
+	padding-top: 7%;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+
+.all_reser::-webkit-scrollbar {
+	display: none; /* 适用于Chrome、Safari和新版本的Edge */
+}
+
+.all_reser {
+	-ms-overflow-style: none; /* 适用于IE和Edge */
+	scrollbar-width: none; /* 适用于Firefox */
+}
+
+.all_reser {
+	height: 800px;
+	overflow: auto;
+}
+
+@media screen and (max-width: 1024px) {
+	.main_content1 {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.left_content1, .right_content1 {
+		display: none;
+	}
+}
+
+/* =========================================alert============================================= */
+.custom-alert, .confirmation-message {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	padding: 20px;
+	border: 1px solid black;
+	z-index: 1000;
+}
+
+.custom-alert-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 50px;
+}
+
+.main_content {
+	max-width: 100%;
+	margin: auto;
+	padding: 0 10px;
+	overflow-x: hidden;
+}
+
+.cancel-button, .edit-button {
+	background-color: #fffbeb;
+	font-size: 20px;
+	color: black;
+}
+/* ==============================edit order======================================= */
+.form-container {
+	max-width: 750px;
+	margin: 50px auto;
+	padding: 20px;
+	border-radius: 20px;
+	background-color: #fffbeb;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+	text-align: center;
+}
+
+.form-group {
+	margin-bottom: 15px;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 5px;
+	font-size: 20px;
+	text-align: left;
+}
+
+.form-group input, .form-group textarea {
+	width: 100%;
+	padding: 7px;
+	border: 2px solid #ccc;
+	border-radius: 20px;
+	border-top: none;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 18px;
+}
+
+.form-group textarea {
+	resize: none;
+	height: 40px;
+}
+
+.form-group input[type="submit"] {
+	width: 110px;
+	background-color: #ffc107;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.form-group input[type="submit"]:hover {
+	background-color: #F195B2;
+}
+
+.red {
+	color: red;
+}
+
+/* 提示消息样式 */
+.success-message {
+	display: none;
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	width: 350px;
+	height: 150px;
+	transform: translate(-50%, -50%);
+	background-color: #ffc107;
+	color: white;
+	font-size: 25px;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	padding-top: 60px;
+}
+
+.alert {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.alert-danger {
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+
+.error-message {
+	color: red;
+	font-size: 17px;
+}
