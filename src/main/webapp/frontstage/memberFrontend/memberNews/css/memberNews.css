@@ -1,0 +1,229 @@
+/* 模態窗口樣式 */
+.hidden {
+	display: none;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.7); /* 更加突出的背景 */
+	z-index: 1000;
+}
+
+.modal-content {
+	background-color: #ffffff;
+	margin: 5% auto;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+	width: 90%;
+	max-width: 1000px;
+	animation: fadeIn 0.5s ease-in-out; /* 模態窗口進入動畫 */
+}
+
+@keyframes fadeIn {from { opacity:0;
+	
+}
+
+to {
+	opacity: 1;
+}
+
+}
+.close {
+	color: #333;
+	transition: color 0.3s ease;
+	margin-left: 95%;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	color: #aaa;
+}
+
+.close:hover, .close:focus {
+	color: #ff6f61;
+	text-decoration: none;
+	cursor: pointer;
+	transform: scale(1.2); /* 提供更明顯的回饋 */
+}
+
+.modal-img {
+	width: 100%;
+	height: auto;
+	max-height: 80vh;
+	object-fit: contain;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
+}
+
+.thumbnail {
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	transition: transform 0.3s ease, box-shadow 0.3s ease; /* 增加縮略圖的動態效果 */
+}
+
+.thumbnail:hover {
+	transform: scale(1.05);
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* 縮略圖的懸停效果 */
+}
+
+.hidden-content {
+	text-align: left;
+	padding: 10px;
+	display: none;
+}
+
+td {
+	width: 0px;
+	height: 100%;
+	padding: 15px;
+	text-align: center;
+	vertical-align: middle;
+	transition: background-color 0.3s ease;
+	height: 100%;
+}
+
+tr:hover td {
+	transform: translateY(-2px); /* 略微上移以突出行 */
+}
+
+body {
+	background-color: #ffc9c9fa !important;
+}
+
+button#system-anno, button#food-safety-news, button#restaurant-news {
+	padding: 10px 20px;
+	margin: 45px 20px 45px 20px;
+	font-weight: bold;
+	font-size: 15px;
+	background: linear-gradient(135deg, #492f1c, #492f1c);
+	border: none;
+	color: white;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease, transform 0.2s ease;
+	cursor: pointer;
+	letter-spacing: 1px;
+}
+
+button#system-anno:hover, button#food-safety-news:hover, button#restaurant-news:hover
+	{
+	background: linear-gradient(135deg, #feb47b, #ff7e5f); /* 懸停時反轉漸層色 */
+	box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.2); /* 懸停時增加陰影 */
+	transform: translateY(-5px); /* 懸停時略微上移，增加動感 */
+}
+
+button#system-anno:active, button#food-safety-news:active, button#restaurant-news:active
+	{
+	transform: translateY(-2px); /* 按下時回到較低的位置 */
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* 按下時減少陰影 */
+}
+
+button#system-anno:focus, button#food-safety-news:focus, button#restaurant-news:focus
+	{
+	outline: none; /* 移除預設的聚焦邊框 */
+	box-shadow: 0px 0px 10px 3px rgba(255, 127, 95, 0.5); /* 聚焦時增加光暈效果 */
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 增加整體表格的陰影效果 */
+}
+
+/* 模態窗口內部文字樣式 */
+.hidden-content p {
+	line-height: 1.5;
+	letter-spacing: 3px;
+	padding: 10px;
+	font-size: 18px;
+	color: #333;
+	margin-bottom: 10px;
+}
+
+/* 標題部分文字樣式 */
+.hidden-content p strong {
+	color: #ff6f61; /* 設定標題部分文字顏色 */
+	font-size: 20px; /* 設定標題字體大小 */
+}
+
+span#modal-type {
+	color: #b57360;
+    margin-right: 90%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* 調整模態窗口的字體顏色和大小 */
+.modal-content {
+	font-family: Arial, sans-serif; /* 設定字體為 Arial */
+	font-size: 16px; /* 設定默認字體大小 */
+	color: #333; /* 設定默認字體顏色 */
+}
+
+div#title {
+	font-size: 19px;
+	font-weight: bold;
+	color: #492f1c;
+	margin: 0px auto;
+	position: relative;
+	padding-right: 77%;
+	padding-top: 5%;
+}
+
+/* ==============================下拉式選單CSS start================================================== */
+.orderlist {
+	list-style: none;
+	font-size: 25px;
+	padding-inline-start: 0px;
+	unicode-bidi: isolate;
+}
+
+.orderlist {
+	display: none;
+	position: absolute;
+	background-color: #ffdf7e;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 0.3cm;
+}
+
+.orderblock:hover .orderlist {
+	display: block;
+}
+
+.orderlist li {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+	color: black;
+}
+
+.orderlist a:hover {
+	color: #e83e8c !important;
+	text-decoration: none;
+}
+
+.orderlist li:hover {
+	box-shadow: 0px 8px 16px 0px rgba(232, 62, 140, 0.15);
+	border-radius: 10px;
+}
+
+.orderblock {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	padding: 50px 17px;
+}
+
+/* ==============================下拉式選單CSS end================================================== */

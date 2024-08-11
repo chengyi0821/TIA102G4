@@ -293,6 +293,10 @@ div#main-content3 {
 	width: 20px;
 }
 
+table{
+	margin-bottom: 100px;
+}
+
 #pagination {
 	position: relative;
 	padding-left: 69%;

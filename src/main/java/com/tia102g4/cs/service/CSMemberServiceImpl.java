@@ -5,10 +5,10 @@ import static com.tia102g4.util.Constants.PAGE_MAX_RESULT;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.stream.Collectors;
+
 
 import com.tia102g4.cs.dao.CSDAO;
 import com.tia102g4.cs.dao.CSMemberDAOImpl;
@@ -26,7 +26,7 @@ public class CSMemberServiceImpl implements CSService {
 	}
 
 	@Override
-	public void update(CSReqTO reqTO) {
+	public void insert(CSReqTO reqTO) {
 		Long csId = reqTO.getCsId();
 		Integer replyHeading = reqTO.getReplyHeading().getReplyHeading();
 		String replyContent = reqTO.getReplyContent();
@@ -45,31 +45,19 @@ public class CSMemberServiceImpl implements CSService {
 
 	@Override
 	public List<CSReqTO> getAllCS(int currentPage) {
-		List<CustomerService> customerServices = dao.getAll(currentPage);
 		List<CSReqTO> reqTOs = new ArrayList<>();
-		for (CustomerService customerService : customerServices) {
-			CSReqTO dto = csMapper.setCSReqTO(customerService);
-			reqTOs.add(dto);
-		}
+		dao.getAll(currentPage).forEach(c -> reqTOs.add(csMapper.setCSReqTO(c)));
 		return reqTOs;
 	}
 
 	@Override
 	public List<CSReqTO> getCSByCompositeQuery(Map<String, String[]> map) {
-		Map<String, String> query = new HashMap<>();
-		Set<Map.Entry<String, String[]>> entry = map.entrySet();
 
-		for (Map.Entry<String, String[]> row : entry) {
-			String key = row.getKey();
-			if ("action".equals(key)) {
-				continue;
-			}
-			String value = row.getValue()[0];
-			if (value.isEmpty() || value == null) {
-				continue;
-			}
-			query.put(key, value);
-		}
+		Map<String, String> query = map.entrySet().stream()
+					  				   			  .filter(row -> !"action".equals(row.getKey()))
+					  				   			  .filter(row -> !row.getValue()[0].isEmpty() && row.getValue()[0] != null)
+					  				   			  .collect(Collectors.toMap(Map.Entry::getKey, row -> row.getValue()[0]));
+
 		List<CustomerService> customerServices = dao.getByCompositeQuery(query);
 		List<CSReqTO> reqTOs = new ArrayList<>();
 		for (CustomerService cs : customerServices) {

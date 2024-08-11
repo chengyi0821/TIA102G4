@@ -64,6 +64,7 @@ public class RestNewsDAOImpl implements RestNewsDAO {
 
 	@Override
 	public List<RestaurantNews> getByCompositeQuery(Map<String, String> map) {
+		Restaurant rest = getSession().get(Restaurant.class, 1L);
 		// 創建各種查詢條件
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
 		// 指定查詢的返回類型為RestaurantNews
@@ -101,6 +102,10 @@ public class RestNewsDAOImpl implements RestNewsDAO {
 				predicates.add(builder.equal(root.get("type"), type));
 			}
 		}
+		if (rest != null) {
+			// 設定餐廳使用者查找自己的最新消息,所以設定自己的id
+			predicates.add(builder.equal(root.get("restaurant"), rest));
+		}
 		// 只能查詢沒有刪除的資料
 		predicates.add(builder.isFalse(root.get("deleted")));
 		// 將所有的 predicates 條件使用 AND 邏輯組合，並設置為 criteria 的 WHERE 條件
@@ -113,9 +118,17 @@ public class RestNewsDAOImpl implements RestNewsDAO {
 
 	@Override
 	public List<RestaurantNews> getAll(int currentPage) {
+		Restaurant rest = getSession().get(Restaurant.class, 1L);
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("from RestaurantNews where deleted = false", RestaurantNews.class)
-				.setFirstResult(first).setMaxResults(PAGE_MAX_RESULT).list();
+		return getSession()
+				.createQuery("from RestaurantNews where deleted = false AND restaurant = :restaurant",
+						RestaurantNews.class)
+				.setParameter("restaurant", rest).setFirstResult(first).setMaxResults(PAGE_MAX_RESULT).list();
+	}
+
+	@Override
+	public List<RestaurantNews> getAll() {
+		return getSession().createQuery("from RestaurantNews where deleted = false", RestaurantNews.class).list();
 	}
 
 	@Override

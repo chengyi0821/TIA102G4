@@ -1,0 +1,348 @@
+label#reply {
+	color: gray;
+	text-align: left;
+	border-top: 1px solid #fdc001;
+	border-bottom: 3px solid #fdc001;
+	border-left: 3px solid #fdc001;
+	border-right: 3px solid #fdc001;
+	border-radius: 5px;
+	width: 262px;
+	height: 217px;
+	max-height: 217px;
+	font-weight: bold;
+	overflow-y: auto;
+}
+
+button#feedback-submit, button#feedback-cancel {
+	background-color: #FFF2CC;
+	border-radius: 5px;
+	font-weight: bold;
+	width: 88px;
+	height: 39px;
+	margin: 23px 42px;
+}
+
+form#filter-form1 input[type="date"] {
+	font-weight: bold;
+	border: 3px solid #fdc001;
+	padding: 5px;
+	border-radius: 5px;
+	width: 145px;
+}
+
+#filter-form1 {
+	padding-bottom: 9px;
+	padding-top: 20px;
+	position: relative;
+	margin: -5px 42px;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+select#heading {
+	font-size: 17px;
+	text-align: center;
+	border: 3px solid #fdc001;
+	border-radius: 5px;
+	font-weight: bold;
+	width: 410px;
+	height: 44px;
+	display: inline-block;
+	text-align: center;
+}
+
+label.feedback-content {
+	font-size: 20px;
+	line-height: 38px;
+	display: inline-block;
+	border: 3px solid #fdc001;
+	border-radius: 5px;
+	font-weight: bold;
+	width: 59%;
+	height: 38px;
+	line-height: 38px;
+}
+
+label.heading {
+	font-size: 20px;
+	margin-top: 40px;
+	line-height: 38px;
+	display: inline-block;
+	font-weight: bold;
+	border: 3px solid #fdc001;
+	border-radius: 5px;
+	width: 114px;
+	height: 44px;
+	margin-top: 40px;
+}
+
+textarea#feedback-content {
+	border-top: 1px solid #fdc001;
+	border-bottom: 3px solid #fdc001;
+	border-left: 3px solid #fdc001;
+	border-right: 3px solid #fdc001;
+	border-radius: 5px;
+	width: 59%;
+	height: 200px;
+	max-height: 200px;
+	font-weight: bold;
+	resize: none; /* 禁用調整大小 */
+}
+
+/* 新增按鈕的顏色 */
+#add-button {
+	margin-left: 5px;
+	height: 33px;
+	font-weight: bold;
+	background-color: #FFF2CC;
+	color: #4D3900;
+	padding: 5px 30px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#restFeedback-table {
+	width: 893px;
+	border: 3px solid #fdc001;
+	border-collapse: separate;
+	border-spacing: 0;
+	border-radius: 6px;
+	margin: 0px 41px;
+	padding-bottom: 100px;
+	overflow-x: auto;
+}
+
+#restFeedback-table th {
+	color: gray;
+}
+
+#restFeedback-table th, #restFeedback-table td {
+	font-size: 15px;
+	font-weight: bold;
+	border: none;
+	padding: 3px;
+	text-align: left;
+	white-space: nowrap;
+}
+
+#page button {
+	position: relative;
+	background-color: white;
+	border: 1px solid #fdc001;
+	margin: 0 5px;
+	border-radius: 5px;
+}
+
+#page {
+	position: relative;
+	padding-left: 65%;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	display: inline-block;
+}
+
+select#feedback-type {
+	font-weight: bold;
+	border: 3px solid #fdc001;
+	padding: 6px;
+	border-radius: 5px;
+	width: 165px;
+}
+
+select#reply-type {
+	font-weight: bold;
+	border: 3px solid #fdc001;
+	padding: 6px;
+	border-radius: 5px;
+	width: 158px;
+	height: 38px;
+}
+
+select#reply-status {
+	font-weight: bold;
+	border: 3px solid #fdc001;
+	padding: 6px;
+	border-radius: 5px;
+	width: 165px;
+}
+
+select:focus {
+	outline: none;
+	border-color: #ffb800; /* 选中状态的边框颜色 */
+}
+
+option {
+	font-weight: bold;
+	border: 3px solid #fdc001;
+	padding: 5px;
+	border-radius: 5px;
+	width: 145px;
+}
+
+textarea#replycontent {
+	border-top: 1px solid #fdc001;
+	border-bottom: 3px solid #fdc001;
+	border-left: 3px solid #fdc001;
+	border-right: 3px solid #fdc001;
+	border-radius: 5px;
+	width: 262px;
+	height: 220px;
+	max-height: 220px;
+	font-weight: bold;
+}
+
+label.image {
+	margin-left: -52px;
+	border: 3px solid #fdc001;
+	border-radius: 5px;
+	font-weight: bold;
+	width: 300px;
+	height: 34px;
+	padding: 10px;
+}
+
+label.replyContent {
+	border: 3px solid #fdc001;
+	border-radius: 5px;
+	font-weight: bold;
+	width: 262px;
+	height: 34px;
+	padding: 10px;
+}
+
+label.labelheading {
+	padding: 8px;
+	border: 3px solid #fdc001;
+	border-radius: 5px;
+	font-weight: bold;
+	width: 100px;
+	height: 38px;
+}
+
+#search-bar-cs input {
+	width: 100%;
+	padding: 6px;
+	font-weight: bold;
+	margin-right: 7px;
+	border: 3px solid #fdc001;
+	border-radius: 5px;
+}
+
+div#customer-service {
+	margin-top: 5%;
+	margin-left: 16%;
+	padding-right: 68px;
+}
+
+label#replyAll {
+	color: gray;
+	text-align: left !important;
+	padding: 8px;
+	font-weight: bold;
+	border: 3px solid #fdc001;
+	border-radius: 5px;
+	width: 158px;
+	height: 38px;
+}
+
+label#replyContent1 {
+	color: gray;
+	text-align: left;
+	border-top: 1px solid #fdc001;
+	border-bottom: 3px solid #fdc001;
+	border-left: 3px solid #fdc001;
+	border-right: 3px solid #fdc001;
+	border-radius: 5px;
+	width: 262px;
+	height: 179px;
+	max-height: 179px;
+	font-weight: bold;
+	overflow-y: auto; /* 當內容超過高度時，顯示垂直滾動條 */
+}
+
+label#replyContent {
+	color: gray;
+	text-align: left;
+	border-top: 1px solid #fdc001;
+	border-bottom: 3px solid #fdc001;
+	border-left: 3px solid #fdc001;
+	border-right: 3px solid #fdc001;
+	border-radius: 5px;
+	width: 262px;
+	height: 137px;
+	max-height: 137px;
+	font-weight: bold;
+	overflow-y: auto; /* 當內容超過高度時，顯示垂直滾動條 */
+}
+
+button#submit-announcement1 {
+	background-color: #FFF2CC;
+	border-radius: 5px;
+	font-weight: bold;
+	width: 88px;
+	height: 39px;
+	margin: 0 42px;
+}
+
+div#title {
+	font-size: 19px;
+	font-weight: bold;
+	color: #492f1c;
+	margin: 10px auto;
+	position: relative;
+	padding-right: 69%;
+	padding-top: 10%;
+}
+
+/* ==============================下拉式選單CSS start================================================== */
+.orderlist {
+	list-style: none;
+	font-size: 25px;
+	padding-inline-start: 0px;
+	unicode-bidi: isolate;
+}
+
+.orderlist {
+	display: none;
+	position: absolute;
+	background-color: #ffdf7e;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 0.3cm;
+}
+
+.orderblock:hover .orderlist {
+	display: block;
+}
+
+.orderlist li {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+	color: black;
+}
+
+.orderlist a:hover {
+	color: #e83e8c !important;
+	text-decoration: none;
+}
+
+.orderlist li:hover {
+	box-shadow: 0px 8px 16px 0px rgba(232, 62, 140, 0.15);
+	border-radius: 10px;
+}
+
+.orderblock {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	padding: 50px 17px;
+}
+
+/* ==============================下拉式選單CSS end================================================== */

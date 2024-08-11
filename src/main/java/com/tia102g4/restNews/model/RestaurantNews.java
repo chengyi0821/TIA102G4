@@ -13,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.google.gson.annotations.Expose;
 import com.tia102g4.rest.model.Restaurant;
@@ -32,22 +36,30 @@ public class RestaurantNews {
 	@Expose
 	private Integer type;	//消息類別 1.公告 2.廣告
 	
+	@NotNull(message = "起始日期不得為空")
 	@Column(name = "start_date")
 	@Expose
 	private Date startDate; //開始日期
 	
+	@NotNull(message = "結束日期不得為空")
 	@Column(name = "end_date")
 	@Expose
 	private Date endDate;	//結束日期
 	
+	@NotBlank(message = "請填寫公告/廣告主旨")
+	@Size(max = 50, message = "主旨不得超過50字")
 	@Column(name = "heading")
 	@Expose
 	private String heading;	//主旨
 	
+	@NotBlank(message = "請填寫公告/廣告內容")
+	@Size(max = 500, message = "內容不得超過500字")
 	@Column(name = "content")
 	@Expose
 	private String content;	//內容
 	
+	@NotEmpty(message="公告圖片: 請上傳照片")
+	@Size(max = 2147483647, message = "圖片大小不得超過2GB")
 	@Column(name = "image", columnDefinition = "LONGBLOB")
 	@Expose
 	private Byte[] image;	//圖片

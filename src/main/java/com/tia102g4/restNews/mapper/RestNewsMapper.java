@@ -26,7 +26,9 @@ public class RestNewsMapper {
 			restNews.setStartDate(startDateSql);
 			restNews.setEndDate(endDateSql);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			System.out.println("日期不能為空值");
+		} catch (NullPointerException e) {
+			System.out.println("日期為空值");
 		}
 		restNews.setNewsId(reqTO.getNewsId());
 		restNews.setHeading(reqTO.getHeading());
