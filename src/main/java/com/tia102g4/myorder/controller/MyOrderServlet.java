@@ -103,7 +103,7 @@ public class MyOrderServlet extends HttpServlet {
         if (myOrder != null) {
             req.setAttribute("myOrder", myOrder);
         }
-        return "/blacklist/listAllBlackList.jsp";
+        return "/frontstage/restaurantFrontend/blacklist/listAllBlackList.jsp";
     }
 
     private String getOrderStatus1(HttpServletRequest req, HttpServletResponse res) {

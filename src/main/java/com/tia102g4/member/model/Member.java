@@ -4,16 +4,22 @@ package com.tia102g4.member.model;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
+import com.tia102g4.blacklist.model.BlackList;
+import com.tia102g4.favorite.model.Favorite;
+import com.tia102g4.myorder.model.MyOrder;
 
 
 
@@ -74,13 +80,13 @@ import com.google.gson.annotations.Expose;
 	    
 
 	    
-//	    // 一對多關係：一個會員可以有多個訂單
-//	    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-//	    private Set<MyOrder> myOrders;
-//
-//	    // 一對多關係：一個會員可以被列為多個黑名單
-//	    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-//	    private Set<BlackList> blackLists;
+	    // 一對多關係：一個會員可以有多個訂單
+	    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+	    private Set<MyOrder> myOrders;
+
+	    // 一對多關係：一個會員可以被列為多個黑名單
+	    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+	    private Set<BlackList> blackLists;
 //
 //	    // 一對多關係：一個會員可以產生多個評論
 //	    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
@@ -98,9 +104,9 @@ import com.google.gson.annotations.Expose;
 //	    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 //	    private Set<CustomerService> customerServices;
 //	    
-//	    // 一對多關係：一個會員可以有多個收藏餐廳
-//	    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-//	    private Set<FavoriteRestaurant> favoriteRestaurants;
+	    // 一對多關係：一個會員可以有多個收藏餐廳
+	    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+	    private Set<Favorite> favorite;
 
 	    
 	    
