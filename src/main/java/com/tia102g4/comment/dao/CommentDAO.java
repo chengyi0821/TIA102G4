@@ -8,9 +8,9 @@ import com.tia102g4.comment.model.Comment;
 
 public interface CommentDAO {
 	
-	int addComment(Comment entity);
+	void addComment(Comment entity);
 	
-    int updateComment(Comment entity);
+    void updateComment(Comment entity);
         
     List<Comment> getAll();
     

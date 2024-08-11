@@ -2,6 +2,8 @@ package com.tia102g4.comment.model;
 
 import javax.persistence.*;
 
+import com.tia102g4.rest.model.Restaurant;
+
 //import com.tia102g4.member.model.Member;
 //import com.tia102g4.restaurant.model.Restaurant;
 
@@ -13,10 +15,16 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "comment_id")
 	private Long commentId;
+	
+//	@Column(name = "rest_id")
+//	private Long restId;
+	
+	@Column(name = "member_id")
+	private Long memberId;
 
-//	@ManyToOne
-//	@JoinColumn(name = "comrestno", referencedColumnName="event_id")
-//	private Restaurant restaurant;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "rest_id", referencedColumnName="rest_id")
+	private Restaurant restaurant;
 //	
 //	@ManyToOne
 //	@JoinColumn(name = "commbrno", referencedColumnName="member_id")
@@ -47,13 +55,13 @@ public class Comment {
 		this.commentId = commentId;
 	}
 
-//	public Restaurant getRestaurant() {
-//		return restaurant;
-//	}
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
 
-//	public void setRestaurant(Restaurant restaurant) {
-//		this.restaurant = restaurant;
-//	}
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
 //
 //	public Member getMember() {
 //		return member;
@@ -62,6 +70,22 @@ public class Comment {
 //	public void setMember(Member member) {
 //		this.member = member;
 //	}
+	
+//	public Long getRestId() {
+//		return restId;
+//	}
+//	
+//	public void setRestId(Long restId) {
+//		this.restId = restId;
+//	}
+	
+	public Long getMemberId() {
+		return memberId;
+	}
+	
+	public void setMemberId(Long memberId) {
+		this.memberId = memberId;
+	}
 
 	public Integer getRating() {
 		return rating;

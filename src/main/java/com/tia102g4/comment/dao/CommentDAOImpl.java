@@ -15,31 +15,39 @@ import org.hibernate.*;
 import com.tia102g4.comment.model.Comment;
 //import com.tia102g4.restaurant.model.Restaurant;
 //import com.tia102g4.util.HibernateUtil;
+import com.tia102g4.util.HibernateUtil;
 
 public class CommentDAOImpl implements CommentDAO{
 	
 	private SessionFactory factory;
 	
-//	public CommentDAOImpl() {
-//		factory = HibernateUtil.getSessionFactory();
-//	}
+	public CommentDAOImpl() {
+		factory = HibernateUtil.getSessionFactory();
+	}
 	
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
 
 	@Override
-	public int addComment(Comment entity) {
-		return (Integer) getSession().save(entity);
+	public void addComment(Comment entity) {
+		try {
+			getSession().save(entity);
+		}catch(Exception e) {
+			e.printStackTrace();
+			e.printStackTrace();
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public int updateComment(Comment entity) {
+	public void updateComment(Comment entity) {
 		try {
 			getSession().update(entity);
-			return 1;
 		} catch (Exception e) {
-			return -1;
+			e.printStackTrace();
+			e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
@@ -69,7 +77,7 @@ public class CommentDAOImpl implements CommentDAO{
 			}
 			
 			if("restaurant".equals(row.getKey())) {
-				predicates.add(builder.like(root.get("restaurant"), "%" + row.getValue() + "%")); //依照餐廳名作模糊查詢
+				predicates.add(builder.like(root.get("rest_name"), "%" + row.getValue() + "%")); //依照餐廳名稱作模糊查詢
 			}
 			
 			if("lowerrating".equals(row.getKey())) {
