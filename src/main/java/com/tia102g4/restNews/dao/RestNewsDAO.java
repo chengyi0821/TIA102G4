@@ -17,5 +17,7 @@ public interface RestNewsDAO {
 	
 	List<RestaurantNews> getAll(int currentPage);
 	
+	List<RestaurantNews> getAll();
+	
 	long getTotal();
 }

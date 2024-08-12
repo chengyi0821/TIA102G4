@@ -11,7 +11,7 @@ $(document).ready(function() {
 		currentPage = 1;  // 重置頁碼
 		// 如果所有输入都是空的，不進行查询
         if (!searchQuery && !feedbackType && !feedbackTime && !replyStatus) {
-            return window.location.href = 'member-email.html';
+            return window.location.href = 'member-reply.html';
         }
 		loadCompositeQuery(feedbackType, feedbackTime, searchQuery, replyStatus, contextPath);
 	});

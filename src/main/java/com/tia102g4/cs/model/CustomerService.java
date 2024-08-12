@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,6 +21,7 @@ import com.tia102g4.rest.model.Restaurant;
 @Table(name = "customer_service")
 public class CustomerService {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cs_id", updatable = false)
 	@Expose
 	private Long csId; 					// 客服ID
@@ -51,17 +54,17 @@ public class CustomerService {
 	@Expose
 	private Boolean replyStatus;		// 回覆狀態
 	
-	@Column(name = "deleted_rest")
+	@Column(name = "deleted_rest", nullable = false)
 	@Expose
-	private Boolean deletedRest;		// 餐廳刪除狀態
+	private Boolean deletedRest = false;		// 餐廳刪除狀態
 	
-	@Column(name = "deleted_member")
+	@Column(name = "deleted_member", nullable = false)
 	@Expose
-	private Boolean deletedMember;		// 會員刪除狀態
+	private Boolean deletedMember = false;		// 會員刪除狀態
 	
-	@Column(name = "deleted_admin")
+	@Column(name = "deleted_admin", nullable = false)
 	@Expose
-	private Boolean deletedAdmin;		// 後台人員刪除狀態
+	private Boolean deletedAdmin = false;		// 後台人員刪除狀態
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")

@@ -115,6 +115,7 @@
 			<br>
 			<div class="all_reser">
 				<!-- 显示成功或错误消息 -->
+            	<audio id="notificationAudio" src="<%=request.getContextPath() %>/frontstage/backend/myorder/audio/notification.mp3"></audio>
 
 				<c:if test="${not empty successMessage}">
 					<div id="successMessage" class="alert alert-success">
@@ -173,7 +174,7 @@
 							</div>
 						</div>
 						<div class="reser_form_right" style="padding-top: 10px;">
-							<img src="../img/woklogo.png" alt=""
+							<img src="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/image/woklogo.png" alt=""
 								style="width: 165px; height: 80px; padding-left: 10px;">
 							<div class="search_rest">
 								<a href="" style="color: black; text-decoration: none;">查看餐廳</a>
@@ -205,21 +206,28 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 
 	<script>
-		window.onload = function() {
-			setTimeout(function() {
-				var successMessage = document.getElementById('successMessage');
-				var errorMessage = document.getElementById('errorMessage');
+    window.onload = function() {
+       
+            const audio = document.querySelector('#notificationAudio');
+            var successMessage = document.getElementById('successMessage');
+            var errorMessage = document.getElementById('errorMessage');
 
-				if (successMessage) {
-					successMessage.style.display = 'none';
-				}
+            if (successMessage) {
+                audio.play();
+                setTimeout(function() {
+                    successMessage.style.display = 'none';
+                }, 2000);
+            }
 
-				if (errorMessage) {
-					errorMessage.style.display = 'none';
-				}
-			}, 3000);
-		};
-	</script>
+            if (errorMessage) {
+                audio.play();
+                setTimeout(function() {
+                    errorMessage.style.display = 'none';
+                }, 2000);
+            }
+       
+    };
+</script>
 </body>
 
 </html>

@@ -94,7 +94,7 @@ public class CSRestServlet extends HttpServlet {
 	// 回覆訊息
 	private void update(String requestBody) {
 		CSReqTO reqTO = gson.fromJson(requestBody, CSReqTO.class);
-		customerServiceRest.update(reqTO);
+		customerServiceRest.insert(reqTO);
 	}
 	
 	// 刪除單筆信件

@@ -26,7 +26,7 @@ public class CSRestServiceImlp implements CSService {
 	}
 
 	@Override
-	public void update(CSReqTO reqTO) {
+	public void insert(CSReqTO reqTO) {
 		Long csId = reqTO.getCsId();
 		Integer replyHeading = reqTO.getReplyHeading().getReplyHeading();
 		String replyContent = reqTO.getReplyContent();

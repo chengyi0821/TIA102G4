@@ -2,6 +2,52 @@ function goToRestNewsPage() {
 	window.location.href = 'restNews.html';
 }
 
+function showError(inputId, errorMessage) {
+	$(`#${inputId}`).val(errorMessage);
+	$(`#${inputId}`).css("color", "red");
+	$(`#${inputId}`).on('click', function() {
+		$(`#${inputId}`).css("color", "black");
+		$(`#${inputId}`).val("");
+	});
+}
+
+function errorValidation() {
+	//=======================================錯誤驗證=======================================
+	let hasError = false;
+	// 確保日期格式正確
+	if ($('#end-date').val() < $('#start-date').val()) {
+		// 如果結束日期小於起始日期，顯示錯誤消息
+		alert('結束日期不能小於起始日期！');
+		// 可以選擇清除結束日期的值或禁用提交按鈕等
+		hasError = true;
+	}
+	//日期驗證
+	if ($('#start-date').val() == "" || $('#end-date').val() == "") {
+		alert("請選擇日期");
+		hasError = true;
+	}
+	//公告主旨驗證
+	if ($('#heading').val().length > 50 || $('#heading').val() == "公告主旨不得超過50字") {
+		showError('heading', "公告主旨不得超過50字");
+		hasError = true;
+	}
+	if ($('#heading').val() == "" || $('#heading').val() == "請填寫公告主旨") {
+		showError('heading', "請填寫公告主旨");
+		hasError = true;
+	}
+	//公告內容驗證
+	if ($('#content').val().length > 500 || $('#content').val() == "公告內容不得超過500字") {
+		showError('content', "公告內容不得超過500字");
+		hasError = true;
+	}
+	if ($('#content').val() == "" || $('#content').val() == "請填寫公告內容") {
+		showError('content', "請填寫公告內容");
+		hasError = true;
+	}
+	// 如果有錯誤，阻止表單提交
+	return hasError;
+	//=====================================================================================
+}
 $(document).ready(function() {
 	const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
 
@@ -108,15 +154,16 @@ $(document).ready(function() {
 							}
 						});
 
-						$('#submit-announcement').off('click').on('click', function() {
+						$('#submit-announcement').on('click', function() {
+							if (errorValidation()) {
+								return;
+							}
 							if (imageFile) {
 								var reader = new FileReader();
 								reader.onload = function(event) {
 									var base64Image = event.target.result.split(',')[1];
 									var startDateInput = $('#start-date').val();
 									var endDateInput = $('#end-date').val();
-									const startDateFormatted = DateToISO(startDateInput);
-									const endDateFormatted = DateToISO(endDateInput);
 
 									$.ajax({
 										url: `${contextPath}/restNews/restNews.do?action=update`,
@@ -124,8 +171,8 @@ $(document).ready(function() {
 										contentType: 'application/json',
 										data: JSON.stringify({
 											newsId: newsId,
-											startDate: startDateFormatted,
-											endDate: endDateFormatted,
+											startDate: startDateInput,
+											endDate: endDateInput,
 											heading: $('#heading').val(),
 											content: $('#content').val(),
 											type: $('#type').val(),
@@ -133,8 +180,14 @@ $(document).ready(function() {
 											deleted: false,
 											restId: 1
 										}),
-										error: function(error) {
-											console.error('Update failed:', error);
+										success: function(response) {
+											alert("編輯成功!");
+											goToRestNewsPage();
+										},
+										error: function(xhr, error) {
+											if (xhr.status === 400) { // 驗證錯誤會返回 400 狀態碼
+												alert("請填寫正確的資料");
+											}
 										}
 									});
 								};
@@ -142,8 +195,9 @@ $(document).ready(function() {
 							} else {
 								var startDateInput = $('#start-date').val();
 								var endDateInput = $('#end-date').val();
-								const startDateFormatted = DateToISO(startDateInput);
-								const endDateFormatted = DateToISO(endDateInput);
+								if (errorValidation()) {
+									return;
+								}
 
 								$.ajax({
 									url: `${contextPath}/restNews/restNews.do?action=update`,
@@ -151,8 +205,8 @@ $(document).ready(function() {
 									contentType: 'application/json',
 									data: JSON.stringify({
 										newsId: newsId,
-										startDate: startDateFormatted,
-										endDate: endDateFormatted,
+										startDate: startDateInput,
+										endDate: endDateInput,
 										heading: $('#heading').val(),
 										content: $('#content').val(),
 										type: $('#type').val(),
@@ -161,15 +215,16 @@ $(document).ready(function() {
 										restId: 1
 									}),
 									success: function(response) {
-										console.log('Update successful:', response);
+										alert("編輯成功!");
+										goToRestNewsPage();
 									},
-									error: function(error) {
-										console.error('Update failed:', error);
+									error: function(xhr, error) {
+										if (xhr.status === 400) { // 驗證錯誤會返回 400 狀態碼
+											alert("請填寫正確的資料");
+										}
 									}
 								});
 							}
-							alert("編輯成功!");
-							goToRestNewsPage();
 						});
 					}
 				}
@@ -178,7 +233,11 @@ $(document).ready(function() {
 	});
 });
 
-function DateToISO(dateString) {
-	var date = new Date(dateString);
-	return date.toISOString();
-}
+//function DateToISO(dateString) {
+//	var date = new Date(dateString);
+//	if (isNaN(date.valueOf())) {
+//		$('#date-error').text("請選擇日期");
+//		return;
+//	}
+//	return date.toISOString();
+//}

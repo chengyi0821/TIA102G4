@@ -2,6 +2,7 @@ package com.tia102g4.anno.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -10,13 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import javax.validation.ValidationException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.tia102g4.anno.model.Anno;
 import com.tia102g4.anno.service.AnnoService;
 import com.tia102g4.anno.service.AnnoServiceImpl;
 import com.tia102g4.anno.to.req.AnnoDeleteReqTO;
@@ -50,27 +48,37 @@ public class AnnoServlet extends HttpServlet {
 		String requestBody = stringBuilder.toString();
 
 		JsonObject jsonObject = null;
-
-		switch (action) {
-		case "getAll":
-			jsonObject = getAllAnnos(req);
-			break;
-		case "compositeQuery":
-			jsonObject = getCompositeAnnosQuery(req, res);
-			break;
-		case "add":
-			add(requestBody);
-			break;
-		case "update":
-			update(requestBody);
-			break;
-		case "delete":
-			delete(requestBody);
-			break;
+		try {
+			switch (action) {
+			case "getAll":
+				jsonObject = getAllAnnos(req);
+				break;
+			case "compositeQuery":
+				jsonObject = getCompositeAnnosQuery(req, res);
+				break;
+			case "add":
+				add(requestBody);
+				res.setStatus(HttpServletResponse.SC_OK);
+				break;
+			case "update":
+				update(requestBody);
+				res.setStatus(HttpServletResponse.SC_OK);
+				break;
+			case "delete":
+				delete(requestBody);
+				break;
+			}
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(gson.toJson(jsonObject));
+		} catch (ValidationException e) {
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(e.getMessage());
+			out.flush();
 		}
-		res.setContentType("application/json");
-		res.setCharacterEncoding("UTF-8");
-		res.getWriter().write(gson.toJson(jsonObject));
 	}
 
 	// 查詢所有資料

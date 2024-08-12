@@ -1,6 +1,6 @@
 // 返回信件頁面
 function goToCSPage() {
-	window.location.href = 'member-email.html';
+	window.location.href = 'member-reply.html';
 }
 
 function getFeedbackTypeDescription(type) {
@@ -105,6 +105,7 @@ $(document).ready(function() {
 								console.log('add failed:', error);
 							}
 						})
+						alert("回覆成功");
 						goToCSPage();
 					});
 				}

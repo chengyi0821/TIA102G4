@@ -113,7 +113,7 @@
 							</div>
 						</div>
 						<div class="reser_form_right" style="padding-top: 10px;">
-							<img src="../img/woklogo.png" alt=""
+							<img src="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/image/woklogo.png" alt=""
 								style="width: 165px; height: 80px; padding-left: 10px;">
 							<div class="search_rest">
 								<a href="" style="color: black; text-decoration: none;">查看餐廳</a>

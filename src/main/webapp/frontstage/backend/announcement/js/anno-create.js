@@ -12,6 +12,15 @@ function removeDataUrlHeader(dataUrl) {
 	return dataUrl;
 };
 
+function showError(inputId, errorMessage) {
+	$(`#${inputId}`).val(errorMessage);
+	$(`#${inputId}`).css("color", "red");
+	$(`#${inputId}`).on('click', function() {
+		$(`#${inputId}`).css("color", "black");
+		$(`#${inputId}`).val("");
+	});
+}
+
 $(document).ready(function() {
 	const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
 
@@ -73,9 +82,22 @@ $(document).ready(function() {
 			const file = event.target.files[0];
 			if (file) {
 				const reader = new FileReader();
+				const img = new Image();
+				const maxWidth = 900; // 設定最大寬度
+				const maxHeight = 1272; // 設定最大高度
+
 				reader.onload = function(e) {
-					$('#current-image').attr('src', e.target.result);
-				}
+					img.src = e.target.result;
+					img.onload = function() {
+						if (img.width > maxWidth || img.height > maxHeight) {
+							alert(`圖片尺寸太大，最大允許尺寸為 ${maxWidth}x${maxHeight}`);
+							$('#image').val(''); // 清空檔案輸入
+							$('#current-image').attr('src', ''); // 清空顯示的圖片
+						} else {
+							$('#current-image').attr('src', img.src); // 顯示上傳的圖片
+						}
+					};
+				};
 				reader.readAsDataURL(file);
 			}
 		});
@@ -85,6 +107,51 @@ $(document).ready(function() {
 			const fileInput = document.getElementById('image');
 			const file = fileInput.files[0];
 			let reader = new FileReader();
+
+			//=======================================錯誤驗證=======================================
+			let hasError = false;
+			// 圖片驗證
+			if ($("#image").val() == "") {
+				alert("请選擇要上傳的圖片");
+				hasError = true;
+			}
+			// 確保日期格式正確
+			if ($('#end-date').val() < $('#start-date').val()) {
+				// 如果結束日期小於起始日期，顯示錯誤消息
+				alert('結束日期不能小於起始日期！');
+				// 可以選擇清除結束日期的值或禁用提交按鈕等
+				hasError = true;
+			}
+			//日期驗證
+			if ($('#start-date').val() == "" || $('#end-date').val() == "") {
+				alert("請選擇日期");
+				hasError = true;
+			}
+			//公告主旨驗證
+			if ($('#heading').val().length > 50 || $('#heading').val() == "公告主旨不得超過50字") {
+				showError('heading', "公告主旨不得超過50字");
+				hasError = true;
+			}
+			if ($('#heading').val() == "" || $('#heading').val() == "請填寫公告主旨") {
+				showError('heading', "請填寫公告主旨");
+				hasError = true;
+			}
+			//公告內容驗證
+			if ($('#content').val().length > 500 || $('#content').val() == "公告內容不得超過500字") {
+				showError('content', "公告內容不得超過500字");
+				hasError = true;
+			}
+			if ($('#content').val() == "" || $('#content').val() == "請填寫公告內容") {
+				showError('content', "請填寫公告內容");
+				hasError = true;
+			}
+			// 如果有錯誤，阻止表單提交
+			if (hasError) {
+				return;
+			}
+			//=====================================================================================
+			// 讀取圖片檔
+			reader.readAsDataURL(file);
 
 			reader.onload = function(e) {
 				const base64String = removeDataUrlHeader(e.target.result);
@@ -96,7 +163,6 @@ $(document).ready(function() {
 				formData.append('type', $('#type').val());
 				formData.append('image', base64String);
 				formData.append('deleted', false);
-
 				const jsonData = {};
 
 				Array.from(formData.entries()).forEach(([key, value]) => {
@@ -112,30 +178,20 @@ $(document).ready(function() {
 					contentType: 'application/json',
 					data: jsonString,
 					success: function() {
-						alert('新增公告成功');
+						alert("新增成功");
+						goToAnnoPage();
 					},
-					error: function(error) {
-						console.error('新增公告時出錯:', error);
+					error: function(xhr, error) {
+						if (xhr.status === 400) { // 驗證錯誤會返回 400 狀態碼
+							const errorMessage = xhr.responseText || "請填寫正確的資料";
+							alert(errorMessage);
+						} else {
+							// 其他狀態碼的處理
+							alert("發生未知錯誤，請稍後再試");
+						}
 					}
 				});
 			};
-
-			// 檢查圖片是否有上傳
-			if (!file) {
-				alert("请選擇要上傳的圖片");
-				return;
-			}
-			// 檢查日期是否有填寫
-			else if ($('#start-date').val() == "" || $('#end-date').val() == "") {
-				alert("請選擇日期");
-				return;
-			}
-			else {
-				alert("新增成功!");
-				window.location.href = 'announcement.html';
-			}
-			// 讀取圖片檔
-			reader.readAsDataURL(file);
 		});
 	});
 });
