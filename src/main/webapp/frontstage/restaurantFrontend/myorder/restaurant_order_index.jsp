@@ -80,7 +80,7 @@
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">店家資訊</a>
 						<ul class="orderlist">
 							<li><a style="color: black;" href="#">關於我們</a></li>
-							<li><a style="color: black;" href="#">最新消息</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/restaurantFrontend/restNews/restNews.html">最新消息</a></li>
 							<li><a style="color: black;" href="#">菜單瀏覽</a></li>
 							<li><a style="color: black;" href="#">營業資訊</a></li>
 							<li><a style="color: black;" href="#">顧客評價</a></li>
@@ -99,7 +99,7 @@
 					<div class="navbar-nav mr-auto py-0">
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">聯絡客服</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">意見反應</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/restaurantFrontend/restFeedback/restFeedback.html">意見反應</a></li>
 							<li><a style="color: black;" href="#">系統公告</a></li>
 						</ul>
 					   </div>
