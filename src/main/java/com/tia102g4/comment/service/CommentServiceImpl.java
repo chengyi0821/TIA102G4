@@ -14,15 +14,18 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public Comment addComment(Comment entity) {
-		dao.addComment(entity);
-		return entity;
+	public void addComment(Comment entity) {
+		try {
+			dao.addComment(entity);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
-	public Comment updateComment(Comment entity) {
+	public void updateComment(Comment entity) {
 		dao.updateComment(entity);
-		return entity;
 	}
 
 	@Override

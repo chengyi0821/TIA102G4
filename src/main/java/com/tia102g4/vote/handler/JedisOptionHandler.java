@@ -1,10 +1,10 @@
 package com.tia102g4.vote.handler;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.reflect.Type;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,9 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tia102g4.util.JedisUtil;
+import com.tia102g4.rest.model.Restaurant;
+import com.tia102g4.rest.to.RestaurantDTO;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.Gson;
 
 @WebServlet("/frontstage/memberFrontend/vote/option.do")
 public class JedisOptionHandler extends HttpServlet{
@@ -53,31 +58,28 @@ public class JedisOptionHandler extends HttpServlet{
 	
 	//轉交三間餐廳當成投票選項到投票頁面
 	private String preparing(HttpServletRequest req, HttpServletResponse res) {
-		Enumeration<String> restNames = req.getParameterNames();
-		List<Long> selectedRestaurantIds = new ArrayList<>();
-
-		while(restNames.hasMoreElements()) {
-			String restName = restNames.nextElement();
+//		前端資料
+//		restList: [{"restaurant-id":"10","item_name":"大華咖啡廳","item_description":"提供香濃美味的咖啡。"}
+//		,{"restaurant-id":"9","item_name":"小芳火鍋","item_description":"提供豐富多樣的火鍋選擇。"}
+//		,{"restaurant-id":"7","item_name":"大志素食餐廳","item_description":"提供健康美味的素食餐點。"}]
+		String restListJson = req.getParameter("restList");
+		System.out.println(restListJson);//確實有接收到前端傳遞的JSON
+		Gson gson = new Gson();
+		
+		Type listType = new TypeToken<ArrayList<RestaurantDTO>>(){}.getType();
+        List<RestaurantDTO> restaurantDTOs = gson.fromJson(restListJson, listType);
+		
+		List<Restaurant> restaurants = new ArrayList<>();
+		for(RestaurantDTO dto : restaurantDTOs) {
+			Restaurant restaurant = new Restaurant();
 			
-			if(restName.matches("\\d+")) {
-				Long restaurantId = Long.parseLong(restName);
-				selectedRestaurantIds.add(restaurantId);
-			}
-		}
-		//資料格式 key:value = 7:restaurant7 帶去投票寫出標籤 要去除action = "option"
-		//只需要取得 餐廳ID即可使用查找的方式帶出餐廳基本資料
-		//現在會有 restaurants:1 restaurants:2 restaurants:3   action:option (要去掉這個) 然後把前面三個的值裝在list
-		Map<String,String[]> restMap = req.getParameterMap();
-
-		String[] restaurantIds = restMap.get("restaurants");
-		List<Long> restIds = new ArrayList<>();
-		
-		for(String id : restaurantIds) {
-			selectedRestaurantIds.add(Long.parseLong(id));
+            restaurant.setRestId(Long.parseLong(dto.getRestaurantId())); 
+            restaurant.setRestName(dto.getItemName());
+            restaurant.setDescription(dto.getItemDescription());
+            restaurants.add(restaurant);
 		}
 		
-//		List<RestaurantVO> selectedRestaurants = RestaurantVO.getRestaurantsByIds(restIds);
-//		req.getSession().setAttribute("selectedRestaurants", selectedRestaurants);
+		req.setAttribute("restaurants", restaurants); 
 		
 		return "/frontstage/memberFrontend/vote/voting.jsp";
 	}

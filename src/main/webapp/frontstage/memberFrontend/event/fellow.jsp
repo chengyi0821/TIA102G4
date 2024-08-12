@@ -16,6 +16,7 @@
 <!-- 載入 jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/orderlist.css" rel="stylesheet" />
 <style>
 #main-content2 {
 	border: 1px solid black;
@@ -162,6 +163,7 @@
 						<td>活動時間：${event.time}</td>
 						<td>活動資訊：${event.info}</td>
 						<td>人數上限：${event.maxSeat}</td>
+						<td>邀請碼：${event.code}</td>
 					</tr>
 				</c:forEach>
 			</table>
