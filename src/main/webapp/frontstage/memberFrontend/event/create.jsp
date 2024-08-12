@@ -12,6 +12,7 @@
 <!-- 載入 jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/orderlist.css" rel="stylesheet" />
 <style>
 #main-content2 {
 	border: 1px solid black;
@@ -87,7 +88,7 @@
 
 						</div>
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link active">店家介紹</a>
+							<a href="#" class="nav-item nav-link ">店家介紹</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="#">查看店家</a></li>
 								<li><a style="color: black;" href="#">查看評價</a></li>
@@ -100,7 +101,7 @@
 
 					<div class="navbar-nav mr-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">揪團系統</a>
+							<a href="#" class="nav-item nav-link active">揪團系統</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="#">發起揪團</a></li>
 								<li><a style="color: black;" href="#">參與揪團</a></li>

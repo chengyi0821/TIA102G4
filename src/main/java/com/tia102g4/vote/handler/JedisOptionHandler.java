@@ -63,7 +63,7 @@ public class JedisOptionHandler extends HttpServlet{
 //		,{"restaurant-id":"9","item_name":"小芳火鍋","item_description":"提供豐富多樣的火鍋選擇。"}
 //		,{"restaurant-id":"7","item_name":"大志素食餐廳","item_description":"提供健康美味的素食餐點。"}]
 		String restListJson = req.getParameter("restList");
-		System.out.println(restListJson);
+		System.out.println(restListJson);//確實有接收到前端傳遞的JSON
 		Gson gson = new Gson();
 		
 		Type listType = new TypeToken<ArrayList<RestaurantDTO>>(){}.getType();
@@ -72,19 +72,14 @@ public class JedisOptionHandler extends HttpServlet{
 		List<Restaurant> restaurants = new ArrayList<>();
 		for(RestaurantDTO dto : restaurantDTOs) {
 			Restaurant restaurant = new Restaurant();
-            restaurant.setRestId(Long.parseLong(dto.getRestaurantId()));
+			
+            restaurant.setRestId(Long.parseLong(dto.getRestaurantId())); 
             restaurant.setRestName(dto.getItemName());
             restaurant.setDescription(dto.getItemDescription());
             restaurants.add(restaurant);
 		}
 		
-		for(Restaurant restaurant : restaurants) {
-			System.out.println("Restaurant ID: " + restaurant.getRestId());
-            System.out.println("Restaurant Name: " + restaurant.getRestName());
-            System.out.println("Description: " + restaurant.getDescription());
-            System.out.println("--------------------");
-		}
-		req.setAttribute("restaurants", restaurants); //讓三個restaurant物件裝進restaurants裡面
+		req.setAttribute("restaurants", restaurants); 
 		
 		return "/frontstage/memberFrontend/vote/voting.jsp";
 	}
