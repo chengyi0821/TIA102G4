@@ -1,21 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.tia102g4.event.model.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.tia102g4.event.model.*"%>
+<%@ page import="com.tia102g4.member.model.*"%>
+<%@ page import="com.tia102g4.rest.model.*" %>
+<%@ page import="java.util.List"%>
 <%
-	Event entity = (Event) request.getAttribute("event");
+List<Event> eventList = (List<Event>) request.getSession().getAttribute("eventList");
+List<Member> memberList = (List<Member>) request.getSession().getAttribute("memberList");
+List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>尋找房間</title>
+<title>跟團資訊</title>
 <!-- 載入 jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/orderlist.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/asidemain.css" rel="stylesheet" />
+<link
+	href="<%=request.getContextPath()%>/frontstage/memberFrontend/css/style.css"
+	rel="stylesheet" />
+<link
+	href="<%=request.getContextPath()%>/frontstage/memberFrontend/vote/css/orderlist.css"
+	rel="stylesheet" />
 <style>
-
+#main-content2{
+	width:1000px;
+}
 </style>
 </head>
 <body>
@@ -26,7 +37,7 @@
 					<div class="d-inline-flex align-items-center">
 						<a href="../announcement/anno.html"
 							class="navbar-brand mx-5 d-none d-lg-block"></a> <img id="logo"
-							src="<%=request.getContextPath() %>/frontstage/memberFrontend/image/logo.png" />
+							src="<%=request.getContextPath()%>/frontstage/memberFrontend/image/logo.png" />
 						<h1 class="m-0 display-4 text-primary">Chugether</h1>
 					</div>
 				</div>
@@ -80,10 +91,10 @@
 
 					<div class="navbar-nav mr-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link active" >揪團系統</a>
+							<a href="#" class="nav-item nav-link active">揪團系統</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/create.jsp">發起揪團</a></li>
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/gate.jsp">參與揪團</a></li>
+								<li><a style="color: black;" href="#">發起揪團</a></li>
+								<li><a style="color: black;" href="#">參與揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
@@ -100,7 +111,6 @@
 								<li><a style="color: black;" href="#">客服信箱</a></li>
 								<li><a style="color: black;" href="#">Q&A</a></li>
 
-
 							</ul>
 						</div>
 			</nav>
@@ -109,20 +119,28 @@
 	<!-- Navbar End -->
 	<div id="main-content1"></div>
 	<div id="main-content2">
-		<h2 style="margin-top: 40px">我要跟團</h2>
-		<br>
-		<h2 >請輸入邀請碼</h2>
-
-		<form action="<%=request.getContextPath()%>/event/event.do"
-			method="post">
-			<!--/TIA102G4/event/event.do -->
-			<label for="code">邀請碼(7位英數字)</label>
-			<input type="text" name="code" minlength="7" maxlength="7" required>
-			<input type="hidden" name="action" value="getInfo"> 
-			<input type="submit" value="加入揪團">
-
+		<h1>請選擇餐廳</h1>
+		<form action="option.do" method="post">
+			
+		<div style="display: flex; justify-content: space-between;">
+			<c:forEach var="restaurant" items="${restaurants}" varStatus="status">
+				<div style="width: 30%;" class="option">
+					<h3>${restaurant.restName}</h3>
+					<p>ID: ${restaurant.restId}</p>
+					<p>${restaurant.description}</p>
+					<input type="radio" name="restId" value="${restaurant.restId}" required>
+				</div>
+				<c:if test="${status.count % 3 == 0 || status.last}">
+		</div>
+		<div style="display: flex; justify-content: space-between;">
+			</c:if>
+			</c:forEach>
+		</div>
+		
+		<input type="hidden" name="action" value="choose">
+			<input type="submit" value="投票">
+		
 		</form>
-
 	</div>
 	<div class="table-container"></div>
 
@@ -135,6 +153,5 @@
 		<h5 class="footerh5">隱私權條款</h5>
 		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 	</footer>
-	<script src="js/main.js"></script>
 </body>
 </html>

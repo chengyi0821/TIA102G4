@@ -1,22 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.tia102g4.event.model.*" %>
-<%
-	Event entity = (Event) request.getAttribute("event");
-%>
 <!DOCTYPE html>
+<%@ page import="com.tia102g4.comment.model.*" %>
+<%
+Comment entity = (Comment) request.getAttribute("entity");
+%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>尋找房間</title>
+<title>確認評論</title>
 <!-- 載入 jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/orderlist.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/asidemain.css" rel="stylesheet" />
-<style>
-
-</style>
 </head>
 <body>
 	<div class="container-fluid bg-primary py-3 d-none d-md-block">
@@ -26,7 +21,7 @@
 					<div class="d-inline-flex align-items-center">
 						<a href="../announcement/anno.html"
 							class="navbar-brand mx-5 d-none d-lg-block"></a> <img id="logo"
-							src="<%=request.getContextPath() %>/frontstage/memberFrontend/image/logo.png" />
+							src="../image/logo.png" />
 						<h1 class="m-0 display-4 text-primary">Chugether</h1>
 					</div>
 				</div>
@@ -37,11 +32,7 @@
 
 	<!-- Navbar Start -->
 	<div class="container-fluid position-relative nav-bar p-0">
-		<style>
-.container-fluid.position-relative.nav-bar.p-0 li {
-	color: black !important;
-}
-</style>
+
 		<div class="container-lg position-relative p-0 px-lg-3"
 			style="z-index: 9;">
 			<nav
@@ -80,14 +71,14 @@
 
 					<div class="navbar-nav mr-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link active" >揪團系統</a>
+							<a href="#" class="nav-item nav-link">揪團系統</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/create.jsp">發起揪團</a></li>
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/gate.jsp">參與揪團</a></li>
+								<li><a style="color: black;" href="#">發起揪團</a></li>
+								<li><a style="color: black;" href="#">參與揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">訂單管理</a>
+							<a href="#" class="nav-item nav-link active">訂單管理</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="#">編輯訂單</a></li>
 								<li><a style="color: black;" href="#">取消訂單</a></li>
@@ -109,21 +100,31 @@
 	<!-- Navbar End -->
 	<div id="main-content1"></div>
 	<div id="main-content2">
-		<h2 style="margin-top: 40px">我要跟團</h2>
-		<br>
-		<h2 >請輸入邀請碼</h2>
-
-		<form action="<%=request.getContextPath()%>/event/event.do"
+		<h1>確認評價</h1>
+		<form action="<%=request.getContextPath()%>/comment/comment.do"
 			method="post">
-			<!--/TIA102G4/event/event.do -->
-			<label for="code">邀請碼(7位英數字)</label>
-			<input type="text" name="code" minlength="7" maxlength="7" required>
-			<input type="hidden" name="action" value="getInfo"> 
-			<input type="submit" value="加入揪團">
-
+			<input type="hidden" name="action" value="update"> 
+			<h1>餐廳：${entity.getRestId()}</h1>
+			<br>
+			<h1>會員：${entity.getMemberId()}</h1> 
+			<br>
+				<label for="rating">評價星等:</label> 
+			<select name="rating" id="rating" required>
+				<option value="1">✨</option>
+				<option value="2">✨✨</option>
+				<option value="3">✨✨✨</option>
+				<option value="4">✨✨✨✨</option>
+				<option value="5">✨✨✨✨✨</option>
+			</select> 
+			<br>
+			<label for="content">評價內文:</label> 
+			<br>
+			<textarea id="content" name="content" rows="4" cols="50" placeholder="${entity.getContent()}" required></textarea>
+			<br> 
+			<input type="submit" value="修改評價">
 		</form>
-
 	</div>
+
 	<div class="table-container"></div>
 
 	<div id="main-content3"></div>
@@ -135,6 +136,6 @@
 		<h5 class="footerh5">隱私權條款</h5>
 		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 	</footer>
-	<script src="js/main.js"></script>
+
 </body>
 </html>
