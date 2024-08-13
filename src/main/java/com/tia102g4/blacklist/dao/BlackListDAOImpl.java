@@ -12,12 +12,10 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import com.tia102g4.blacklist.model.BlackList;
-import com.tia102g4.myorder.model.MyOrder;
 import com.tia102g4.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 public class BlackListDAOImpl implements BlackListDAO {
 
@@ -31,28 +29,36 @@ public class BlackListDAOImpl implements BlackListDAO {
 		return factory.getCurrentSession();
 	}
 
+//	@Override
+//	public int insert(BlackList blacklist) {
+//		return ((Long) getSession().save(blacklist)).intValue();
+//	}
+//
 	@Override
-	public int insert(BlackList blacklist) {
-		return ((Long) getSession().save(blacklist)).intValue();
+	public boolean isMemberInBlackList(Long memberId, Long restId) {
+	    boolean result = false;
+	    try {
+	        Query<Long> query = getSession().createQuery(
+	                "SELECT count(b) FROM BlackList b WHERE b.member.memberId = :memberId AND b.restaurant.restId = :restId",
+	                Long.class);
+	        query.setParameter("memberId", memberId);
+	        query.setParameter("restId", restId);
+	        Long count = query.uniqueResult();
+	        result = count > 0;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return result;
 	}
 
 	@Override
-	public boolean isMemberInBlackList(Long memberId) {
-
-		boolean result = false;
-		try {
-
-			Query<Long> query = getSession()
-					.createQuery("SELECT count(b) FROM BlackList b WHERE b.member.memberId = :memberId", Long.class);
-			query.setParameter("memberId", memberId);
-			Long count = query.uniqueResult();
-			result = count > 0;
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-		return result;
+	public int insert(BlackList blacklist) {
+	    try {
+	        return ((Long) getSession().save(blacklist)).intValue();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return -1;
+	    }
 	}
 
 	@Override
@@ -67,14 +73,17 @@ public class BlackListDAOImpl implements BlackListDAO {
 	}
 
 	@Override
-	public List<BlackList> getAll() {
-		return getSession().createQuery("from BlackList order by blackListId desc", BlackList.class).list();
+	public List<BlackList> getAll(Long restId) {
+	    return getSession().createQuery("from BlackList where restaurant.restId= :restId order by blackListId desc", BlackList.class)
+	                       .setParameter("restId", restId)
+	                       .list();
 	}
 
+
 	@Override
-	public List<BlackList> getByCompositeQuery(Map<String, String> map) {
+	public List<BlackList> getByCompositeQuery(Map<String, String> map, Long restId) {
 		if (map.size() == 0)
-			return getAll();
+			return getAll(restId);
 
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
 		CriteriaQuery<BlackList> criteria = builder.createQuery(BlackList.class);

@@ -44,7 +44,18 @@ public class MyOrderServiceImpl implements MyOrderService {
             return null; 
         }
     }
-
+    
+    @Override
+    public MyOrder getMyOrderByOrderId1(Long orderId, Long restId) {
+        try {
+            MyOrder myOrder = dao.getById1(orderId, restId);
+            return myOrder; 
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; 
+        }
+    }
+    
     @Override
     public PageInfo<MyOrder> getAllMyOrders(int currentPage, int recordsPerPage) {
         try {

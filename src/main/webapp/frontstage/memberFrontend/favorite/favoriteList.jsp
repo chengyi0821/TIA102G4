@@ -154,7 +154,23 @@ body{
             text-align: center;
             padding-top:60px;
         }
-
+    
+   		.fav_pic {
+   		
+            border-radius: 20px;
+            height: 40%;
+            width: 60%;
+            padding-top: 20px;
+            position: fixed;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: top 0.5s ease-in-out;
+            z-index: 1000;
+        }
+        .fav_pic.show {
+            top: 20%;
+        }
        </style>
        </head>
 <body style="background-color: #F3F6FF;">
@@ -244,6 +260,10 @@ body{
 	<br>
     <div class="main_content_favorite" style="background-color:#F3F6FF ;">
 	<div class="favorite">
+			<c:if test="${empty favorites}">
+			<div  class="fav_pic" id="favPic" style="dispaly:flex; flex-wrap: nowrap;"><img src="<%=request.getContextPath() %>/frontstage/backend/myorder/image/favorite_like3.png" alt=""
+			style="width: 950px; height: 550px; margin-top:80px; margin-left:40px;"></div>
+			</c:if>
 		<c:forEach var="favorite" items="${favorites}">
 		<div class="favorite_detail">
 			<div class="square">
@@ -286,6 +306,17 @@ body{
             }, 3000);
         }
     </script>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var favPic = document.getElementById("favPic");
+
+        // Automatically show the block after 1 second
+        setTimeout(function() {
+            favPic.classList.add("show");
+        }, 1000);
+    });
+</script>
     
 </body>
 

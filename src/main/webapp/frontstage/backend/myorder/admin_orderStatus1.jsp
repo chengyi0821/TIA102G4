@@ -12,7 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="../css/style.css" rel="stylesheet">
 <link rel="stylesheet"
-	href="<%=request.getContextPath() %>/frontstage/backend//myorder/css/style.css">
+	href="<%=request.getContextPath()%>/frontstage/backend//myorder/css/style.css">
 <title>訂單管理</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="Free HTML Templates" name="keywords">
@@ -82,11 +82,48 @@ table_allorder {
 .cancel-button, .complete-button {
 	background-color: #fffbeb;
 }
+
+#errorMsg, #successMsg {
+	color: red;
+	font-weight: bold;
+	margin: 20px 0;
+	border: 1px solid black;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #ffc107;
+	color: white;
+	width: 400px;
+	height: 200px;
+	border: 2px solid #ffc107;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	border-radius: 8px;
+	text-align: center;
+	z-index: 1000;
+	font-size: 23px;
+	font-weight: 1000;
+	padding-top: 80px;
+}
+
+#successMsg {
+	font-size: 32px;
+}
+
+.cancel_message {
+	padding-top: 38px;
+}
 </style>
 
 </head>
 
 <body style="background-color: #F3F6FF;">
+	<c:if test="${not empty errorMsg}">
+		<div id="errorMsg">${errorMsg}</div>
+	</c:if>
+	<c:if test="${not empty successMsg}">
+		<div id="successMsg">${successMsg}</div>
+	</c:if>
 	<!-- 自定义警示框 -->
 	<div id="customAlert" class="custom-alert">
 		<p>您確定要取消訂單嗎？</p>
@@ -109,9 +146,6 @@ table_allorder {
 		</div>
 	</div>
 
-	<div id="confirmationMessage1" class="confirmation-message1">
-		<p class="cancel_message1">訂單已完成！</p>
-	</div>
 
 	<!-- =============================================================================================================== -->
 	<jsp:include page="header_admin.jsp" flush="true" />
@@ -119,8 +153,7 @@ table_allorder {
 	<div class="bodycontent">
 		<div class="left_content"></div>
 		<div class="main_content">
-			<br>
-			<br>
+			<br> <br>
 			<div class="search_quickly">
 				<button class="btn_search" type="text">
 					快速查詢
@@ -133,23 +166,23 @@ table_allorder {
 				</button>
 				<button class="btn_search">
 					<a
-						href="<%=request.getContextPath() %>/myorder/myorder.do?action=getAll"
+						href="<%=request.getContextPath()%>/myorder/myorder.do?action=getAll"
 						class="allorder">所有訂單</a>
 				</button>
 				<button class="btn_search"
 					style="background-color: #fdc001; border: #fdc001;">
 					<a
-						href="<%=request.getContextPath() %>/myorder/myorder.do?action=getOrderStatus1"
+						href="<%=request.getContextPath()%>/myorder/myorder.do?action=getOrderStatus1"
 						class="allorder">預約訂單</a>
 				</button>
 				<button class="btn_search">
 					<a class="allorder"
-						href="<%=request.getContextPath() %>/myorder/myorder.do?action=getOrderStatus2"
+						href="<%=request.getContextPath()%>/myorder/myorder.do?action=getOrderStatus2"
 						role="button">被取消訂單</a>
 				</button>
 				<button class="btn_search">
 					<a class="allorder"
-						href="<%=request.getContextPath() %>/myorder/myorder.do?action=getOrderStatus3"
+						href="<%=request.getContextPath()%>/myorder/myorder.do?action=getOrderStatus3"
 						role="button">已完成訂單</a>
 				</button>
 			</div>
@@ -157,7 +190,7 @@ table_allorder {
 			<br>
 			<div class="search_div">
 				<form class="search_btn" role="search"
-					action="<%=request.getContextPath() %>/myorder/myorder.do"
+					action="<%=request.getContextPath()%>/myorder/myorder.do"
 					method="post">
 					<input class="form-control me-2" type="search" name="orderId"
 						placeholder="請輸入訂單編號" aria-label="Search"> <input
@@ -177,8 +210,7 @@ table_allorder {
 			<br>
 			<div class="form">
 				<div class="pagination-info1">
-					<form
-						action="<%=request.getContextPath() %>/myorder/myorder.do"
+					<form action="<%=request.getContextPath()%>/myorder/myorder.do"
 						method="post">
 						<input type="hidden" name="action" value="getOrderStatus1">
 						跳轉到第 <input class="search_page" type="number" name="page" min="1"
@@ -253,7 +285,7 @@ table_allorder {
 						<c:if test="${currentPage > 1}">
 							<button class="page_number">
 								<a style="color: black;"
-									href="<%=request.getContextPath() %>/myorder/myorder.do?action=getOrderStatus1&page=1">
+									href="<%=request.getContextPath()%>/myorder/myorder.do?action=getOrderStatus1&page=1">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 										fill="currentColor" class="bi bi-chevron-double-left"
 										viewBox="0 0 16 16">
@@ -355,7 +387,6 @@ table_allorder {
             var customAlert = document.getElementById("customAlert");
             var confirmButton = document.querySelector(".confirm1");
 
-            // 将 orderId 设置到确认按钮的属性中，以便后续提交表单
             confirmButton.setAttribute("data-order-id", orderId);
             
             customAlert.style.display = "block";
@@ -369,7 +400,6 @@ table_allorder {
         function showConfirmationMessage() {
             var orderId = document.querySelector(".confirm1").getAttribute("data-order-id");
 
-            // 创建一个隐藏的表单来提交请求
             var form = document.createElement("form");
             form.method = "post";
             form.action = "${pageContext.request.contextPath}/myorder/myorder.do";
@@ -389,11 +419,9 @@ table_allorder {
             document.body.appendChild(form);
             form.submit();
 
-            // 显示确认消息框
             var confirmationMessage = document.getElementById("confirmationMessage");
             confirmationMessage.style.display = "block";
 
-            // 2秒钟后隐藏确认消息框
             setTimeout(function() {
                 confirmationMessage.style.display = "none";
             }, 5000);
@@ -405,7 +433,6 @@ table_allorder {
             var customAlert1 = document.getElementById("customAlert1");
             var confirmButton1 = document.querySelector(".confirm2");
 
-            // 将 orderId 设置到确认按钮的属性中，以便后续提交表单
             confirmButton1.setAttribute("data-order-id1", orderId);
             
             customAlert1.style.display = "block";
@@ -419,7 +446,6 @@ table_allorder {
         function showConfirmationMessage1() {
             var orderId = document.querySelector(".confirm2").getAttribute("data-order-id1");
 
-            // 创建一个隐藏的表单来提交请求
             var form = document.createElement("form");
             form.method = "post";
             form.action = "${pageContext.request.contextPath}/myorder/myorder.do";
@@ -439,16 +465,40 @@ table_allorder {
             document.body.appendChild(form);
             form.submit();
             
-            // 显示确认消息框
             var confirmationMessage1 = document.getElementById("confirmationMessage1");
             confirmationMessage1.style.display = "block";
 
-            // 2秒钟后隐藏确认消息框
             setTimeout(function() {
                 confirmationMessage1.style.display = "none";
             }, 8000);
         }
     </script>
+    
+    	<script type="text/javascript">
+     
+        document.addEventListener("DOMContentLoaded", function() {
+            var errorMsg = document.getElementById("errorMsg");
+            if (errorMsg) {
+                setTimeout(function() {
+                    errorMsg.style.display = "none";
+                }, 3500); 
+            }
+        });
+    </script>
+
+	<script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var successMsg = document.getElementById("successMsg");
+            if (successMsg) {
+                setTimeout(function() {
+                	successMsg.style.display = "none";
+                }, 3000); 
+            }
+        });
+    </script>
+    
+    
+    
 </body>
 
 </html>

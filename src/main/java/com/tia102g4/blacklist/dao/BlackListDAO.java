@@ -13,11 +13,11 @@ public interface BlackListDAO {
 	
 	int delete(Long blackListId);
 	
-	List<BlackList> getAll();
+	List<BlackList> getAll(Long restId);
 	
-	List<BlackList> getByCompositeQuery(Map<String, String> map);
+	List<BlackList> getByCompositeQuery(Map<String, String> map, Long restId);
 	
-	boolean isMemberInBlackList(Long memberId);
+	boolean isMemberInBlackList(Long memberId, Long restId);
 	
 	
 }

@@ -1,6 +1,8 @@
 package com.tia102g4.myorder.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +52,9 @@ public class MyOrderServlet extends HttpServlet {
                 break;
             case "getOrderId":
                 forwardPath = getMyOrderByOrderId(req, res);
+                break;
+            case "getOrderId1":
+                forwardPath = getMyOrderByOrderId1(req, res);
                 break;
             case "updateOrderStatus2":
                 forwardPath = updateOrderStatus2(req, res);
@@ -105,6 +110,20 @@ public class MyOrderServlet extends HttpServlet {
         }
         return "/frontstage/restaurantFrontend/blacklist/listAllBlackList.jsp";
     }
+    
+    private String getMyOrderByOrderId1(HttpServletRequest req, HttpServletResponse res) {
+ 	   Long orderId = Long.parseLong(req.getParameter("orderId"));
+ 	    Long restId = 1L; 
+
+ 	    MyOrder myOrder = orderService.getMyOrderByOrderId1(orderId, restId);
+ 	    if (myOrder != null) {
+ 	        req.setAttribute("myOrder", myOrder);
+ 	    } else {
+ 	        req.setAttribute("orderIdError", "訂單編號錯誤");
+ 	    }
+ 	    return "/frontstage/restaurantFrontend/blacklist/listAllBlackList.jsp";
+ }
+
 
     private String getOrderStatus1(HttpServletRequest req, HttpServletResponse res) {
         String page = req.getParameter("page");
@@ -159,13 +178,32 @@ public class MyOrderServlet extends HttpServlet {
     }
     
     private String updateOrderStatus3(HttpServletRequest req, HttpServletResponse res) throws InterruptedException {
-        String action = req.getParameter("action");
-        if ("updateOrderStatus3".equals(action)) {
-            Long orderId = Long.parseLong(req.getParameter("orderId"));
-            orderService.updateOrderStatus3(orderId, "3");
-            Thread.sleep(1500);
-        }
-        return getOrderStatus1(req, res);
+    	 String action = req.getParameter("action");
+
+		    if ("updateOrderStatus3".equals(action)) {
+		        Long orderId = Long.parseLong(req.getParameter("orderId"));
+		        MyOrder order = orderService.getMyOrderByOrderId(orderId);
+
+		        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+		        Calendar reservationCalendar = Calendar.getInstance();
+		        reservationCalendar.setTime(order.getReserDate());
+		        reservationCalendar.set(Calendar.HOUR_OF_DAY, order.getReserTime().toLocalTime().getHour());
+		        reservationCalendar.set(Calendar.MINUTE, order.getReserTime().toLocalTime().getMinute());
+		        reservationCalendar.set(Calendar.SECOND, 0); 
+
+		        Timestamp reservationTimestamp = new Timestamp(reservationCalendar.getTimeInMillis());
+
+		        if (!reservationTimestamp.after(currentTimestamp)) {
+		            orderService.updateOrderStatus3(orderId, "3");
+		            req.setAttribute("successMsg", "已完成這筆訂單");
+		            return getOrderStatus1(req, res);
+		        } else {
+		            req.setAttribute("errorMsg", "訂位時間還沒到，無法完成該筆訂單");
+		            return getOrderStatus1(req, res); 
+		        }
+		    }
+		    return getOrderStatus1(req, res);
     }
 
     @Override
