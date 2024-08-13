@@ -37,6 +37,9 @@ public class Admin {
 
     @Column(name = "regis_date", nullable = false)
     private Timestamp regisDate; // 註冊時間
+    
+    @Column(name = "acc_status", nullable = false)
+    private Boolean accStatus = true; // 默認為啟用狀態
 
 //    // 一對多關係：一個後台人員可以處理多個客服
 //    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
@@ -95,6 +98,14 @@ public class Admin {
 	public void setRegisDate(Timestamp regisDate) {
 		this.regisDate = regisDate;
 	}
+	
+	public Boolean getAccStatus() {
+		return accStatus;
+	}
+
+	public void setAccStatus(Boolean accStatus) {
+		this.accStatus = accStatus;
+	}
 
 //	public Set<CustomerService> getCustomerServices() {
 //		return customerServices;
@@ -108,15 +119,8 @@ public class Admin {
 	
 	@Override
 	public String toString() {
-	    return "Admin {" +
-	           "adminId=" + adminId + 
-	           ", name='" + name + '\'' + 
-	           ", account='" + account + '\'' + 
-	           ", password='" + password + '\'' + 
-	           ", permission=" + permission + 
-	           ", regisDate=" + regisDate + 
-	           '}';
+		return "Admin [adminId=" + adminId + ", name=" + name + ", account=" + account + ", password=" + password
+				+ ", permission=" + permission + ", regisDate=" + regisDate + ", accStatus=" + accStatus + "]";
 	}
-
 }
 
