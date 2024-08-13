@@ -50,7 +50,7 @@ public class MemberFeedbackDAOImpl implements MemberFeedbackDAO {
 	public void delete(Long csId, Boolean deletedMember) {
 		Query query = getSession()
 				.createQuery("UPDATE CustomerService SET deletedMember = :deletedMember WHERE csId = :csId");
-		query.setParameter("deletedRest", deletedMember);
+		query.setParameter("deletedMember", deletedMember);
 		query.setParameter("csId", csId);
 		query.executeUpdate();
 	}
@@ -99,7 +99,7 @@ public class MemberFeedbackDAOImpl implements MemberFeedbackDAO {
 			}
 		}
 		if (member != null) {
-			// 加個條件只顯示用戶自己本身的資料
+			// 只顯示用戶自己本身的資料
 			predicates.add(builder.equal(root.get("member"), member));
 		}
 		// restaurant 為 NULL
@@ -119,7 +119,7 @@ public class MemberFeedbackDAOImpl implements MemberFeedbackDAO {
 		Long memberId = 1L;
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
 		return getSession().createQuery(
-				"SELECT cs FROM CustomerService cs LEFT JOIN fetch cs.member m LEFT JOIN fetch cs.admin WHERE cs.restaurant IS NULL AND cs.deletedRest = false AND m.memberId = :memberId",
+				"SELECT cs FROM CustomerService cs LEFT JOIN fetch cs.member m LEFT JOIN fetch cs.admin WHERE cs.restaurant IS NULL AND cs.deletedMember = false AND m.memberId = :memberId",
 				CustomerService.class).setParameter("memberId", memberId).setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT).list();
 	}

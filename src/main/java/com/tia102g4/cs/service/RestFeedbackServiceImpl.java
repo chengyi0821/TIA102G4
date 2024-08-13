@@ -8,23 +8,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import com.tia102g4.cs.dao.RestFeedbackDAO;
 import com.tia102g4.cs.dao.RestFeedbackDAOImpl;
 import com.tia102g4.cs.mapper.CustomerServiceMapper;
 import com.tia102g4.cs.model.CustomerService;
 import com.tia102g4.cs.to.req.CSReqTO;
+import com.tia102g4.cs.to.req.FeedbackReqTO;
 
-public class RestFeedbackServiceImpl implements CSService{
+public class RestFeedbackServiceImpl implements FeedbackService {
 
 	private RestFeedbackDAO dao;
 	private CustomerServiceMapper csMapper = new CustomerServiceMapper();
+	private Validator validator;
 
 	public RestFeedbackServiceImpl() {
 		dao = new RestFeedbackDAOImpl();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
 	}
-	
+
 	@Override
-	public void insert(CSReqTO reqTO) {
+	public void insert(FeedbackReqTO reqTO) {
+		validateReqTO(reqTO);
 		Integer feedbackType = reqTO.getFeedbackType().getFeedbackType();
 		String feedbackContent = reqTO.getFeedbackContent();
 		dao.insert(feedbackType, feedbackContent);
@@ -47,7 +58,7 @@ public class RestFeedbackServiceImpl implements CSService{
 		}
 		return reqTOs;
 	}
-	
+
 	@Override
 	public List<CSReqTO> getCSByCompositeQuery(Map<String, String[]> map) {
 		Map<String, String> query = new HashMap<>();
@@ -73,7 +84,6 @@ public class RestFeedbackServiceImpl implements CSService{
 		System.out.println(query);
 		return reqTOs;
 	}
-	
 
 	@Override
 	public int getPageTotal() {
@@ -82,5 +92,14 @@ public class RestFeedbackServiceImpl implements CSService{
 		return pageQty;
 	}
 
-
+	private void validateReqTO(FeedbackReqTO reqTO) {
+		Set<ConstraintViolation<FeedbackReqTO>> violations = validator.validate(reqTO);
+		if (!violations.isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			for (ConstraintViolation<FeedbackReqTO> violation : violations) {
+				sb.append(violation.getMessage());
+			}
+			throw new ConstraintViolationException(violations);
+		}
+	}
 }

@@ -13,6 +13,7 @@ $(document).ready(function() {
 				}),
 				success: function() {
 					alert("移除成功");
+					window.location.href = 'restaurant-reply.html';
 				},
 				error: function(error) {
 					console.error('移除時出錯:', error);

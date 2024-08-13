@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tia102g4.event.model.Event;
 import com.tia102g4.member.model.Member;
+import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.util.CodeMaker;
 import com.tia102g4.util.MakeFriends;
 import com.tia102g4.event.service.EventService;
@@ -44,6 +45,12 @@ public class EventServlet extends HttpServlet{
 		case "getInfo":
 			forwardPath = getEventInfo(req,res);
 			break;
+		case "getAll":
+			forwardPath = getAllRestaurant(req,res);
+			break;
+		case "compositeQuery":
+			forwardPath = getCompositeQuery(req,res);
+			break;
 		default:
 			forwardPath = "/index.jsp";
 		}
@@ -52,7 +59,7 @@ public class EventServlet extends HttpServlet{
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 	}
-	
+
 	private String addEvent(HttpServletRequest req, HttpServletResponse res) {
 		String time = req.getParameter("time");
 		String date = req.getParameter("date");
@@ -86,7 +93,30 @@ public class EventServlet extends HttpServlet{
 		req.getSession().setAttribute("memberList", memberList);
 		return "/frontstage/memberFrontend/event/fellow.jsp";
 	}
+	private String getAllRestaurant(HttpServletRequest req, HttpServletResponse res) {
+		String page = req.getParameter("page");
+		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
+		List<Restaurant> restaurantList = evtsvc.getAll(currentPage);
+		if(req.getSession().getAttribute("restaurantPageQty") == null) {
+			long restaurantPageQty = evtsvc.getPageTotal();
+			req.getSession().setAttribute("restaurantPageQty", restaurantPageQty);
+		}
+		req.setAttribute("restaurantList", restaurantList);
+		req.setAttribute("currentPage", currentPage);
 		
+		return "/frontstage/restaurant/listAllRestaurant.jsp";
+		
+	}
+	private String getCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
+		Map<String, String[]> map = req.getParameterMap();
+		if (map !=null) {
+			List<Restaurant> restaurantList = evtsvc.getByCompositeQuery(map);
+			req.setAttribute("restaurantList", restaurantList);
+		}else {
+			return "index.jsp";
+		}
+	    return "/reataurant/listCompositeQuery.jsp";
+}		
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 

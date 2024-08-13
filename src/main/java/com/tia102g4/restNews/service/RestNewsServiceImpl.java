@@ -2,6 +2,7 @@ package com.tia102g4.restNews.service;
 
 import static com.tia102g4.util.Constants.PAGE_MAX_RESULT;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,14 +32,29 @@ public class RestNewsServiceImpl implements RestNewsService {
 	public RestNewsServiceImpl() {
 		dao = new RestNewsDAOImpl();
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+		validator = factory.getValidator();
 	}
 
 	@Override
 	public void create(RestNewsReqTO reqTO) {
 		RestaurantNews restNews = restNewsMapper.setRestNews(reqTO);
 		Long restId = reqTO.getRestId();
-		validateRestNews(restNews); // 驗證
+
+		Date startDate = restNews.getStartDate();
+		Date endDate = restNews.getEndDate();
+
+		// 查詢是否已有重疊的公告
+		List<RestaurantNews> existingNews = dao.getOverlappingNews(restId, startDate, endDate);
+
+		// 如果有未過期的公告，則拋出例外
+		if (!existingNews.isEmpty()) {
+			throw new IllegalStateException("該餐廳已有未過期的公告，無法新增新的公告。");
+		}
+
+		// 驗證
+		validateRestNews(restNews);
+
+		// 插入新公告
 		dao.insert(restNews, restId);
 	}
 
@@ -68,7 +84,7 @@ public class RestNewsServiceImpl implements RestNewsService {
 		}
 		return reqTOs;
 	}
-	
+
 	@Override
 	public List<RestNewsReqTO> getAllRestNews() {
 		List<RestaurantNews> restNews = dao.getAll();
@@ -116,16 +132,16 @@ public class RestNewsServiceImpl implements RestNewsService {
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
-	
+
 	private void validateRestNews(RestaurantNews restNews) {
-        Set<ConstraintViolation<RestaurantNews>> violations = validator.validate(restNews);
-        if (!violations.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (ConstraintViolation<RestaurantNews> violation : violations) {
-                sb.append(violation.getMessage());
-            }
-            throw new ConstraintViolationException(violations);
-        }
-    }
+		Set<ConstraintViolation<RestaurantNews>> violations = validator.validate(restNews);
+		if (!violations.isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			for (ConstraintViolation<RestaurantNews> violation : violations) {
+				sb.append(violation.getMessage());
+			}
+			throw new ConstraintViolationException(violations);
+		}
+	}
 
 }

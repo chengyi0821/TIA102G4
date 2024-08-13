@@ -34,12 +34,13 @@ $(document).ready(function() {
 								}
 								let imageHtml =
 									`<img class="thumbnail" src="data:image/jpeg;base64,${announcement.image}" alt="公告圖片"
-                                data-img-src="data:image/jpeg;base64,${announcement.image}"
-                                data-heading="${announcement.heading}"
-                                data-content="${announcement.content}"
-                                data-type="| ${type}"
-                                data-start-date="${announcement.startDate}"
-                                data-end-date="${announcement.endDate}">`;
+	                                data-img-src="data:image/jpeg;base64,${announcement.image}"
+	                                data-name="『${announcement.restName}』"
+	                                data-heading="${announcement.heading}"
+	                                data-content="${announcement.content}"
+	                                data-type="| ${type}"
+	                                data-start-date="${announcement.startDate}"
+	                                data-end-date="${announcement.endDate}">`;
 									if (itemCount % 4 === 0) {
 										row = $('<tr></tr>'); // 創建新的一行
 										dataList1.append(row);

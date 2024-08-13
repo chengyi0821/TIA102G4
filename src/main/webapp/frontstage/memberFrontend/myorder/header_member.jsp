@@ -76,7 +76,7 @@
 					  <div class="orderblock">  <a href="#" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a> 
 						<ul class="orderlist">
 							<li><a style="color: black;" href="#">會員登入</a></li>
-							<li><a style="color: black;" href="#">最新消息</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
 						</ul>
 					  </div>
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">會員專區</a>
@@ -115,7 +115,7 @@
 						</div>
 					<div class="orderblock"> <a href="#" class="nav-item nav-link">聯絡客服</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">客服信箱</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
 							<li><a style="color: black;" href="#">Q&A</a></li>
 						
 							

@@ -88,7 +88,7 @@
 					   </div>
 					  <div class="orderblock"> <a href="#" class="nav-item nav-link">公告管理</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">系統公告</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath()%>/frontstage/backend/announcement/announcement.html">系統公告</a></li>
 							<li><a style="color: black;" href="#">店家廣告</a></li>
 						</ul>
 					  </div> 
@@ -103,8 +103,8 @@
 					   </div>
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">客服管理</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">會員信件</a></li>
-							<li><a style="color: black;" href="#">餐廳信件</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath()%>/frontstage/backend/customerService/member-reply.html">會員信件</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath()%>/frontstage/backend/customerService/restaurant-reply.html">餐廳信件</a></li>
 						
 						</ul>
 					</div>

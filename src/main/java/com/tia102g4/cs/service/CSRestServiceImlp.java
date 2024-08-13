@@ -10,23 +10,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import com.tia102g4.cs.dao.CSDAO;
 import com.tia102g4.cs.dao.CSRestDAOImpl;
 import com.tia102g4.cs.mapper.CustomerServiceMapper;
 import com.tia102g4.cs.model.CustomerService;
+import com.tia102g4.cs.to.req.CSInsertReqTO;
 import com.tia102g4.cs.to.req.CSReqTO;
 
 public class CSRestServiceImlp implements CSService {
 
 	private CSDAO dao;
 	private CustomerServiceMapper csMapper = new CustomerServiceMapper();
+	private Validator validator;
 
 	public CSRestServiceImlp() {
 		dao = new CSRestDAOImpl();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
 	@Override
-	public void insert(CSReqTO reqTO) {
+	public void insert(CSInsertReqTO reqTO) {
+		validateReqTO(reqTO);
 		Long csId = reqTO.getCsId();
 		Integer replyHeading = reqTO.getReplyHeading().getReplyHeading();
 		String replyContent = reqTO.getReplyContent();
@@ -85,5 +96,16 @@ public class CSRestServiceImlp implements CSService {
 		long total = dao.getTotal();
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
+	}
+
+	private void validateReqTO(CSInsertReqTO reqTO) {
+		Set<ConstraintViolation<CSInsertReqTO>> violations = validator.validate(reqTO);
+		if (!violations.isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			for (ConstraintViolation<CSInsertReqTO> violation : violations) {
+				sb.append(violation.getMessage());
+			}
+			throw new ConstraintViolationException(violations);
+		}
 	}
 }
