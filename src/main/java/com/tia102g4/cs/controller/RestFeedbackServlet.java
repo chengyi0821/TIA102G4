@@ -2,6 +2,7 @@ package com.tia102g4.cs.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ValidationException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,16 +23,16 @@ import com.tia102g4.cs.to.req.FeedbackReqTO;
 import com.tia102g4.util.BaseResponse;
 
 @WebServlet("/cs/restFeedback.do")
-public class RestFeedbackServlet extends HttpServlet{
+public class RestFeedbackServlet extends HttpServlet {
 	private FeedbackService restFeedbackService;
 	private BaseResponse baseResponse = new BaseResponse();
 	private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-	
+
 	@Override
 	public void init() throws ServletException {
 		restFeedbackService = new RestFeedbackServiceImpl();
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -45,26 +47,35 @@ public class RestFeedbackServlet extends HttpServlet{
 		String requestBody = stringBuilder.toString();
 
 		JsonObject jsonObject = null;
-
-		switch (action) {
-		case "getAll":
-			jsonObject = getAll(req);
-			break;
-		case "compositeQuery":
-			jsonObject = getCompositeCSQuery(req, res);
-			break;
-		case "add":
-			insert(requestBody);
-			break;
-		case "deleted":
-			delete(requestBody);
-			break;
+		try {
+			switch (action) {
+			case "getAll":
+				jsonObject = getAll(req);
+				break;
+			case "compositeQuery":
+				jsonObject = getCompositeCSQuery(req, res);
+				break;
+			case "add":
+				insert(requestBody);
+				res.setStatus(HttpServletResponse.SC_OK);
+				break;
+			case "deleted":
+				delete(requestBody);
+				break;
+			}
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(gson.toJson(jsonObject));
+		} catch (ValidationException e) {
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(e.getMessage());
+			out.flush();
 		}
-		res.setContentType("application/json");
-		res.setCharacterEncoding("UTF-8");
-		res.getWriter().write(gson.toJson(jsonObject));
 	}
-	
+
 	// 查詢所有資料
 	private JsonObject getAll(HttpServletRequest req) {
 		String page = req.getParameter("page");
@@ -96,13 +107,13 @@ public class RestFeedbackServlet extends HttpServlet{
 		FeedbackReqTO reqTO = gson.fromJson(requestBody, FeedbackReqTO.class);
 		restFeedbackService.insert(reqTO);
 	}
-	
+
 	// 刪除單筆信件
 	private void delete(String requestBody) {
 		CSReqTO reqTO = gson.fromJson(requestBody, CSReqTO.class);
 		restFeedbackService.delete(reqTO);
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);

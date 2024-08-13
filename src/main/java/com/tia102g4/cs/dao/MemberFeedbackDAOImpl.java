@@ -99,7 +99,7 @@ public class MemberFeedbackDAOImpl implements MemberFeedbackDAO {
 			}
 		}
 		if (member != null) {
-			// 加個條件只顯示用戶自己本身的資料
+			// 只顯示用戶自己本身的資料
 			predicates.add(builder.equal(root.get("member"), member));
 		}
 		// restaurant 為 NULL

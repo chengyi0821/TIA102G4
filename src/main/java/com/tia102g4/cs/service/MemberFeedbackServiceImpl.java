@@ -8,23 +8,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import com.tia102g4.cs.dao.MemberFeedbackDAO;
 import com.tia102g4.cs.dao.MemberFeedbackDAOImpl;
 import com.tia102g4.cs.mapper.CustomerServiceMapper;
 import com.tia102g4.cs.model.CustomerService;
+import com.tia102g4.cs.to.req.CSInsertReqTO;
 import com.tia102g4.cs.to.req.CSReqTO;
 import com.tia102g4.cs.to.req.FeedbackReqTO;
 
 public class MemberFeedbackServiceImpl implements FeedbackService {
 	private MemberFeedbackDAO dao;
 	private CustomerServiceMapper csMapper = new CustomerServiceMapper();
+	private Validator validator;
 
 	public MemberFeedbackServiceImpl() {
 		dao = new MemberFeedbackDAOImpl();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
 	}
 
 	@Override
 	public void insert(FeedbackReqTO reqTO) {
+		validateReqTO(reqTO);
 		Integer feedbackType = reqTO.getFeedbackType().getFeedbackType();
 		String feedbackContent = reqTO.getFeedbackContent();
 		dao.insert(feedbackType, feedbackContent);
@@ -80,4 +91,15 @@ public class MemberFeedbackServiceImpl implements FeedbackService {
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
+	
+	private void validateReqTO(FeedbackReqTO reqTO) {
+        Set<ConstraintViolation<FeedbackReqTO>> violations = validator.validate(reqTO);
+        if (!violations.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (ConstraintViolation<FeedbackReqTO> violation : violations) {
+                sb.append(violation.getMessage());
+            }
+            throw new ConstraintViolationException(violations);
+        }
+    }
 }

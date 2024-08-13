@@ -45,28 +45,21 @@ $(document).ready(function() {
 
 		// 提交表單
 		$('#feedback-submit').click(function() {
-			let pattern = /^[\u4e00-\u9fa5a-zA-Z0-9_]+$/;
+			//=======================================錯誤驗證=======================================
 			let hasError = false;
-
-			if ($('#feedback-content').val().length > 500) {
-				showError('feedback-content', "公告內容不得超過500字");
+			if ($('#feedback-content').val().length > 500 || $('#feedback-content').val() == "內容不得超過500字") {
+				showError('feedback-content', "內容不得超過500字");
 				hasError = true;
 			}
-			if ($('#feedback-content').val() === "") {
-				showError('feedback-content', "請填寫公告內容");
+			if ($('#feedback-content').val() === "" || $('#feedback-content').val() == "請填寫內容") {
+				showError('feedback-content', "請填寫內容");
 				hasError = true;
 			}
-			if (!pattern.test($('#feedback-content').val())) {
-				showError('feedback-content', "只能是中、英文字母、數字和_");
-				hasError = true;
-			}
-
 			// 如果有錯誤，阻止表單提交
 			if (hasError) {
 				return;
 			}
-			console.log($('select#heading').val());
-			// 構建JSON對象
+			//=====================================================================================
 			const jsonData = {
 				feedbackType: $('#heading').val(),
 				feedbackContent: $('#feedback-content').val()
@@ -83,9 +76,13 @@ $(document).ready(function() {
 					alert("新增成功");
 					goTorestFeedbackPage();
 				},
-				error: function(xhr) {
-					if (xhr.status === 400) {
-						alert("請填寫正確的資料")
+				error: function(xhr, error) {
+					if (xhr.status === 400) { // 驗證錯誤會返回 400 狀態碼
+						const errorMessage = xhr.responseText || "請填寫正確的資料";
+						alert(errorMessage);
+					} else {
+						// 其他狀態碼的處理
+						alert("發生未知錯誤，請稍後再試");
 					}
 				}
 			});
