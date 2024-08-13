@@ -13,8 +13,9 @@ import com.tia102g4.cs.dao.RestFeedbackDAOImpl;
 import com.tia102g4.cs.mapper.CustomerServiceMapper;
 import com.tia102g4.cs.model.CustomerService;
 import com.tia102g4.cs.to.req.CSReqTO;
+import com.tia102g4.cs.to.req.FeedbackReqTO;
 
-public class RestFeedbackServiceImpl implements CSService{
+public class RestFeedbackServiceImpl implements FeedbackService{
 
 	private RestFeedbackDAO dao;
 	private CustomerServiceMapper csMapper = new CustomerServiceMapper();
@@ -24,7 +25,7 @@ public class RestFeedbackServiceImpl implements CSService{
 	}
 	
 	@Override
-	public void insert(CSReqTO reqTO) {
+	public void insert(FeedbackReqTO reqTO) {
 		Integer feedbackType = reqTO.getFeedbackType().getFeedbackType();
 		String feedbackContent = reqTO.getFeedbackContent();
 		dao.insert(feedbackType, feedbackContent);

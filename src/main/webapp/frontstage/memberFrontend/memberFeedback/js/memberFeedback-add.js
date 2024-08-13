@@ -1,4 +1,4 @@
-function goTorestFeedbackPage() {
+function goToMemberFeedbackPage() {
 	window.location.href = 'memberFeedback.html';
 }
 
@@ -81,7 +81,7 @@ $(document).ready(function() {
 				data: JSON.stringify(jsonData),
 				success: function() {
 					alert("新增成功");
-					goTorestFeedbackPage();
+					goToMemberFeedbackPage();
 				},
 				error: function(xhr) {
 					if (xhr.status === 400) {

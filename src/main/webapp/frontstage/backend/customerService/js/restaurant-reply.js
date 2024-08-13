@@ -98,7 +98,6 @@ $(document).ready(function() {
 								csId: csId,
 								replyHeading: $('select#reply-type').val(),
 								replyContent: $('textarea#replycontent').val(),
-								replyStatus: true,
 								adminId: "1"
 							}),
 							error: function(error) {
