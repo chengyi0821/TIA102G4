@@ -82,7 +82,7 @@ public class EventServlet extends HttpServlet{
 		List<Event> eventList = evtsvc.getInfo(code);
 		MakeFriends friends = new MakeFriends();
 		List<Member> memberList = friends.ImaginaryFriend(4);
-		req.setAttribute("eventList", eventList);		
+		req.getSession().setAttribute("eventList", eventList);		
 		req.getSession().setAttribute("memberList", memberList);
 		return "/frontstage/memberFrontend/event/fellow.jsp";
 	}

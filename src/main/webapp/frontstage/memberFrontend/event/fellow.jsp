@@ -17,43 +17,8 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/orderlist.css" rel="stylesheet" />
-<style>
-#main-content2 {
-	border: 1px solid black;
-}
+<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/asidemain.css" rel="stylesheet" />
 
-#main-content2 aside.aside {
-	width: 400px;
-	height: 300px;
-	display: block;
-}
-#main-content2 aside.aside table{
-	width: 100%; 
-	border-collapse: collapse;
-}
-
-#main-content2 aside.aside table tr td,
-#main-content2 main.main table tr td{
-	display: block;
-	border: 1px solid orange;
-	width: 100%;
-	text-align: left;
-	vertical-align: top; word-wrap: break-word; padding: 10px;
-}
-
-#main-content2 main.main {
-	width: 500px;
-	display: block;
-	height: 300px
-}
-
-#main-content2 aside.aside, #main-content2 main.main {
-	border: 1px solid green;
-	display: inline-block;
-	vertical-align: top;
-	font-size: 30px;
-}
-</style>
 </head>
 <body>
 	<div class="container-fluid bg-primary py-3 d-none d-md-block">
@@ -157,6 +122,7 @@
 			<table>
 				<c:forEach var="event" items="${eventList}">
 					<tr>
+						<td>活動ID:${event.eventId}</td>
 						<td>主揪者：${event.memberId}</td>
 						<td>活動名稱：${event.name}</td>
 						<td>活動日期：${event.date}</td>
