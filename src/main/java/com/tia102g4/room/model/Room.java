@@ -20,11 +20,11 @@ public class Room {
 	private Long   roomId;
 	
 //	@ManyToOne
-//	@JoinColumn(name="roommbrno", referencedColumnName="room_id")
+//	@JoinColumn(name="member", referencedColumnName="room_id")
 //	private Member member;
 	
 //  @ManyToOne	
-//	@JoinColumn(name="roomeventno", referencedColumnName="room_id")
+//	@JoinColumn(name="event", referencedColumnName="room_id")
 //    private Event event;
 	
 	@Column(name="est_time")
@@ -35,6 +35,8 @@ public class Room {
 	
 	@Column(name="status")
 	private Boolean   status;
+	
+	
 	
 	public Room() {
 		super();
@@ -96,10 +98,15 @@ public class Room {
 		this.status = status;
 	}
 	
+
+
+	
 	@Override
 	public String toString() {
 		return "Room [estTime=" + estTime + ", joinTime=" + joinTime + ", status=" + status + "]";
-	}	
+	}
+
+	
 	
 	
 	
