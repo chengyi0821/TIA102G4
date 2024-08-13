@@ -14,14 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.tia102g4.cs.service.CSService;
+import com.tia102g4.cs.service.FeedbackService;
 import com.tia102g4.cs.service.MemberFeedbackServiceImpl;
 import com.tia102g4.cs.to.req.CSReqTO;
+import com.tia102g4.cs.to.req.FeedbackReqTO;
 import com.tia102g4.util.BaseResponse;
 
 @WebServlet("/cs/memberFeedback.do")
 public class MemberFeedbackServlet extends HttpServlet {
-	private CSService memberFeedbackService;
+	private FeedbackService memberFeedbackService;
 	private BaseResponse baseResponse = new BaseResponse();
 	private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
@@ -92,7 +93,7 @@ public class MemberFeedbackServlet extends HttpServlet {
 
 	// 填寫餐廳意見表
 	private void insert(String requestBody) {
-		CSReqTO reqTO = gson.fromJson(requestBody, CSReqTO.class);
+		FeedbackReqTO reqTO = gson.fromJson(requestBody, FeedbackReqTO.class);
 		memberFeedbackService.insert(reqTO);
 	}
 

@@ -14,6 +14,7 @@ import com.tia102g4.cs.dao.CSDAO;
 import com.tia102g4.cs.dao.CSRestDAOImpl;
 import com.tia102g4.cs.mapper.CustomerServiceMapper;
 import com.tia102g4.cs.model.CustomerService;
+import com.tia102g4.cs.to.req.CSInsertReqTO;
 import com.tia102g4.cs.to.req.CSReqTO;
 
 public class CSRestServiceImlp implements CSService {
@@ -26,7 +27,7 @@ public class CSRestServiceImlp implements CSService {
 	}
 
 	@Override
-	public void insert(CSReqTO reqTO) {
+	public void insert(CSInsertReqTO reqTO) {
 		Long csId = reqTO.getCsId();
 		Integer replyHeading = reqTO.getReplyHeading().getReplyHeading();
 		String replyContent = reqTO.getReplyContent();

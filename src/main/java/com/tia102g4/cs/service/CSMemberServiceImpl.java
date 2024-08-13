@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 import com.tia102g4.cs.dao.CSDAO;
 import com.tia102g4.cs.dao.CSMemberDAOImpl;
 import com.tia102g4.cs.mapper.CustomerServiceMapper;
 import com.tia102g4.cs.model.CustomerService;
+import com.tia102g4.cs.to.req.CSInsertReqTO;
 import com.tia102g4.cs.to.req.CSReqTO;
 
 public class CSMemberServiceImpl implements CSService {
@@ -26,7 +26,8 @@ public class CSMemberServiceImpl implements CSService {
 	}
 
 	@Override
-	public void insert(CSReqTO reqTO) {
+	public void insert(CSInsertReqTO reqTO) {
+		System.out.println("reqTO:" + reqTO);
 		Long csId = reqTO.getCsId();
 		Integer replyHeading = reqTO.getReplyHeading().getReplyHeading();
 		String replyContent = reqTO.getReplyContent();
@@ -53,10 +54,9 @@ public class CSMemberServiceImpl implements CSService {
 	@Override
 	public List<CSReqTO> getCSByCompositeQuery(Map<String, String[]> map) {
 
-		Map<String, String> query = map.entrySet().stream()
-					  				   			  .filter(row -> !"action".equals(row.getKey()))
-					  				   			  .filter(row -> !row.getValue()[0].isEmpty() && row.getValue()[0] != null)
-					  				   			  .collect(Collectors.toMap(Map.Entry::getKey, row -> row.getValue()[0]));
+		Map<String, String> query = map.entrySet().stream().filter(row -> !"action".equals(row.getKey()))
+				.filter(row -> !row.getValue()[0].isEmpty() && row.getValue()[0] != null)
+				.collect(Collectors.toMap(Map.Entry::getKey, row -> row.getValue()[0]));
 
 		List<CustomerService> customerServices = dao.getByCompositeQuery(query);
 		List<CSReqTO> reqTOs = new ArrayList<>();
