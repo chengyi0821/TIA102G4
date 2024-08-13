@@ -178,6 +178,12 @@ div#title {
 	padding-top: 5%;
 }
 
+span#modal-name {
+    color: #b57360;
+    font-size: 31px;
+    font-weight: bold;
+}
+
 /* ==============================下拉式選單CSS start================================================== */
 .orderlist {
 	list-style: none;

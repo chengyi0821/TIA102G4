@@ -3,6 +3,9 @@
  */
 package com.tia102g4.cs.to.req;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import com.google.gson.annotations.Expose;
 
 import common.CSReplyHeading;
@@ -13,6 +16,8 @@ public class CSInsertReqTO {
 	@Expose
 	private CSReplyHeading replyHeading;
 	@Expose
+	@NotBlank(message = "請填寫內容")
+	@Size(max = 500, message = "內容不得超過500字")
 	private String replyContent;
 	@Expose
 	private Long adminId;

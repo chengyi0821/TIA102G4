@@ -7,8 +7,16 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import com.tia102g4.anno.model.Anno;
 import com.tia102g4.cs.dao.CSDAO;
 import com.tia102g4.cs.dao.CSMemberDAOImpl;
 import com.tia102g4.cs.mapper.CustomerServiceMapper;
@@ -20,14 +28,17 @@ public class CSMemberServiceImpl implements CSService {
 
 	private CSDAO dao;
 	private CustomerServiceMapper csMapper = new CustomerServiceMapper();
-
+	private Validator validator;
+	
 	public CSMemberServiceImpl() {
 		dao = new CSMemberDAOImpl();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
 	}
 
 	@Override
 	public void insert(CSInsertReqTO reqTO) {
-		System.out.println("reqTO:" + reqTO);
+		validateReqTO(reqTO);
 		Long csId = reqTO.getCsId();
 		Integer replyHeading = reqTO.getReplyHeading().getReplyHeading();
 		String replyContent = reqTO.getReplyContent();
@@ -64,7 +75,6 @@ public class CSMemberServiceImpl implements CSService {
 			CSReqTO dto = csMapper.setCSReqTO(cs);
 			reqTOs.add(dto);
 		}
-		System.out.println(query);
 		return reqTOs;
 	}
 
@@ -74,4 +84,15 @@ public class CSMemberServiceImpl implements CSService {
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
+	
+	private void validateReqTO(CSInsertReqTO reqTO) {
+        Set<ConstraintViolation<CSInsertReqTO>> violations = validator.validate(reqTO);
+        if (!violations.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (ConstraintViolation<CSInsertReqTO> violation : violations) {
+                sb.append(violation.getMessage());
+            }
+            throw new ConstraintViolationException(violations);
+        }
+    }
 }

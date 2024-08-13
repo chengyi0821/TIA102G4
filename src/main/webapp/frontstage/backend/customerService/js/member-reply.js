@@ -18,6 +18,15 @@ function getFeedbackTypeDescription(type) {
 	}
 }
 
+function showError(inputId, errorMessage) {
+	$(`#${inputId}`).val(errorMessage);
+	$(`#${inputId}`).css("color", "red");
+	$(`#${inputId}`).on('click', function() {
+		$(`#${inputId}`).css("color", "black");
+		$(`#${inputId}`).val("");
+	});
+}
+
 $(document).ready(function() {
 	const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
 
@@ -90,6 +99,22 @@ $(document).ready(function() {
 
 					//=======================================回覆=======================================
 					$('#submit-announcement').on('click', function() {
+						//=======================================錯誤驗證=======================================
+						let hasError = false;
+						//公告內容驗證
+						if ($('textarea#replycontent').val().length > 500 || $('textarea#replycontent').val() == "內容不得超過500字") {
+							showError('replycontent', "內容不得超過500字");
+							hasError = true;
+						}
+						if ($('textarea#replycontent').val() == "" || $('textarea#replycontent').val() == "請填寫內容") {
+							showError('replycontent', "請填寫內容");
+							hasError = true;
+						}
+						// 如果有錯誤，阻止表單提交
+						if (hasError) {
+							return;
+						}
+						//=====================================================================================
 						$.ajax({
 							url: `${contextPath}/cs/csMember.do?action=add`,
 							type: 'POST',
@@ -100,13 +125,22 @@ $(document).ready(function() {
 								replyContent: $('textarea#replycontent').val(),
 								adminId: "1"
 							}),
-							error: function(error) {
-								console.log('add failed:', error);
+							success: function() {
+								alert("回覆成功");
+								goToCSPage();
+							},
+							error: function(xhr, error) {
+								if (xhr.status === 400) { // 驗證錯誤會返回 400 狀態碼
+									const errorMessage = xhr.responseText || "請填寫正確的資料";
+									alert(errorMessage);
+								} else {
+									// 其他狀態碼的處理
+									alert("發生未知錯誤，請稍後再試");
+								}
 							}
-						})
-						alert("回覆成功");
-						goToCSPage();
+						});
 					});
+
 				}
 			}
 		});

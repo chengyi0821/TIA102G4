@@ -16,7 +16,6 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Jedis;
 
 import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.restNews.model.RestaurantNews;
@@ -115,6 +114,46 @@ public class RestNewsDAOImpl implements RestNewsDAO {
 		TypedQuery<RestaurantNews> query = getSession().createQuery(criteria);
 		return query.getResultList();
 	}
+	
+	public List<RestaurantNews> getOverlappingNews(Long restId, Date startDate, Date endDate) {
+	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
+	    CriteriaQuery<RestaurantNews> criteria = builder.createQuery(RestaurantNews.class);
+	    Root<RestaurantNews> root = criteria.from(RestaurantNews.class);
+	    List<Predicate> predicates = new ArrayList<>();
+
+	    // 日期重疊查詢
+	    Predicate startOverlap = builder.between(root.get("startDate"), startDate, endDate);
+	    Predicate endOverlap = builder.between(root.get("endDate"), startDate, endDate);
+	    Predicate fullyCoversExisting = builder.and(
+	        builder.lessThanOrEqualTo(root.get("startDate"), startDate),
+	        builder.greaterThanOrEqualTo(root.get("endDate"), endDate)
+	    );
+	    Predicate isCoveredByExisting = builder.and(
+	        builder.greaterThanOrEqualTo(root.get("startDate"), startDate),
+	        builder.lessThanOrEqualTo(root.get("endDate"), endDate)
+	    );
+	    
+	    predicates.add(builder.or(startOverlap, endOverlap, fullyCoversExisting, isCoveredByExisting));
+
+	    // 根據餐廳過濾
+	    if (restId != null) {
+	        Restaurant rest = getSession().get(Restaurant.class, restId);
+	        predicates.add(builder.equal(root.get("restaurant"), rest));
+	    }
+
+	    // 只能查詢沒有刪除的資料
+	    predicates.add(builder.isFalse(root.get("deleted")));
+
+	    // 將條件應用到查詢中
+	    criteria.where(predicates.toArray(new Predicate[0]));
+	    criteria.orderBy(builder.asc(root.get("newsId")));
+
+	    TypedQuery<RestaurantNews> query = getSession().createQuery(criteria);
+	    return query.getResultList();
+	}
+
+
+
 
 	@Override
 	public List<RestaurantNews> getAll(int currentPage) {

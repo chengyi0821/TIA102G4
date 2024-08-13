@@ -33,17 +33,18 @@ $(document).ready(function() {
 								}
 								let imageHtml =
 									`<img class="thumbnail" src="data:image/jpeg;base64,${announcement.image}" alt="公告圖片"
-                                data-img-src="data:image/jpeg;base64,${announcement.image}"
-                                data-heading="${announcement.heading}"
-                                data-content="${announcement.content}"
-                                data-type="| ${type}"
-                                data-start-date="${announcement.startDate}"
-                                data-end-date="${announcement.endDate}">`;
-								if (type == "食安新聞") {
-									if (itemCount % 4 === 0) {
-										row = $('<tr></tr>'); // 創建新的一行
-										dataList1.append(row);
-									}
+	                                data-img-src="data:image/jpeg;base64,${announcement.image}"
+	                                data-name=""
+	                                data-heading="${announcement.heading}"
+	                                data-content="${announcement.content}"
+	                                data-type="| ${type}"
+	                                data-start-date="${announcement.startDate}"
+	                                data-end-date="${announcement.endDate}">`;
+									if (type == "食安新聞") {
+										if (itemCount % 4 === 0) {
+											row = $('<tr></tr>'); // 創建新的一行
+											dataList1.append(row);
+										}
 
 									row.append(`<td>${imageHtml}</td>`); // 將圖片加入當前行
 									itemCount++;

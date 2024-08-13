@@ -47,32 +47,39 @@ public class RestNewsServlet extends HttpServlet {
 
 		JsonObject jsonObject = null;
 		try {
-		switch (action) {
-		case "getAll":
-			jsonObject = getAll(req);
-			break;
-		case "getAllForMember":
-			jsonObject = getAllForMember(req);
-			break;
-		case "compositeQuery":
-			jsonObject = getCompositeQuery(req, res);
-			break;
-		case "add":
-			add(requestBody);
-			res.setStatus(HttpServletResponse.SC_OK);
-			break;
-		case "update":
-			update(requestBody);
-			res.setStatus(HttpServletResponse.SC_OK);
-			break;
-		case "delete":
-			delete(requestBody);
-			break;
-		}
-		res.setContentType("application/json");
-		res.setCharacterEncoding("UTF-8");
-		res.getWriter().write(gson.toJson(jsonObject));
-		}catch (ValidationException e) {
+			switch (action) {
+			case "getAll":
+				jsonObject = getAll(req);
+				break;
+			case "getAllForMember":
+				jsonObject = getAllForMember(req);
+				break;
+			case "compositeQuery":
+				jsonObject = getCompositeQuery(req, res);
+				break;
+			case "add":
+				add(requestBody);
+				res.setStatus(HttpServletResponse.SC_OK);
+				break;
+			case "update":
+				update(requestBody);
+				res.setStatus(HttpServletResponse.SC_OK);
+				break;
+			case "delete":
+				delete(requestBody);
+				break;
+			}
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(gson.toJson(jsonObject));
+		} catch (ValidationException e) {
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(e.getMessage());
+			out.flush();
+		} catch (IllegalStateException e) {
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
@@ -94,6 +101,7 @@ public class RestNewsServlet extends HttpServlet {
 		}
 		return baseResponse.jsonResponse(reqTOList, currentPage, totalPageQty);
 	}
+
 	// 查詢所有資料給會員前台
 	private JsonObject getAllForMember(HttpServletRequest req) {
 		List<RestNewsReqTO> reqTOList = restNewsService.getAllRestNews();

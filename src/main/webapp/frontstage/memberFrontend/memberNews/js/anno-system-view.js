@@ -36,6 +36,7 @@ $(document).ready(function() {
 	// 點擊圖片打開模態窗口
 	$(document).on('click', '.thumbnail', function() {
 		const src = $(this).data('imgSrc');
+		const name = $(this).data('name')
 		const heading = $(this).data('heading');
 		const content = $(this).data('content');
 		const type = $(this).data('type');
@@ -47,6 +48,7 @@ $(document).ready(function() {
 
 		// 更新模態窗口內容
 		modalImg.attr('src', src);
+		$('#modal-name').text(name);
 		$('#modal-heading').text(heading);
 		$('#modal-content').text(content);
 		$('#modal-type').text(type);
@@ -80,7 +82,7 @@ $(document).ready(function() {
 								default: type = '';
 							}
 							let imageHtml =
-									`<img class="thumbnail" src="data:image/jpeg;base64,${announcement.image}" alt="公告圖片"
+								`<img class="thumbnail" src="data:image/jpeg;base64,${announcement.image}" alt="公告圖片"
                                 data-img-src="data:image/jpeg;base64,${announcement.image}"
                                 data-heading="${announcement.heading}"
                                 data-content="${announcement.content}"
@@ -89,12 +91,12 @@ $(document).ready(function() {
                                 data-end-date="${announcement.endDate}">`;
 							if (type == "系統公告") {
 								if (itemCount % 4 === 0) {
-								row = $('<tr></tr>'); // 創建新的一行
-								dataList1.append(row);
-							}
+									row = $('<tr></tr>'); // 創建新的一行
+									dataList1.append(row);
+								}
 
-							row.append(`<td>${imageHtml}</td>`); // 將圖片加入當前行
-							itemCount++;
+								row.append(`<td>${imageHtml}</td>`); // 將圖片加入當前行
+								itemCount++;
 							}
 						}
 					});

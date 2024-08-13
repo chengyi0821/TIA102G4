@@ -1,5 +1,6 @@
 package com.tia102g4.restNews.dao;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ public interface RestNewsDAO {
 	Long update(RestaurantNews entity, Long restId);
 	
 	void delete(RestaurantNews entity);
+	
+	public List<RestaurantNews> getOverlappingNews(Long restId, Date startDate, Date endDate);
 	
 	List<RestaurantNews> getByCompositeQuery(Map<String, String> map);
 	
