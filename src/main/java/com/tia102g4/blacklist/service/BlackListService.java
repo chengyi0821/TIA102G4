@@ -12,9 +12,9 @@ public interface BlackListService {
 	
 	void deleteBlackList(Long blackListId);
 	
-	List<BlackList> getAllBlackList();
+	List<BlackList> getAllBlackList(Long restId);
 	
-	List<BlackList> getBlackListByCompositeQuery(Map<String, String[]> map);
+	List<BlackList> getBlackListByCompositeQuery(Map<String, String[]> map, Long restId);
 	
-	 boolean isMemberInBlackList(Long memberId);
+	 boolean isMemberInBlackList(Long memberId, Long restId);
 }

@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hibernate.Session;
+
 import com.tia102g4.blacklist.dao.BlackListDAO;
 import com.tia102g4.blacklist.dao.BlackListDAOImpl;
 import com.tia102g4.blacklist.model.BlackList;
+import com.tia102g4.util.HibernateUtil;
 
 public class BlackListServiceImpl implements BlackListService {
 	private BlackListDAO dao;
@@ -34,8 +37,8 @@ public class BlackListServiceImpl implements BlackListService {
 	    }
 
 	 @Override
-	    public boolean isMemberInBlackList(Long memberId) {
-	        return dao.isMemberInBlackList(memberId);
+	    public boolean isMemberInBlackList(Long memberId, Long restId) {
+	        return dao.isMemberInBlackList(memberId, restId);
 	    }
 	 
 	 @Override
@@ -52,50 +55,38 @@ public class BlackListServiceImpl implements BlackListService {
 	    }
 
 	 @Override
-	    public List<BlackList> getAllBlackList() {
-	       
-	        try {
-	           
-	            List<BlackList> list = dao.getAll();
-	            
+	    public List<BlackList> getAllBlackList(Long restId) {
+	            List<BlackList> list = dao.getAll(restId);
 	            return list;
-	        } catch (Exception e) {
-	          
-	            e.printStackTrace();
-	            return null;
-	        }
+	    
 	    }
 	 
 	 
 	 @Override
-	    public List<BlackList> getBlackListByCompositeQuery(Map<String, String[]> map) {
-	      
-	        Map<String, String> query = new HashMap<>();
-	        Set<Map.Entry<String, String[]>> entry = map.entrySet();
+	 public List<BlackList> getBlackListByCompositeQuery(Map<String, String[]> map, Long restId) {
+	     Map<String, String> query = new HashMap<>();
+	     Set<Map.Entry<String, String[]>> entry = map.entrySet();
 
-	        for (Map.Entry<String, String[]> row : entry) {
-	            String key = row.getKey();
-	            if ("action".equals(key)) {
-	                continue;
-	            }
-	            String value = row.getValue()[0];
-	            if (value.isEmpty() || value == null) {
-	                continue;
-	            }
-	            query.put(key, value);
-	        }
+	     for (Map.Entry<String, String[]> row : entry) {
+	         String key = row.getKey();
+	         if ("action".equals(key)) {
+	             continue;
+	         }
+	         String value = row.getValue()[0];
+	         if (value.isEmpty() || value == null) {
+	             continue;
+	         }
+	         query.put(key, value);
+	     }
 
-	        try {
-	           
-	            List<BlackList> list = dao.getByCompositeQuery(query);
-	         
-	            return list;
-	        } catch (Exception e) {
-	          
-	            e.printStackTrace();
-	            return null;
-	        }
-	    }
-	 
+	     try {
+	         List<BlackList> list = dao.getByCompositeQuery(query, restId);
+	         return list;
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	         return null;
+	     }
+	 }
+
 	
 	}

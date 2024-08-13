@@ -12,6 +12,7 @@ public interface MyOrderService {
 	    MyOrder updateMyOrder(MyOrder myorder);
 	    void deleteMyOrder(Integer orderId);
 	    MyOrder getMyOrderByOrderId(Long orderId);
+	    MyOrder getMyOrderByOrderId1(Long orderId, Long restId);
 	    PageInfo<MyOrder> getAllMyOrders(int currentPage, int recordsPerPage);
 	    List<MyOrder> getMyOrdersByCompositeQuery(Map<String, String[]> map);
 	    PageInfo<MyOrder> getOrderStatus1(int currentPage, int recordsPerPage);
