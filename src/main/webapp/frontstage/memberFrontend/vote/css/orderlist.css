@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+/* ==============================下拉式選單CSS start================================================== */
+.orderlist{
+	list-style: none;
+	font-size: 25px;
+	padding-inline-start: 0px;
+	unicode-bidi: isolate;
+  }
+
+	  .orderlist {
+	display: none;
+	position: absolute;
+	background-color: #ffdf7e;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
+	z-index: 1;
+	border-radius: 0.3cm;
+  }  
+
+  .orderblock:hover .orderlist {
+	display: block;
+  }
+  
+  .orderlist li {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+	color: black;
+	
+  }
+  .orderlist a:hover{
+	color: #e83e8c !important;
+	text-decoration: none;
+  }
+
+  .orderlist li:hover{
+	box-shadow: 0px 8px 16px 0px rgba(232, 62, 140, 0.15);
+	border-radius: 10px;
+	
+	
+  }
+
+  .orderblock{
+	margin-top: 30px;
+	margin-bottom: 30px;
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+	padding: 50px 17px;
+  }
+
+#main-content2 {
+	border: 1px solid black;
+}
+
+#main-content2 ul.item_list {
+	border: 1px solid green;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap; /*預設nowrap不會斷行*/
+}
+
+#main-content2 ul.item_list>li {
+	border: 1px solid rgb(241, 6, 6);
+	width: calc(( 100% - 60px)/2);
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+#main-content2 ul.item_list>li div.img_block {
+	float: left;
+}
+
+#main-content3 {
+	width: 400px;
+}
+#main-content2 {
+	border: 1px solid black;
+}
+
+#main-content2 aside.aside {
+	width: 400px;
+	height: 300px;
+	display: block;
+}
+
+#main-content2 aside.aside table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#main-content2 aside.aside table tr td, #main-content2 main.main table tr td
+	{
+	display: block;
+	border: 1px solid orange;
+	width: 100%;
+	text-align: left;
+	vertical-align: top;
+	word-wrap: break-word;
+	padding: 10px;
+}
+
+#main-content2 main.main {
+	width: 500px;
+	display: block;
+	height: 300px
+}
+
+#main-content2 aside.aside, #main-content2 main.main {
+	border: 1px solid green;
+	display: inline-block;
+	vertical-align: top;
+	font-size: 30px;
+}
+  /* ==============================下拉式選單CSS end================================================== */

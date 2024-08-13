@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.tia102g4.util.JedisUtil;
 import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.rest.to.RestaurantDTO;
+import com.tia102g4.event.model.*;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -47,6 +48,9 @@ public class JedisOptionHandler extends HttpServlet{
 		case "option":
 			forwardPath = preparing(req,res);
 			break;
+		case "choose":
+			forwardPath = voting(req,res);
+			break;
 		default:
 			forwardPath = "/frontstage/memberFrontend/vote/preparing_vote.jsp";
 		}
@@ -56,16 +60,18 @@ public class JedisOptionHandler extends HttpServlet{
 		dispatcher.forward(req, res);
 	}
 	
-	//轉交三間餐廳當成投票選項到投票頁面
+	//轉交三間餐廳當成投票選項到投票頁面，取得eventId當作redis的key option是選取的三家餐廳ID
 	private String preparing(HttpServletRequest req, HttpServletResponse res) {
-//		前端資料
-//		restList: [{"restaurant-id":"10","item_name":"大華咖啡廳","item_description":"提供香濃美味的咖啡。"}
-//		,{"restaurant-id":"9","item_name":"小芳火鍋","item_description":"提供豐富多樣的火鍋選擇。"}
-//		,{"restaurant-id":"7","item_name":"大志素食餐廳","item_description":"提供健康美味的素食餐點。"}]
 		String restListJson = req.getParameter("restList");
-		System.out.println(restListJson);//確實有接收到前端傳遞的JSON
+		System.out.println(restListJson);
 		Gson gson = new Gson();
+		String redisKey = null;
 		
+		List<Event> eventList = (List<Event>) req.getSession().getAttribute("eventList");
+		for(Event event : eventList) {
+			Long eventId = event.getEventId();
+			redisKey = "event:"+eventId;
+		}
 		Type listType = new TypeToken<ArrayList<RestaurantDTO>>(){}.getType();
         List<RestaurantDTO> restaurantDTOs = gson.fromJson(restListJson, listType);
 		
@@ -77,9 +83,23 @@ public class JedisOptionHandler extends HttpServlet{
             restaurant.setRestName(dto.getItemName());
             restaurant.setDescription(dto.getItemDescription());
             restaurants.add(restaurant);
+            
+            String option = "option:"+Integer.parseInt(dto.getRestaurantId());
+            jedis.hset(redisKey, option,"0");//製作出三個選項代表eventId , restaurantId, 票數
+            jedis.expire(redisKey, 86400); //設定一天後過期
 		}
 		
+		//把活動ID變成redis的key存起來eventId從fellow.jsp那邊存在Session的eventList得到
+		req.setAttribute("eventList", eventList);
 		req.setAttribute("restaurants", restaurants); 
+		req.setAttribute("redisKey",redisKey);
+		return "/frontstage/memberFrontend/vote/voting.jsp";
+	}
+	
+	private String voting(HttpServletRequest req, HttpServletResponse res) {
+		Long restId = Long.parseLong(req.getParameter("restId"));//取得使用者點選的餐廳
+		//轉交給Redis去處理票數，確定有抓到選取的餐廳ID
+		//在這裡要處理票數統計與選出一家餐廳的ID丟給MyOrder做新增訂單的動作
 		
 		return "/frontstage/memberFrontend/vote/voting.jsp";
 	}

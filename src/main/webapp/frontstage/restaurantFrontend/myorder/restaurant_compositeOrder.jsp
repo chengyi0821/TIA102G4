@@ -156,6 +156,10 @@
 						</tr>
 					</c:forEach>
 				</table>
+					<c:if test="${empty orderList}">
+						<div class="noOrderList"><img src="<%=request.getContextPath() %>/frontstage/backend/myorder/image/nosearch.png" alt=""
+						style="width: 730px; height: 400px; margin-top:80px; margin-left:40px;"></div>
+					</c:if>
 
 				<c:if test="${totalPages > 1}">
 					<div class="pagination">

@@ -13,29 +13,9 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/orderlist.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/asidemain.css" rel="stylesheet" />
 <style>
-#main-content2 {
-	border: 1px solid black;
-}
 
-#main-content2 aside.aside {
-	width: 400px;
-	height: 300px;
-	display: block;
-}
-
-#main-content2 main.main {
-	width: 500px;
-	display: block;
-	height: 300px
-}
-
-#main-content2 aside.aside, #main-content2 main.main {
-	border: 1px solid green;
-	display: inline-block;
-	vertical-align: top;
-	font-size: 30px;
-}
 </style>
 </head>
 <body>
@@ -102,8 +82,8 @@
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link active" >揪團系統</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">發起揪團</a></li>
-								<li><a style="color: black;" href="#">參與揪團</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/create.jsp">發起揪團</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/gate.jsp">參與揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">

@@ -54,6 +54,29 @@
 .error-message.visible {
 	visibility: visible;
 }
+
+ 
+   .orderIdError {
+    margin-left: 10%;
+    margin-right: 15%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 7px;
+    border-radius: 0.2cm;
+    background-color: #ffc107; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
+    color: black;
+    text-align: center;
+    font-weight: 600;
+    font-size: 17px; 
+    height: 50px;
+    display: none; 
+}
+
+.orderIdError.show {
+    display: block;
+}
 </style>
 
 </head>
@@ -144,64 +167,67 @@
                    </svg>
 					</button>
 
-					<input type="hidden" name="action" value="getOrderId">
+					<input type="hidden" name="action" value="getOrderId1">
 				</form>
 				<div class="error-message">請輸入訂單編號</div>
 
 				<div class="blist">
 
 					<!--  ==================================================加入黑名單成功提示=======================================================               -->
-					<c:if test="${not empty message}">
+						<c:if test="${not empty orderIdError}">
 						<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var messageBox = document.querySelector(".already_add_blist");
-            if (messageBox) {
-                messageBox.classList.add("show");
-            }
-        });
-     </script>
-					</c:if>
+			        	document.addEventListener("DOMContentLoaded", function() {
+			            var messageBox = document.querySelector(".orderIdError");
+			            if (messageBox) {
+			                messageBox.classList.add("show");
+			            }
+        				});
+    				 	</script>
+						</c:if>
 
-					<div class="already_add_blist">
+						<div class="orderIdError"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+  						<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  						<path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+						</svg>&nbsp${orderIdError} </div>
 
-						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-							fill="currentColor" class="bi bi-person-check"
-							viewBox="0 0 16 16">
-            <path
-								d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
-            <path
-								d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
-        </svg>
-						&nbsp${message}
-
-					</div>
-
-
-
-					<c:if test="${not empty success}">
+						
+						
+	
+						<c:if test="${not empty message}">
 						<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var successBox = document.querySelector(".add_success");
-            const audio = document.querySelector('#notificationAudio');
-            if (successBox) {
-            	audio.play();
-                successBox.classList.add("show");
-            }
-        });
-    </script>
-					</c:if>
+			        	document.addEventListener("DOMContentLoaded", function() {
+			            var messageBox = document.querySelector(".already_add_blist");
+			            if (messageBox) {
+			                messageBox.classList.add("show");
+			            }
+        				});
+    				 	</script>
+						</c:if>
+
+						<div class="already_add_blist">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-check" viewBox="0 0 16 16"> <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+						<path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" /> </svg>
+						&nbsp${message} </div>
+
+						<c:if test="${not empty success}">
+							<script>
+			        	document.addEventListener("DOMContentLoaded", function() {
+			            var successBox = document.querySelector(".add_success");
+			            const audio = document.querySelector('#notificationAudio');
+			            if (successBox) {
+			            	audio.play();
+			                successBox.classList.add("show");
+			            }
+	       				 });
+	    				</script>
+						</c:if>
 
 
-					<div class="add_success">
-						<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27"
-							fill="currentColor" class="bi bi-check2-circle"
-							viewBox="0 0 16 16">
-  <path
-								d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0" />
-  <path
-								d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-</svg>
-						${success}
+						<div class="add_success">
+						<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-check2-circle"
+							viewBox="0 0 16 16"> <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0" />
+  						<path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+						</svg> ${success}
 						<audio id="notificationAudio"
 							src="<%=request.getContextPath() %>/frontstage/backend/myorder/audio/notification.mp3"></audio>
 					</div>
@@ -229,7 +255,8 @@
 						</ul>
 					</c:if>
 					<br>
-
+				<div><img src="<%=request.getContextPath() %>/frontstage/backend/myorder/image/blacklist.png" alt=""
+								style="width: 400px; height: 600px;"></div>
 				</div>
 			</div>
 

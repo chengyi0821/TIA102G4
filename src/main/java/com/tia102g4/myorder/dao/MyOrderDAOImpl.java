@@ -62,6 +62,20 @@ public class MyOrderDAOImpl implements MyOrderDAO {
 	}
 
 	@Override
+	public MyOrder getById1(Long orderId, Long restId) {
+	    try {
+	        return getSession()
+	            .createQuery("FROM MyOrder WHERE orderId = :orderId AND restaurant.restId = :restId", MyOrder.class)
+	            .setParameter("orderId", orderId)
+	            .setParameter("restId", restId)
+	            .uniqueResult();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+	
+	@Override
 	public List<MyOrder> getAll() {
 		return getSession().createQuery("from MyOrder order by orderId desc", MyOrder.class).list();
 	}
@@ -295,21 +309,23 @@ public class MyOrderDAOImpl implements MyOrderDAO {
 			throw e;
 		}
 	}
-
+	
 	@Override
 	public void updateOrderStatus3Rest(Long orderId, String status, Long restId) {
-		try {
-			MyOrder order = getSession()
-					.createQuery("from MyOrder where orderId = :orderId and restaurant.restId = :restId order by orderId desc", MyOrder.class)
-					.setParameter("orderId", orderId).setParameter("restId", restId).uniqueResult();
-			if (order != null) {
-				order.setOrderStatus(status);
-				getSession().update(order);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
+	    try {
+	        MyOrder order = getSession()
+	                .createQuery("from MyOrder where orderId = :orderId and restaurant.restId = :restId order by orderId desc", MyOrder.class)
+	                .setParameter("orderId", orderId)
+	                .setParameter("restId", restId)
+	                .uniqueResult();
+	        if (order != null) {
+	            order.setOrderStatus(status);
+	            getSession().update(order);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
 	}
 
 ////    ====================================================Member========================================================

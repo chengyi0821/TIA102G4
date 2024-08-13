@@ -1,8 +1,8 @@
 package com.tia102g4.myorder.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
 
 import com.tia102g4.myorder.model.MyOrder;
 import com.tia102g4.myorder.model.PageInfo;
@@ -182,16 +180,35 @@ public class RestMyOrderServlet extends HttpServlet {
 	    return getOrderStatus1Rest(req, res); 
 	}
 	
+	
 	private String updateOrderStatus3Rest(HttpServletRequest req, HttpServletResponse res) throws InterruptedException {
-	    String action = req.getParameter("action");
-	    Long restId = 1L; 
+		 String action = req.getParameter("action");
+		    Long restId = 1L;
 
-	    if ("updateOrderStatus3Rest".equals(action)) {
-	        Long orderId = Long.parseLong(req.getParameter("orderId"));
-	        orderService.updateOrderStatus3Rest(orderId, "3", restId);
-	        Thread.sleep(1500);
-	    }
-	    return getOrderStatus1Rest(req, res);
+		    if ("updateOrderStatus3Rest".equals(action)) {
+		        Long orderId = Long.parseLong(req.getParameter("orderId"));
+		        MyOrder order = orderService.getMyOrderByOrderId(orderId);
+
+		        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+		        Calendar reservationCalendar = Calendar.getInstance();
+		        reservationCalendar.setTime(order.getReserDate());
+		        reservationCalendar.set(Calendar.HOUR_OF_DAY, order.getReserTime().toLocalTime().getHour());
+		        reservationCalendar.set(Calendar.MINUTE, order.getReserTime().toLocalTime().getMinute());
+		        reservationCalendar.set(Calendar.SECOND, 0); 
+
+		        Timestamp reservationTimestamp = new Timestamp(reservationCalendar.getTimeInMillis());
+
+		        if (!reservationTimestamp.after(currentTimestamp)) {
+		            orderService.updateOrderStatus3Rest(orderId, "3", restId);
+		            req.setAttribute("successMsg", "已完成這筆訂單");
+		            return getOrderStatus1Rest(req, res);
+		        } else {
+		            req.setAttribute("errorMsg", "訂位時間還沒到，無法完成該筆訂單");
+		            return getOrderStatus1Rest(req, res); 
+		        }
+		    }
+		    return getOrderStatus1Rest(req, res);
 	}
 //===================================================================================================================
 
