@@ -1,24 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.tia102g4.event.model.*" %>
-<%@ page import="com.tia102g4.member.model.*" %>
-<%@ page import="java.util.List" %>
-<%
-	List<Event> eventList =  (List<Event>)request.getSession().getAttribute("eventList");
-	List<Member> memberList = (List<Member>)request.getSession().getAttribute("memberList");
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>跟團資訊</title>
+<title>搜尋評價</title>
 <!-- 載入 jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/orderlist.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/asidemain.css" rel="stylesheet" />
-
+<link href="frontstage/memberFrontend/css/style.css">
 </head>
 <body>
 	<div class="container-fluid bg-primary py-3 d-none d-md-block">
@@ -39,11 +29,7 @@
 
 	<!-- Navbar Start -->
 	<div class="container-fluid position-relative nav-bar p-0">
-		<style>
-.container-fluid.position-relative.nav-bar.p-0 li {
-	color: black !important;
-}
-</style>
+
 		<div class="container-lg position-relative p-0 px-lg-3"
 			style="z-index: 9;">
 			<nav
@@ -82,14 +68,14 @@
 
 					<div class="navbar-nav mr-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link active" >揪團系統</a>
+							<a href="#" class="nav-item nav-link">揪團系統</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="#">發起揪團</a></li>
 								<li><a style="color: black;" href="#">參與揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">訂單管理</a>
+							<a href="#" class="nav-item nav-link active">訂單管理</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="#">編輯訂單</a></li>
 								<li><a style="color: black;" href="#">取消訂單</a></li>
@@ -102,6 +88,7 @@
 								<li><a style="color: black;" href="#">客服信箱</a></li>
 								<li><a style="color: black;" href="#">Q&A</a></li>
 
+
 							</ul>
 						</div>
 			</nav>
@@ -110,49 +97,45 @@
 	<!-- Navbar End -->
 	<div id="main-content1"></div>
 	<div id="main-content2">
-		<h2 style="margin-top: 40px">等待室</h2>
-		<br>
-		<h2 >等待其他成員進入</h2>
-
-		<form action="<%=request.getContextPath()%>/event/event.do"
-			method="post">
-			<!--/TIA102G4/event/event.do -->
-			<aside class="aside">
-			<h3>成團資訊</h3>
-			<table>
-				<c:forEach var="event" items="${eventList}">
-					<tr>
-						<td>活動ID:${event.eventId}</td>
-						<td>主揪者：${event.memberId}</td>
-						<td>活動名稱：${event.name}</td>
-						<td>活動日期：${event.date}</td>
-						<td>活動時間：${event.time}</td>
-						<td>活動資訊：${event.info}</td>
-						<td>人數上限：${event.maxSeat}</td>
-						<td>邀請碼：${event.code}</td>
-					</tr>
-				</c:forEach>
-			</table>
-			
-			</aside>
-			<main class="main">
-				<h3>參與成員</h3>
-				<table>
-				<c:forEach var="member" items="${memberList}">
-					<tr>
-						<td>參與者：${member.memberId}</td>
-					</tr>
-				</c:forEach>
-			</table>
-			</main>
-			<div>
-				<input type="hidden" name="action" value="getAll"> <input
-					type="submit" value="選餐廳">
-			</div>
+		<h1>搜尋評價</h1>
+		<form action="<%=request.getContextPath()%>/comment/comment.do" method="post">
+			<input type="hidden" name="action" value="find">
+			<br>
+			<br>
+			<br>
+			<lable for="type">餐廳種類</lable>
+			<select id="type" name="type_id">
+				<option value="1">中餐</option>
+				<option value="2">西餐</option>
+				<option value="3">日式料理</option>
+				<option value="4">韓式料理</option>
+				<option value="5">泰式料理</option>
+				<option value="6">印度料理</option>
+				<option value="7">素食餐廳</option>
+				<option value="8">燒烤</option>
+				<option value="9">火鍋</option>
+				<option value="10">咖啡廳</option>
+			</select>
+			<br>
+			<br>
+			<br>
+			<br> 
+			<label for="rest_id">餐廳名稱:</label> 
+			<input type="text" id="rest_name" name="rest_name"> 
+			<br>
+			<br>
+			<br>
+			<p><label>星等範圍</label></p>
+			<br>
+			<input type="number" name="lowerrating" min="1" max="5"> ～ <input type="number" name="upperrating" min="1" max="5">
+			<br>
+			<br> 
+			<input type="submit" value="搜尋評價"> 
+			<input type="hidden" name="action" value="compositeQuery">
 
 		</form>
-
 	</div>
+
 	<div class="table-container"></div>
 
 	<div id="main-content3"></div>
@@ -164,6 +147,6 @@
 		<h5 class="footerh5">隱私權條款</h5>
 		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 	</footer>
-	<script src="js/main.js"></script>
+
 </body>
 </html>
