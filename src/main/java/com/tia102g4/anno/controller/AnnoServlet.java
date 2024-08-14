@@ -20,6 +20,7 @@ import com.tia102g4.anno.service.AnnoServiceImpl;
 import com.tia102g4.anno.to.req.AnnoDeleteReqTO;
 import com.tia102g4.anno.to.req.AnnoReqTO;
 import com.tia102g4.anno.to.req.AnnoUpdateReqTO;
+import com.tia102g4.restNews.to.req.RestNewsReqTO;
 import com.tia102g4.util.BaseResponse;
 
 @WebServlet("/anno/anno.do")
@@ -53,8 +54,11 @@ public class AnnoServlet extends HttpServlet {
 			case "getAll":
 				jsonObject = getAllAnnos(req);
 				break;
+			case "getAllForMember":
+				jsonObject = getAllForMember(req);
+				break;
 			case "compositeQuery":
-				jsonObject = getCompositeAnnosQuery(req, res);
+				jsonObject = getCompositeAnnosQuery(req);
 				break;
 			case "add":
 				add(requestBody);
@@ -93,9 +97,14 @@ public class AnnoServlet extends HttpServlet {
 		}
 		return baseResponse.jsonResponse(reqTOList, currentPage, totalPageQty);
 	}
+	
+	private JsonObject getAllForMember(HttpServletRequest req) {
+		List<AnnoReqTO> reqTOList = annoService.getAllAnnos();
+		return baseResponse.jsonResponse(reqTOList);
+	}
 
 	// 複合查詢
-	private JsonObject getCompositeAnnosQuery(HttpServletRequest req, HttpServletResponse res) {
+	private JsonObject getCompositeAnnosQuery(HttpServletRequest req) {
 		Map<String, String[]> map = req.getParameterMap();
 
 		// 如果map沒資料就回傳空值

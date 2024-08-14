@@ -1,26 +1,29 @@
 package com.tia102g4.restNews.to.req;
 
+import com.google.gson.annotations.Expose;
+
 import common.RestNewsType;
 
 public class RestNewsReqTO {
+	@Expose
 	private Long newsId;
-	
+	@Expose
 	private RestNewsType type;
-	
+	@Expose
 	private String startDate;
-	
+	@Expose
 	private String endDate;
-	
+	@Expose
 	private String heading;
-	
+	@Expose
 	private String content;
-	
+	@Expose
 	private String image;
-	
+	@Expose
 	private Boolean deleted;
-	
+	@Expose
 	private Long restId;
-	
+	@Expose
 	private String restName;
 
 	public RestNewsReqTO() {

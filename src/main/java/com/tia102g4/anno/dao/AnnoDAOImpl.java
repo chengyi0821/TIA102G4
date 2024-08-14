@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -18,6 +19,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import com.tia102g4.anno.model.Anno;
+import com.tia102g4.restNews.model.RestaurantNews;
 import com.tia102g4.util.HibernateUtil;
 
 public class AnnoDAOImpl implements AnnoDAO {
@@ -113,12 +115,20 @@ public class AnnoDAOImpl implements AnnoDAO {
 	@Override
 	public List<Anno> getAll(int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("from Anno where deleted = false", Anno.class).setFirstResult(first)
+		return getSession().createQuery("FROM Anno WHERE deleted = false", Anno.class).setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT).list();
 	}
 
 	@Override
+	public List<Anno> getAll() {
+		return getSession().createQuery("FROM Anno WHERE :now BETWEEN startDate AND endDate AND deleted = false ORDER BY annoId DESC", Anno.class)
+				   .setParameter("now", new java.util.Date(), TemporalType.DATE)
+				   .list();
+	}
+	
+	@Override
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from Anno where deleted = false", Long.class).uniqueResult();
 	}
+
 }

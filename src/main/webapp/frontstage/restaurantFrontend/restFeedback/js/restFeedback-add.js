@@ -1,4 +1,4 @@
-function goTorestFeedbackPage() {
+function goToRestFeedbackPage() {
 	window.location.href = 'restFeedback.html';
 }
 
@@ -38,7 +38,7 @@ $(document).ready(function() {
                         <label for="feedback-content" class="feedback-content">內容:</label><br>
                         <textarea id="feedback-content" name="content"></textarea><br>
                     <button type="button" id="feedback-submit" class="feedback">確定</button>
-                    <button type="button" id="feedback-cancel" class="feedback" onclick="goTorestFeedbackPage()">取消</button>
+                    <button type="button" id="feedback-cancel" class="feedback" onclick="goToRestFeedbackPage()">取消</button>
             </form>
         </div>
     `);
@@ -74,7 +74,7 @@ $(document).ready(function() {
 				data: JSON.stringify(jsonData),
 				success: function() {
 					alert("新增成功");
-					goTorestFeedbackPage();
+					goToRestFeedbackPage();
 				},
 				error: function(xhr, error) {
 					if (xhr.status === 400) { // 驗證錯誤會返回 400 狀態碼

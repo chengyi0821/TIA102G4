@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -60,7 +61,7 @@ public class RestNewsDAOImpl implements RestNewsDAO {
 		query.setParameter("newsId", entity.getNewsId());
 		query.executeUpdate();
 	}
-
+	
 	@Override
 	public List<RestaurantNews> getByCompositeQuery(Map<String, String> map) {
 		Restaurant rest = getSession().get(Restaurant.class, 1L);
@@ -115,45 +116,31 @@ public class RestNewsDAOImpl implements RestNewsDAO {
 		return query.getResultList();
 	}
 	
-	public List<RestaurantNews> getOverlappingNews(Long restId, Date startDate, Date endDate) {
-	    CriteriaBuilder builder = getSession().getCriteriaBuilder();
-	    CriteriaQuery<RestaurantNews> criteria = builder.createQuery(RestaurantNews.class);
-	    Root<RestaurantNews> root = criteria.from(RestaurantNews.class);
-	    List<Predicate> predicates = new ArrayList<>();
-
-	    // 日期重疊查詢
-	    Predicate startOverlap = builder.between(root.get("startDate"), startDate, endDate);
-	    Predicate endOverlap = builder.between(root.get("endDate"), startDate, endDate);
-	    Predicate fullyCoversExisting = builder.and(
-	        builder.lessThanOrEqualTo(root.get("startDate"), startDate),
-	        builder.greaterThanOrEqualTo(root.get("endDate"), endDate)
-	    );
-	    Predicate isCoveredByExisting = builder.and(
-	        builder.greaterThanOrEqualTo(root.get("startDate"), startDate),
-	        builder.lessThanOrEqualTo(root.get("endDate"), endDate)
-	    );
-	    
-	    predicates.add(builder.or(startOverlap, endOverlap, fullyCoversExisting, isCoveredByExisting));
-
-	    // 根據餐廳過濾
-	    if (restId != null) {
-	        Restaurant rest = getSession().get(Restaurant.class, restId);
-	        predicates.add(builder.equal(root.get("restaurant"), rest));
-	    }
-
-	    // 只能查詢沒有刪除的資料
-	    predicates.add(builder.isFalse(root.get("deleted")));
-
-	    // 將條件應用到查詢中
-	    criteria.where(predicates.toArray(new Predicate[0]));
-	    criteria.orderBy(builder.asc(root.get("newsId")));
-
-	    TypedQuery<RestaurantNews> query = getSession().createQuery(criteria);
-	    return query.getResultList();
+	@Override
+	public boolean isOverlappingPeriods(RestaurantNews restaurantNews, Long restId, String type) {
+		switch(type) {
+		case "update":
+		return getSession().createQuery("SELECT count(1) FROM RestaurantNews WHERE restaurant.restId = :restId AND newsId != :newsId "
+										+ "AND (((startDate BETWEEN :startDate AND :endDate) OR (endDate BETWEEN :startDate AND :endDate)) "
+										+ "OR (startDate <= :startDate AND endDate >= :endDate)) "
+										+ "AND deleted = false", Long.class)
+						   .setParameter("restId", restId)
+	   					   .setParameter("newsId", restaurantNews.getNewsId())
+	   					   .setParameter("startDate", restaurantNews.getStartDate(), TemporalType.DATE)
+	   					   .setParameter("endDate", restaurantNews.getEndDate(), TemporalType.DATE)
+	   					   .getSingleResult() > 0;
+		case "create":
+	   	return getSession().createQuery("SELECT count(1) FROM RestaurantNews WHERE restaurant.restId = :restId "
+										+ "AND (((startDate BETWEEN :startDate AND :endDate) OR (endDate BETWEEN :startDate AND :endDate)) "
+										+ "OR (startDate <= :startDate AND endDate >= :endDate)) "
+										+ "AND deleted = false", Long.class)
+	   					   .setParameter("restId", restId)
+						   .setParameter("startDate", restaurantNews.getStartDate(), TemporalType.DATE)
+						   .setParameter("endDate", restaurantNews.getEndDate(), TemporalType.DATE)
+						   .getSingleResult() > 0;
+		}
+		return true;
 	}
-
-
-
 
 	@Override
 	public List<RestaurantNews> getAll(int currentPage) {
@@ -167,7 +154,9 @@ public class RestNewsDAOImpl implements RestNewsDAO {
 
 	@Override
 	public List<RestaurantNews> getAll() {
-		return getSession().createQuery("from RestaurantNews where deleted = false", RestaurantNews.class).list();
+		return getSession().createQuery("FROM RestaurantNews WHERE :now BETWEEN startDate AND endDate AND deleted = false ORDER BY newsId DESC", RestaurantNews.class)
+						   .setParameter("now", new java.util.Date(), TemporalType.DATE)
+						   .list();
 	}
 
 	@Override

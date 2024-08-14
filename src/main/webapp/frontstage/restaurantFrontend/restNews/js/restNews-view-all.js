@@ -4,7 +4,7 @@ $(document).ready(function() {
 	const dataList = $('#data-list');
 
 	//=======================================創建loadAnnouncements=======================================
-	
+
 	// 分頁按鈕事件
 	//上一頁
 	$('#prev-page').on('click', function() {
@@ -46,7 +46,7 @@ $(document).ready(function() {
 				dataList.empty();
 				if (data && Array.isArray(data.List)) {
 					data.List.forEach(news => {
-						
+
 						// 設定內容文字的最大長度
 						let maxContentLength = 20;
 						let contentText = news.content.length > maxContentLength
@@ -57,14 +57,14 @@ $(document).ready(function() {
 						let headingText = news.heading.length > maxheadingLength
 							? news.heading.substring(0, maxheadingLength) + "..."
 							: news.heading;
-							
+
 						// 設定類型 1.帳號問題 2.食安問題 3.訂單問題 4.系統問題 5.其他
 						let type;
-						switch(news.type){
-							case "ANNOUNCEMENT" :
+						switch (news.type) {
+							case "ANNOUNCEMENT":
 								type = "公告"
 								break;
-							case "ADVERTISEMENT" :
+							case "ADVERTISEMENT":
 								type = "廣告"
 								break;
 						}

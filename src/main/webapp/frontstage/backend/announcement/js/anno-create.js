@@ -72,6 +72,18 @@ $(document).ready(function() {
         </div>
     `);
 
+		// 獲取當前日期
+		var today = new Date();
+		// 計算下一天的日期
+		var tomorrow = new Date(today);
+		tomorrow.setDate(today.getDate() + 1);
+		// 格式化日期為 YYYY-MM-DD
+		var minDate = tomorrow.toISOString().split('T')[0];
+
+		// 設置 input 元素的 min 屬性
+		$('#start-date').attr('min', minDate);
+		$('#end-date').attr('min', minDate);
+
 		// 設定自定義的文件選擇按鈕
 		$('#custom-file-upload').click(function() {
 			$('#image').click();

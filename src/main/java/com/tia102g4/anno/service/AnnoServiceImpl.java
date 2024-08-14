@@ -21,6 +21,8 @@ import com.tia102g4.anno.model.Anno;
 import com.tia102g4.anno.to.req.AnnoDeleteReqTO;
 import com.tia102g4.anno.to.req.AnnoReqTO;
 import com.tia102g4.anno.to.req.AnnoUpdateReqTO;
+import com.tia102g4.restNews.model.RestaurantNews;
+import com.tia102g4.restNews.to.req.RestNewsReqTO;
 
 public class AnnoServiceImpl implements AnnoService {
 	
@@ -67,6 +69,17 @@ public class AnnoServiceImpl implements AnnoService {
 		}
 		return reqTOs;
 	}
+	
+	@Override
+	public List<AnnoReqTO> getAllAnnos() {
+		List<Anno> annos = dao.getAll();
+		List<AnnoReqTO> reqTOs = new ArrayList<>();
+		for (Anno anno : annos) {
+			AnnoReqTO dto = annoMapper.setAnnoReqTO(anno);
+			reqTOs.add(dto);
+		}
+		return reqTOs;
+	}
 
 	@Override
 	public List<AnnoReqTO> getAnnosByCompositeQuery(Map<String, String[]> map) {
@@ -94,8 +107,6 @@ public class AnnoServiceImpl implements AnnoService {
 			AnnoReqTO dto = annoMapper.setAnnoReqTO(anno);
 			reqTOs.add(dto);
 		}
-		System.out.println(query);
-		
 		return reqTOs;
 	}
 
@@ -116,4 +127,5 @@ public class AnnoServiceImpl implements AnnoService {
             throw new ConstraintViolationException(violations);
         }
     }
+
 }

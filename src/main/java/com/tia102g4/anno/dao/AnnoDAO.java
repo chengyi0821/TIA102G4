@@ -17,6 +17,8 @@ public interface AnnoDAO {
 	
 	List<Anno> getAll(int currentPage);
 	
+	List<Anno> getAll();
+	
 	long getTotal();
 }
 
