@@ -1,0 +1,208 @@
+/* ==============================下拉式選單CSS start================================================== */
+.orderlist{
+	list-style: none;
+	font-size: 25px;
+	padding-inline-start: 0px;
+	unicode-bidi: isolate;
+  }
+
+	  .orderlist {
+	display: none;
+	position: absolute;
+	background-color: #ffdf7e;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
+	z-index: 1;
+	border-radius: 0.3cm;
+  }  
+
+  .orderblock:hover .orderlist {
+	display: block;
+  }
+  
+  .orderlist li {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+	color: black;
+	
+  }
+  .orderlist a:hover{
+	color: #e83e8c !important;
+	text-decoration: none;
+  }
+
+  .orderlist li:hover{
+	box-shadow: 0px 8px 16px 0px rgba(232, 62, 140, 0.15);
+	border-radius: 10px;
+	
+	
+  }
+
+  .orderblock{
+	margin-top: 30px;
+	margin-bottom: 30px;
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+	padding: 50px 17px;
+  }
+
+
+
+/* ==============================下拉式選單CSS end================================================== */
+/* ==============================邀請碼區域CSS start================================================== */
+        .invite-code-container {
+            width: 80%;
+            margin: 100px auto;
+            padding: 80px;
+            border: 2px solid #FAD689;
+            border-radius: 10px;
+            background-color: #FFF2CC;
+            text-align: center;
+        }
+
+        .invite-code-container h2 {
+            color: #C57F00;
+            margin-bottom: 10px;
+        }
+
+        .invite-code-container p {
+            color: #C57F00;
+            margin-bottom: 20px;
+        }
+
+        .invite-code-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .invite-code-container input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 80%;
+        }
+
+        .invite-code-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .confirm-btn {
+            background-color: #FFA500;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .back-btn {
+           background-color: #ccc;
+           color: black;
+        }
+
+        /* ==============================邀請碼區域CSS end================================================== */
+        /* ==============================頁尾CSS start================================================== */
+footer {
+    background-color: #FAD689;
+    padding: 20px;
+    text-align: center;
+    margin-top: 50px;
+    color: #C57F00;
+    font-size: 15px;
+}
+
+.footerh5_1 {
+    display: inline-block;
+    margin-right: 50px;
+    font-size: 15px;
+}
+
+.footerh5 {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 15px;
+}
+
+.footerh5_2 {
+    display: inline-block;
+    font-size: 15px;
+}
+/* ==============================頁尾CSS end================================================== */
+/* ==============================containern.CSS start================================================== */
+.containern {
+    background-color: #FFF2CC;
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+#main-content1 {
+    height: 100px;
+    background: transparent;
+}
+
+#main-content2 {
+    background: #ffdf7e;
+    text-align: center;
+    border-radius: 5px;
+    padding: 40px 20px;
+    margin: 50px auto;
+    width: 60%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#main-content2 h1 {
+    color: #C57F00;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.square-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.square {
+    width: 400px;
+    height: 500px;
+    background-color: #FFF2CC;
+    border: 2px solid #FAD689;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.square p {
+    color: #C57F00;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.square button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #FFF;
+    background-color: #FFA500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.square button:hover {
+    background-color: #e69500;
+}
+
+/* ==============================containern.CSS end================================================== */
+
+
+	

@@ -12,6 +12,7 @@ public interface MyOrderDAO {
 	    void updateOrderStatus3(Long orderId, String status);
 	    int delete(Integer orderId);
 	    MyOrder getById(Long orderId);
+	    MyOrder getById1(Long orderId, Long restId);
 	    List<MyOrder> getAll();
 	    List<MyOrder> getByCompositeQuery(Map<String, String> map);
 	    List<MyOrder> getAll(int currentPage, int recordsPerPage);

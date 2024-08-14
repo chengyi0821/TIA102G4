@@ -38,7 +38,7 @@ public class MemberMyOrderServlet extends HttpServlet {
 //	    private MemberService memberService;
 //	    private RestService restService;
 //	    private VoteService voteService;
-//	    private MailService mailService;
+
 
 	    @Override
 	    public void init() throws ServletException {
@@ -225,14 +225,9 @@ public class MemberMyOrderServlet extends HttpServlet {
 		    try {
 		        orderService.addOrder(order);
 		        
-//		        // 获取Session对象
-//		        Session mailSession = (Session) getServletContext().getAttribute("mailSession");
-//		        MailService mailService = new MailService(mailSession);
-//		        mailService.sendEmail(order); // 发送邮件
-		        
 		    } catch (Exception e) {
 		        e.printStackTrace();
-		        req.setAttribute("errorMsg", "订单创建失败");
+		        req.setAttribute("errorMsg", "新增訂單失敗");
 		        return "/error.jsp";
 		    }
 
@@ -243,8 +238,8 @@ public class MemberMyOrderServlet extends HttpServlet {
 	 
 //	 private String addOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 //	
-//		    Long memberId = 1L; // Hardcoded memberId
-//	        Long eventId = 1L;
+//		    	Long memberId = 1L; // Hardcoded memberId
+//	        	Long eventId = 1L;
 //
 ////	        Event event = eventService.getEventById(eventId);
 ////	        Member member = memberService.getMemberById(memberId);
@@ -266,12 +261,7 @@ public class MemberMyOrderServlet extends HttpServlet {
 //
 //	        
 //	        orderService.addOrder(order);
-//	        
-//	        String recipientEmail = "user-email@example.com"; // 替换为用户的实际邮箱地址
-//	        String subject = "订单已完成";
-//	        String body = "尊敬的用户，您的订单已成功完成。感谢您的使用！";
-//	        
-//	        EmailSender.sendEmail(recipientEmail, subject, body);
+//	       
 //
 //	        req.setAttribute("order", order);
 //	        return "/myorder/addOrder.jsp";

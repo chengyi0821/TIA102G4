@@ -60,6 +60,8 @@ table_allorder {
         font-size: 14px;
     }
 }
+
+
 </style>    
 
 </head>
@@ -122,8 +124,12 @@ table_allorder {
                             <td>${myorder.reserNote}</td>
                         </tr>
                     </c:forEach>
+                   
                 </table>
-
+ 					<c:if test="${empty orderList}">
+						<div class="noOrderList"><img src="<%=request.getContextPath() %>/frontstage/backend/myorder/image/nosearch.png" alt=""
+								style="width: 730px; height: 400px; margin-top:80px; margin-left:40px;"></div>
+					</c:if>
              
             </div>
         </div>
