@@ -55,7 +55,7 @@ public class RestNewsServlet extends HttpServlet {
 				jsonObject = getAllForMember(req);
 				break;
 			case "compositeQuery":
-				jsonObject = getCompositeQuery(req, res);
+				jsonObject = getCompositeQuery(req);
 				break;
 			case "add":
 				add(requestBody);
@@ -109,7 +109,7 @@ public class RestNewsServlet extends HttpServlet {
 	}
 
 	// 複合查詢
-	private JsonObject getCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
+	private JsonObject getCompositeQuery(HttpServletRequest req) {
 		Map<String, String[]> map = req.getParameterMap();
 
 		// 如果map沒資料就回傳空值

@@ -12,7 +12,7 @@ $(document).ready(function() {
 		loadAnnouncements(currentPage, contextPath);
 		function loadAnnouncements(page, contextPath) {
 			$.ajax({
-				url: `${contextPath}/anno/anno.do?action=compositeQuery`,
+				url: `${contextPath}/anno/anno.do?action=getAllForMember`,
 				type: 'GET',
 				data: {
 					page: page,

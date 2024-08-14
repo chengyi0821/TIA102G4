@@ -72,6 +72,18 @@ $(document).ready(function() {
         </div>
     `);
 
+		// 獲取當前日期
+		var today = new Date();
+		// 計算下一天的日期
+		var tomorrow = new Date(today);
+		tomorrow.setDate(today.getDate() + 1);
+		// 格式化日期為 YYYY-MM-DD
+		var minDate = tomorrow.toISOString().split('T')[0];
+
+		// 設置 input 元素的 min 屬性
+		$('#start-date').attr('min', minDate);
+		$('#end-date').attr('min', minDate);
+
 		// 設定自定義的文件選擇按鈕
 		$('#custom-file-upload').click(function() {
 			$('#image').click();
@@ -98,8 +110,8 @@ $(document).ready(function() {
 			//=======================================錯誤驗證=======================================
 			let hasError = false;
 			// 圖片驗證
-			if ($("#image").val() == "") {
-				alert("请選擇要上傳的圖片");
+			if ($("#image").val() == "" || $('#start-date').val() == "" || $('#end-date').val() == "") {
+				alert("请選擇要上傳的圖片跟日期");
 				hasError = true;
 			}
 			// 確保日期格式正確
@@ -107,11 +119,6 @@ $(document).ready(function() {
 				// 如果結束日期小於起始日期，顯示錯誤消息
 				alert('結束日期不能小於起始日期！');
 				// 可以選擇清除結束日期的值或禁用提交按鈕等
-				hasError = true;
-			}
-			//日期驗證
-			if ($('#start-date').val() == "" || $('#end-date').val() == "") {
-				alert("請選擇日期");
 				hasError = true;
 			}
 			//公告主旨驗證

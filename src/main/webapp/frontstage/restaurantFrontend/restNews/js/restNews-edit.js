@@ -113,6 +113,22 @@ $(document).ready(function() {
                         </div>
                     `);
 
+						// 獲取當前日期
+						var today = new Date();
+						// 計算下一天的日期
+						var tomorrow = new Date(today);
+						tomorrow.setDate(today.getDate() + 1);
+						// 格式化日期為 YYYY-MM-DD
+						var minDate = tomorrow.toISOString().split('T')[0];
+
+						// 設置 input 元素的 min 屬性
+						$('#start-date').attr('min', minDate);
+						$('#end-date').attr('min', minDate);
+
+						// 設定自定義的文件選擇按鈕
+						$('#custom-file-upload').click(function() {
+							$('#image').click();
+						});
 						$('#current-image').attr('src', 'data:image/jpeg;base64,' + imageBase64);
 
 						$('#custom-file-upload').off('click').on('click', function() {
@@ -186,7 +202,8 @@ $(document).ready(function() {
 										},
 										error: function(xhr, error) {
 											if (xhr.status === 400) { // 驗證錯誤會返回 400 狀態碼
-												alert("請填寫正確的資料");
+												const errorMessage = xhr.responseText || "請填寫正確的資料";
+												alert(errorMessage);
 											}
 										}
 									});
@@ -220,7 +237,11 @@ $(document).ready(function() {
 									},
 									error: function(xhr, error) {
 										if (xhr.status === 400) { // 驗證錯誤會返回 400 狀態碼
-											alert("請填寫正確的資料");
+											const errorMessage = xhr.responseText || "請填寫正確的資料";
+											alert(errorMessage);
+										} else {
+											// 其他狀態碼的處理
+											alert("發生未知錯誤，請稍後再試");
 										}
 									}
 								});
