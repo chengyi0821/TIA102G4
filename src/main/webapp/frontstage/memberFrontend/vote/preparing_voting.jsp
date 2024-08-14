@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.tia102g4.rest.model.*" %>
+<%@ page import="java.util.List"%>
+<%
+List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("restaurantList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,6 +115,17 @@
 	<div id="main-content2">
 		<div id="main-content2">
 			<h3>可以選擇的餐廳如下</h3>
+			<c:forEach var="rest" items="${restaurantList }">
+			<tr>
+				<td>${rest.restId}</td>
+				<td>${rest.restName}</td>
+				<td>${rest.description}</td>
+				<td>${rest.location}</td>
+				<td>${rest.phone}</td>
+			</tr>
+			
+			
+			</c:forEach>
 			<br />
 			<ul class="item_list">
 				<li data-restaurant-id="1">
@@ -205,6 +222,9 @@
 			<h5 class="footerh5">隱私權條款</h5>
 			<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 		</footer>
+		<script>
+			const contextPath = "<%=request.getContextPath()%>";
+		</script>
 		<script
 			src="<%=request.getContextPath()%>/frontstage/memberFrontend/vote/js/restaurant_selector.js"></script>
 </body>

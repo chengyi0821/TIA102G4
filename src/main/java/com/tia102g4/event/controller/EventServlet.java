@@ -94,17 +94,10 @@ public class EventServlet extends HttpServlet{
 		return "/frontstage/memberFrontend/event/fellow.jsp";
 	}
 	private String getAllRestaurant(HttpServletRequest req, HttpServletResponse res) {
-		String page = req.getParameter("page");
-		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
-		List<Restaurant> restaurantList = evtsvc.getAll(currentPage);
-		if(req.getSession().getAttribute("restaurantPageQty") == null) {
-			long restaurantPageQty = evtsvc.getPageTotal();
-			req.getSession().setAttribute("restaurantPageQty", restaurantPageQty);
-		}
-		req.setAttribute("restaurantList", restaurantList);
-		req.setAttribute("currentPage", currentPage);
+		List<Restaurant> restaurantList = evtsvc.getAllRestaurant(new Restaurant());
+        req.getSession().setAttribute("restaurantList", restaurantList);
 		
-		return "/frontstage/restaurant/listAllRestaurant.jsp";
+		return "/frontstage/memberFrontend/vote/preparing_voting.jsp";
 		
 	}
 	private String getCompositeQuery(HttpServletRequest req, HttpServletResponse res) {
@@ -113,9 +106,9 @@ public class EventServlet extends HttpServlet{
 			List<Restaurant> restaurantList = evtsvc.getByCompositeQuery(map);
 			req.setAttribute("restaurantList", restaurantList);
 		}else {
-			return "index.jsp";
+			return "/frontstage/memberFrontend/vote/preparing_voting.jsp";
 		}
-	    return "/reataurant/listCompositeQuery.jsp";
+	    return "/frontstage/memberFrontend/vote/preparing_voting.jsp";
 }		
 	
 	@Override
