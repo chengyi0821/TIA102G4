@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>店家列表</title>
+<!-- 載入 jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link href="../css/style.css" rel="stylesheet">
+<link href="css/rest.css" rel="stylesheet">
+<style>
+.container-fluid.position-relative.nav-bar.p-0 li {
+	color: black !important;
+}
+</style>
+</head>
+
+<body>
+	<div class="container-fluid bg-primary py-3 d-none d-md-block">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+					<div class="d-inline-flex align-items-center">
+						<a href="anno.html" class="navbar-brand mx-5 d-none d-lg-block"></a>
+						<img id="logo" src="../image/logo.png">
+						<h1 class="m-0 display-4 text-primary">Chugether</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Topbar End -->
+
+	<!-- Navbar Start -->
+
+	<div class="container-fluid position-relative nav-bar p-0">
+		<div class="container-lg position-relative p-0 px-lg-3"
+			style="z-index: 9;">
+			<nav
+				class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
+
+				<div class="collapse navbar-collapse justify-content-between"
+					id="navbarCollapse">
+					<div class="navbar-nav ml-auto py-0">
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link">後台帳戶</a>
+							<ul class="orderlist">
+								<li><a style="color: black;" href="#">後台帳戶</a></li>
+							</ul>
+						</div>
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link active">會員管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;" href="#">會員列表</a></li>
+								<li><a style="color: black;" href="restaurant.html">店家列表</a></li>
+							</ul>
+
+
+						</div>
+						<div class="orderblock">
+							<a href="../announcement/announcement.html"
+								class="nav-item nav-link">公告管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;"
+									href="../announcement/announcement.html">系統公告</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="navbar-nav mr-auto py-0">
+						<div class="orderblock">
+							<a
+								href="${pageContext.request.contextPath}/admin_order_index.jsp"
+								class="nav-item nav-link">訂單管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;"
+									href="../myorder/admin_order_index.jsp">訂單列表</a></li>
+							</ul>
+						</div>
+						<div class="orderblock">
+							<a href="../customerService/member-reply.html"
+								class="nav-item nav-link">客服管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;"
+									href="../customerService/member-reply.html">會員信件</a></li>
+								<li><a style="color: black;"
+									href="../customerService/restaurant-reply.html">餐廳信件</a></li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<div id="main-content1"></div>
+	<div id="main-content2">
+		<a href="#" class="btn btn-secondary px-2 back-to-top"><i
+			class="fa fa-angle-double-up"></i></a>
+		<div id="announcement-title">店家列表</div>
+		<div id="filter-form">
+			<form id="filter-form" onsubmit="return false;">
+				<div id="search-bar">
+					<input type="text" id="search-input"
+						placeholder="搜尋餐廳名稱/信箱/電話號碼...">
+				</div>
+				<button id="search">搜尋</button>
+			</form>
+		</div>
+		<div class="table-container">
+			<table id="data-table">
+				<thead>
+					<tr>
+						<th class="fixed-width">店家編號</th>
+						<th class="fixed-width">店家名稱</th>
+						<th class="fixed-width">信箱</th>
+						<th class="content-column">電話</th>
+						<th class="fixed-width">註冊日期</th>
+						<th class="fixed-width">編輯</th>
+					</tr>
+				</thead>
+				<tbody id="data-list">
+					<!-- 資料將會以 jQuery 動態插入到這裡 -->
+				</tbody>
+			</table>
+		</div>
+		<div id="createAndEdit">
+			<!-- 新增或編輯將會以 jQuery 動態插入到這裡 -->
+		</div>
+		<div id="pagination">
+			<span id="current-page">1</span>
+			<button id="prev-page">上一頁</button>
+			<button id="next-page">下一頁</button>
+			<button id="last-page">最後一頁</button>
+		</div>
+	</div>
+	<div id="main-content3"></div>
+	<footer id="footer">
+		<h5 class="footerh5_1">chugether 揪來鳩去有限公司</h5>
+		<h5 class="footerh5">常見問題</h5>
+		<h5 class="footerh5">網站地圖</h5>
+		<h5 class="footerh5">使用者條款</h5>
+		<h5 class="footerh5">隱私權條款</h5>
+		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
+	</footer>
+	<script src="js/rest-deleted.js"></script>
+	<script src="js/rest-edit.js"></script>
+	<script src="js/rest-composite-query.js"></script>
+	<script src="js/rest-view-all.js"></script>
+</body>
+
+</html>
