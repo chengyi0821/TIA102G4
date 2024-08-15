@@ -159,18 +159,20 @@
 
     <!-- 主體內容 -->
     <div class="table-container">
+    	<h1>確認投票結果</h1>
+    	
         <table>
             <tr>
                 <th>主鳩人</th>
-                <td>王XX</td>
+                <td>王小明</td>
             </tr>
             <tr>
                 <th>餐廳</th>
-                <td>王品</td> <!-- 固定餐廳名稱 -->
+                <td>小龍餐廳</td> <!-- 固定餐廳名稱 -->
             </tr>
             <tr>
                 <th>日期</th>
-                <td>2023/04/14</td> <!-- 固定日期 -->
+                <td>2024/08/18</td> <!-- 固定日期 -->
             </tr>
             <tr>
                 <th>時間</th>
@@ -178,11 +180,11 @@
             </tr>
             <tr>
                 <th>手機</th>
-                <td>0900XXXXXX</td>
+                <td>0912345678</td>
             </tr>
             <tr>
                 <th>人數</th>
-                <td>8</td> <!-- 固定人數 -->
+                <td>4</td> <!-- 固定人數 -->
             </tr>
         </table>
 
@@ -207,6 +209,7 @@
     </footer>
     <!-- Footer End -->
     <script src="js/main.js"></script>
+    
 </body>
 
 </html>

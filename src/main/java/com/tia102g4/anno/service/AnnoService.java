@@ -17,6 +17,8 @@ public interface AnnoService {
 	void delete(AnnoDeleteReqTO reqTO);
 
 	List<AnnoReqTO> getAllAnnos(int currentPage);
+	
+	List<AnnoReqTO> getAllAnnos();
 
 	int getPageTotal();
 

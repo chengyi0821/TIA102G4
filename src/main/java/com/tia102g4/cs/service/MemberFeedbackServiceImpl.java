@@ -81,7 +81,6 @@ public class MemberFeedbackServiceImpl implements FeedbackService {
 			CSReqTO dto = csMapper.setCSReqTO(cs);
 			reqTOs.add(dto);
 		}
-		System.out.println(query);
 		return reqTOs;
 	}
 

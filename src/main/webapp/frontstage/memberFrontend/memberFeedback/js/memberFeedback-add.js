@@ -38,7 +38,7 @@ $(document).ready(function() {
                         <label for="feedback-content" class="feedback-content">內容:</label><br>
                         <textarea id="feedback-content" name="content"></textarea><br>
                     <button type="button" id="feedback-submit" class="feedback">確定</button>
-                    <button type="button" id="feedback-cancel" class="feedback" onclick="goTorestFeedbackPage()">取消</button>
+                    <button type="button" id="feedback-cancel" class="feedback" onclick="goToMemberFeedbackPage()">取消</button>
             </form>
         </div>
     `);

@@ -53,7 +53,7 @@ public class MemberFeedbackServlet extends HttpServlet {
 				jsonObject = getAll(req);
 				break;
 			case "compositeQuery":
-				jsonObject = getCompositeCSQuery(req, res);
+				jsonObject = getCompositeCSQuery(req);
 				break;
 			case "add":
 				insert(requestBody);
@@ -90,7 +90,7 @@ public class MemberFeedbackServlet extends HttpServlet {
 	}
 
 	// 複合查詢
-	private JsonObject getCompositeCSQuery(HttpServletRequest req, HttpServletResponse res) {
+	private JsonObject getCompositeCSQuery(HttpServletRequest req) {
 		Map<String, String[]> map = req.getParameterMap();
 
 		// 如果map沒資料就回傳空值
