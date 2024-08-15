@@ -100,7 +100,7 @@ public class RestaurantServlet extends HttpServlet {
 
 	private void delete(String requestBody) {
 		Restaurant rest = gson.fromJson(requestBody, Restaurant.class);
-		restService.delete(rest);
+		restService.delete(rest); 
 	}
 
 	@Override
