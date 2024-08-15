@@ -4,7 +4,7 @@ function goToAnnoPage() {
 
 $(document).ready(function() {
 	const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
-	const dataList = $('#data-list'); 
+	const dataList = $('#data-list');
 	//=======================================創建loadAnnouncements=======================================
 	// 表单提交事件
 	$('#filter-form').on('submit', function(event) {
