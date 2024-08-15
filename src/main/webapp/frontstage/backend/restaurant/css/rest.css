@@ -20,3 +20,16 @@ div#buttons-Edit {
 #data-table th, #data-table td {
 	font-size: 17px !important;
 }
+
+#filter-form {
+	margin: -6px 22px;
+}
+
+#search-bar input {
+	margin-right: 100px !important;
+}
+
+#annoCreateEdit {
+    width: 75% !important;
+    margin-left: 127px !important;
+}
