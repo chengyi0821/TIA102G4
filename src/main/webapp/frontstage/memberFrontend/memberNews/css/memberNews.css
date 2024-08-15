@@ -16,7 +16,7 @@
 }
 
 .modal-content {
-	background-color: #ffffff;
+	background-color: #ffe5e5;
 	margin: 5% auto;
 	padding: 30px;
 	border-radius: 10px;
@@ -24,6 +24,9 @@
 	width: 90%;
 	max-width: 1000px;
 	animation: fadeIn 0.5s ease-in-out; /* 模態窗口進入動畫 */
+	font-family: Arial, sans-serif; /* 設定字體為 Arial */
+	font-size: 16px; /* 設定默認字體大小 */
+	color: #333; /* 設定默認字體顏色 */
 }
 
 @keyframes fadeIn {from { 
@@ -159,13 +162,6 @@ span#modal-type {
 	margin-right: 90%;
 	font-size: 20px;
 	font-weight: bold;
-}
-
-/* 調整模態窗口的字體顏色和大小 */
-.modal-content {
-	font-family: Arial, sans-serif; /* 設定字體為 Arial */
-	font-size: 16px; /* 設定默認字體大小 */
-	color: #333; /* 設定默認字體顏色 */
 }
 
 div#title {

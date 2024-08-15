@@ -2,7 +2,6 @@ package com.tia102g4.restNews.service;
 
 import static com.tia102g4.util.Constants.PAGE_MAX_RESULT;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import com.tia102g4.anno.model.Anno;
 import com.tia102g4.restNews.dao.RestNewsDAO;
 import com.tia102g4.restNews.dao.RestNewsDAOImpl;
 import com.tia102g4.restNews.mapper.RestNewsMapper;
@@ -39,22 +37,10 @@ public class RestNewsServiceImpl implements RestNewsService {
 	public void create(RestNewsReqTO reqTO) {
 		RestaurantNews restNews = restNewsMapper.setRestNews(reqTO);
 		Long restId = reqTO.getRestId();
-
-		Date startDate = restNews.getStartDate();
-		Date endDate = restNews.getEndDate();
-
-		// 查詢是否已有重疊的公告
-		List<RestaurantNews> existingNews = dao.getOverlappingNews(restId, startDate, endDate);
-
-		// 如果有未過期的公告，則拋出例外
-		if (!existingNews.isEmpty()) {
-			throw new IllegalStateException("該餐廳已有未過期的公告，無法新增新的公告。");
+		validateRestNews(restNews); // 驗證
+		if (dao.isOverlappingPeriods(restNews, restId, "create")) {
+			throw new IllegalStateException("該餐廳日期區間已有公告，無法新增公告。");
 		}
-
-		// 驗證
-		validateRestNews(restNews);
-
-		// 插入新公告
 		dao.insert(restNews, restId);
 	}
 
@@ -63,6 +49,9 @@ public class RestNewsServiceImpl implements RestNewsService {
 		RestaurantNews restNews = restNewsMapper.setRestNews(reqTO);
 		Long restId = reqTO.getRestId();
 		validateRestNews(restNews); // 驗證
+		if (dao.isOverlappingPeriods(restNews, restId, "update")) {
+			throw new IllegalStateException("該餐廳日期區間已有公告，無法更新公告。");
+		}
 		dao.update(restNews, restId);
 	}
 
@@ -121,8 +110,6 @@ public class RestNewsServiceImpl implements RestNewsService {
 			RestNewsReqTO dto = restNewsMapper.setRestNewsReqTO(restNew);
 			reqTOs.add(dto);
 		}
-		System.out.println(query);
-
 		return reqTOs;
 	}
 

@@ -25,8 +25,11 @@ $(document).ready(function() {
 						data.List.forEach(announcement => {
 							const startDate = new Date(announcement.startDate);
 							const endDate = new Date(announcement.endDate);
-							if (today >= startDate && today <= endDate) {
-								let type;
+							console.log(startDate);
+							console.log(endDate);							
+						console.log(today);
+//							if (today >= announcement.startDate && today <= announcement.endDate) {
+//								let type;
 								switch (announcement.type) {
 									case "ANNOUNCEMENT": type = '公告'; break;
 									case "ADVERTISEMENT": type = '廣告'; break;
@@ -48,7 +51,7 @@ $(document).ready(function() {
 
 									row.append(`<td>${imageHtml}</td>`); // 將圖片加入當前行
 									itemCount++;
-							}
+//							}
 						});
 					} else {
 						console.error('數據格式錯誤：沒有 List 數組');

@@ -40,7 +40,7 @@ $(document).ready(function() {
 					let customerService = data.List.find(cs => cs.csId === Number(csId));
 
 					if (customerService) {
-						var restName = customerService.restName;
+						var memberName = customerService.memberName;
 						var feedbackType = customerService.feedbackType;
 						var feedbackContent = customerService.feedbackContent;
 					}
@@ -57,7 +57,7 @@ $(document).ready(function() {
 				                        <label for="start-date" class="label">郵件編號:</label>
 				                        <label for="start-date" id="replyAll">${csId}</label><br>
 				                        <label for="end-date" class="label">寄件者:</label>
-				                        <label for="start-date" id="replyAll">${restName}</label><br>
+				                        <label for="start-date" id="replyAll">${memberName}</label><br>
 				                        <label for="heading" class="label">信件主旨:</label>
 				                        <label for="start-date" id="replyAll">${feedbackType}</label><br>
 				                        <label for="content" class="labelContent">信件內容:</label>

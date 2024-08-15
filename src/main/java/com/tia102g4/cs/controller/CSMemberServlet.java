@@ -54,7 +54,7 @@ public class CSMemberServlet extends HttpServlet {
 				jsonObject = getAll(req);
 				break;
 			case "compositeQuery":
-				jsonObject = getCompositeCSQuery(req, res);
+				jsonObject = getCompositeCSQuery(req);
 				break;
 			case "add":
 				update(requestBody);
@@ -91,7 +91,7 @@ public class CSMemberServlet extends HttpServlet {
 	}
 
 	// 複合查詢
-	private JsonObject getCompositeCSQuery(HttpServletRequest req, HttpServletResponse res) {
+	private JsonObject getCompositeCSQuery(HttpServletRequest req) {
 		Map<String, String[]> map = req.getParameterMap();
 
 		// 如果map沒資料就回傳空值
