@@ -30,7 +30,7 @@ public class AnnoDAOImpl implements AnnoDAO {
 	}
 
 	private Session getSession() {
-		return factory.getCurrentSession();
+		return factory.getCurrentSession(); 
 	}
 
 	@Override
