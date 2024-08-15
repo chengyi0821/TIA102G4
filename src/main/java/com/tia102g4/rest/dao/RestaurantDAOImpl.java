@@ -1,12 +1,9 @@
 package com.tia102g4.rest.dao;
 
-import static com.tia102g4.util.Constants.PAGE_MAX_RESULT;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -18,92 +15,101 @@ import org.hibernate.SessionFactory;
 
 import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.util.HibernateUtil;
+import com.tia102g4.util.Constants;
 
-public class RestaurantDAOImpl implements RestaurantDAO {
-
+public class RestaurantDAOImpl implements RestaurantDAO, Constants{
 	private SessionFactory factory;
-
+	
 	public RestaurantDAOImpl() {
 		factory = HibernateUtil.getSessionFactory();
 	}
-
+	
 	private Session getSession() {
-		return factory.getCurrentSession();
+		return factory.openSession();
 	}
 
 	@Override
-	public void insert(Restaurant entity) {
+	public long insert(Restaurant entity) {
+		return (Long) getSession().save(entity);
 	}
 
 	@Override
-	public void update(Restaurant entity) {
-		String update = "UPDATE Restaurant r SET r.restName = :restName, r.email = :email, r.password = :password, r.phone = :phone, r.location = :location WHERE r.restId = :restId";
-		Query query = getSession().createQuery(update);
-		query.setParameter("restId", entity.getRestId());
-		query.setParameter("restName", entity.getRestName());
-		query.setParameter("email", entity.getEmail());
-		query.setParameter("password", entity.getPassword());
-		query.setParameter("phone", entity.getPhone());
-		query.setParameter("location", entity.getLocation());
-		query.executeUpdate();
+	public long update(Restaurant entty) {
+		try {
+			getSession().update(entty);
+			return 1L;
+		}catch(Exception e) {
+			return -1L;
+		}
+		
+	}
+	
+	@Override
+	public long delete(Long id) {
+		Restaurant entity = getSession().get(Restaurant.class, id);
+		if ( entity != null ) {
+			getSession().delete(entity);
+			return 1L;
+		}else {
+		return -1L;
+		}
 	}
 
 	@Override
-	public void delete(Restaurant entity) {
-		String delete = "UPDATE Restaurant r SET r.deleted = :deleted WHERE r.restId = :restId";
-		Query query = getSession().createQuery(delete);
-		System.out.println(entity.getRestId());
-		System.out.println(entity.getDeleted());
-		query.setParameter("restId", entity.getRestId());
-		query.setParameter("deleted", entity.getDeleted());
-		query.executeUpdate();
+	public Restaurant getById(Long id) {
+		return getSession().get(Restaurant.class, id);
+	}
+
+	@Override
+	public List<Restaurant> getAll() {
+		return getSession().createQuery("from Restaurant", Restaurant.class).list();
 	}
 
 	@Override
 	public List<Restaurant> getByCompositeQuery(Map<String, String> map) {
-		// 創建各種查詢條件
-		CriteriaBuilder builder = getSession().getCriteriaBuilder();
-		// 指定查詢的返回類型為Restaurant
-		CriteriaQuery<Restaurant> criteria = builder.createQuery(Restaurant.class);
-		// 表示要查詢的類型為Restaurant
-		Root<Restaurant> root = criteria.from(Restaurant.class);
-		// 創建用於存放查詢條件的集合
-		List<Predicate> predicates = new ArrayList<>();
-
-		for (Map.Entry<String, String> row : map.entrySet()) {
-			// 餐廳名稱/信箱/電話模糊搜尋
-			if ("searchQuery".equals(row.getKey())) {
-				predicates.add(builder.or(builder.like(root.get("restName"), "%" + row.getValue() + "%"),
-						builder.like(root.get("email"), "%" + row.getValue() + "%"),
-						builder.like(root.get("phone"), "%" + row.getValue() + "%")));
-			}
+		if( map.size() == 0 ) {
+			return getAll();
 		}
-		// 只能查詢沒有刪除的資料
-		predicates.add(builder.isFalse(root.get("deleted")));
-		// 將所有的 predicates 條件使用 AND 邏輯組合，並設置為 criteria 的 WHERE 條件
+		
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+		CriteriaQuery<Restaurant> criteria = builder.createQuery(Restaurant.class);
+		Root<Restaurant> root = criteria.from(Restaurant.class);
+		
+		List<Predicate> predicates = new ArrayList<>();
+		
+		for(Map.Entry<String, String> row : map.entrySet()) {
+			
+			if("restName".equals(row.getKey())) {
+				predicates.add(builder.like(root.get("restName"), "%" + row.getValue()+"%"));//餐廳名稱做模糊查詢
+			}
+			
+			if("restType".equals(row.getKey())) {
+				predicates.add(builder.equal(root.get("restType"), row.getValue())); //餐廳類別做查詢
+			}
+			
+		}
+		
 		criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
-		// 針對ID做升冪排序
 		criteria.orderBy(builder.asc(root.get("restId")));
 		TypedQuery<Restaurant> query = getSession().createQuery(criteria);
+		
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Restaurant> getAll(int currentPage) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
-		return getSession().createQuery("FROM Restaurant WHERE deleted = false", Restaurant.class).setFirstResult(first)
-				.setMaxResults(PAGE_MAX_RESULT).list();
-	}
-
-	@Override
-	public List<Restaurant> getAll() {
-		return null;
+		return getSession().createQuery("from Restaurant", Restaurant.class)
+				.setFirstResult(first)
+				.setMaxResults(PAGE_MAX_RESULT)
+				.list();
 	}
 
 	@Override
 	public long getTotal() {
-		return getSession().createQuery("select count(*) from Restaurant where deleted = false", Long.class)
-				.uniqueResult();
+		return getSession().createQuery("select count(*) from Restaurant", Long.class).uniqueResult();
 	}
+
+	
 
 }
