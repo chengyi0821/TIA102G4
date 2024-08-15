@@ -34,7 +34,6 @@ public class JedisOptionHandler extends HttpServlet{
 	public void init() throws ServletException{
 		pool = JedisUtil.getJedisPool();
 		jedis = pool.getResource();
-		System.out.println(jedis.ping());
 	}
 	
 	@Override
@@ -66,6 +65,7 @@ public class JedisOptionHandler extends HttpServlet{
 		System.out.println(restListJson);
 		Gson gson = new Gson();
 		String redisKey = null;
+		List<String> options = new ArrayList<>();
 		
 		List<Event> eventList = (List<Event>) req.getSession().getAttribute("eventList");
 		for(Event event : eventList) {
@@ -85,23 +85,26 @@ public class JedisOptionHandler extends HttpServlet{
             restaurants.add(restaurant);
             
             String option = "option:"+Integer.parseInt(dto.getRestaurantId());
-            jedis.hset(redisKey, option,"0");//製作出三個選項代表eventId , restaurantId, 票數
-            jedis.expire(redisKey, 86400); //設定一天後過期
+            options.add(option); //options裡面有三個Filed:restaurantId
+            jedis.hset(redisKey, option,"0");//製作出三個選項代表Key:eventId , Filed:restaurantId, Value:票數
+            jedis.expire(redisKey, 86400); 
 		}
 		
-		//把活動ID變成redis的key存起來eventId從fellow.jsp那邊存在Session的eventList得到
-		req.setAttribute("eventList", eventList);
-		req.setAttribute("restaurants", restaurants); 
-		req.setAttribute("redisKey",redisKey);
+		req.getSession().setAttribute("eventList", eventList);
+		req.getSession().setAttribute("restaurants", restaurants); 
+		req.getSession().setAttribute("redisKey",redisKey);
 		return "/frontstage/memberFrontend/vote/voting.jsp";
 	}
 	
 	private String voting(HttpServletRequest req, HttpServletResponse res) {
-		Long restId = Long.parseLong(req.getParameter("restId"));//取得使用者點選的餐廳
-		//轉交給Redis去處理票數，確定有抓到選取的餐廳ID
-		//在這裡要處理票數統計與選出一家餐廳的ID丟給MyOrder做新增訂單的動作
+//		Long restId = Long.parseLong(req.getParameter("restId"));//取得使用者點選的餐廳，使用input type='radio'
+		String key = String.valueOf(req.getSession().getAttribute("redisKey"));
 		
-		return "/frontstage/memberFrontend/vote/voting.jsp";
+		String selectedOption = req.getParameter("selectedOption");
+		jedis.hincrBy(key, selectedOption, 1); 
+		Map<String, String> voteCount = jedis.hgetAll(key);
+		req.getSession().setAttribute("count", voteCount);
+		return "/frontstage/memberFrontend/room/testcheckroom.jsp"; //導向之後讓大家等待投票結束
 	}
 	
 	@Override

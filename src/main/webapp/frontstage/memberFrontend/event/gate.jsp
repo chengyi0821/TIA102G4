@@ -83,14 +83,12 @@
 							<a href="#" class="nav-item nav-link active" >揪團系統</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/create.jsp">發起揪團</a></li>
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/gate.jsp">參與揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">訂單管理</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="#">編輯訂單</a></li>
-								<li><a style="color: black;" href="#">取消訂單</a></li>
 								<li><a style="color: black;" href="#">餐後評論</a></li>
 							</ul>
 						</div>
@@ -98,7 +96,6 @@
 							<a href="#" class="nav-item nav-link">聯絡客服</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="#">客服信箱</a></li>
-								<li><a style="color: black;" href="#">Q&A</a></li>
 
 
 							</ul>

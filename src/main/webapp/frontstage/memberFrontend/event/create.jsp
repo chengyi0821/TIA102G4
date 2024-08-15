@@ -110,20 +110,21 @@
 			method="post">
 			<!--/TIA102G4/event/event.do -->
 			<aside class="aside">
-				<label for="date">訂餐日:</label> 
+				<label for="date" style="margin:10px;">訂餐日:(3天後~30天前)</label>
+				<br> 
 				<input type="date" id="dateRange"
-					name="date" max="2024-09-04" min="2024-08-04" required /> <!-- 動態抓取失敗?沒讀到js? -->
+					name="date" max="2024-09-04" min="2024-08-04" required style="margin:10px;"/> 
 					<br> 
-					<label
-					for="time">用餐時段:</label> <input type="time" name="time" required>
+					<label style="margin:10px;"
+					for="time">用餐時段:(11:00~21:00)</label> <input type="time" name="time" required min="11:00" max="21:00">
 			</aside>
 			<main class="main">
-				<label for="name">活動名稱:</label> <br> <input type="text"
-					id="name" name="name" required /> <br> <label for="info">活動詳細資訊:</label>
+				<label for="name" style="margin:10px;">活動名稱:</label> <br> <input type="text"
+					id="name" name="name" required style="margin:10px;"/> <br> <label for="info" style="margin:10px;">活動詳細資訊:</label>
 				<br>
-				<textarea id="info" name="info" rows="4" cols="50" required></textarea>
-				<br> <label for="maxseat">最大參與人數</label><br> <input
-					type="number" name="maxseat" min=1 max=20> <br>
+				<textarea id="info" name="info" rows="4" cols="50" required style="margin:10px;"></textarea>
+				<br> <label for="maxseat" style="margin:10px;">最大參與人數(1~20人)</label><br> <input
+					type="number" name="maxseat" min=1 max=20 style="margin:10px;"> <br>
 			</main>
 			<div>
 				<input type="hidden" name="action" value="add"> <input
