@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.tia102g4.rest.model.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.tia102g4.rest.model.*"%>
 <%@ page import="java.util.List"%>
 <%
 List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("restaurantList");
@@ -20,6 +20,20 @@ List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("resta
 	href="<%=request.getContextPath()%>/frontstage/memberFrontend/vote/css/orderlist.css"
 	rel="stylesheet" />
 <style>
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	border: 1px solid black;
+	padding: 8px;
+	text-align: left;
+}
+
+th {
+	background-color: #f2f2f2;
+}
 </style>
 </head>
 <body>
@@ -115,100 +129,28 @@ List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("resta
 	<div id="main-content2">
 		<div id="main-content2">
 			<h3>可以選擇的餐廳如下</h3>
-			<c:forEach var="rest" items="${restaurantList }">
-			<tr>
-				<td>${rest.restId}</td>
-				<td>${rest.restName}</td>
-				<td>${rest.description}</td>
-				<td>${rest.location}</td>
-				<td>${rest.phone}</td>
-			</tr>
+			<form
+				action="<%=request.getContextPath()%>/frontstage/memberFrontend/vote/option.do"
+				method="post">
+				<input type="hidden" name="action" value="choice">
+				<table>
+					<c:forEach var="rest" items="${restaurantList }">
+						<tr>
+							<td>${rest.restId}</td>
+							<td>${rest.restName}</td>
+							<td>${rest.description}</td>
+							<td>${rest.location}</td>
+							<td>${rest.phone}</td>
+							<td><label> <input type="checkbox" name="restchoice"
+									value="option:${rest.restId}">
+							</label></td>
+						</tr>
+					</c:forEach>
+				</table>
+				<br /> <input type="submit" value="選這些餐廳">
+			</form>
+
 			
-			
-			</c:forEach>
-			<br />
-			<ul class="item_list">
-				<li data-restaurant-id="1">
-
-					<div class="img_block">
-						<img src="https://via.placeholder.com/300x250" />
-					</div> <span class="item_name">小龍餐廳</span><br> <span
-					class="item_description">提供道地中餐美食。</span>
-
-				</li>
-				<li data-restaurant-id="2">
-
-					<div class="img_block">
-						<img src="https://via.placeholder.com/300x250" />
-					</div> <span class="item_name">大衛西餐廳</span><br> <span
-					class="item_description">提供正宗西餐體驗。</span>
-
-				</li>
-				<li data-restaurant-id="3">
-
-					<div class="img_block">
-						<img src="https://via.placeholder.com/300x250" />
-					</div> <span class="item_name">美麗日本料理</span><br> <span
-					class="item_description">提供新鮮美味的日本料理。</span>
-
-				</li>
-				<li data-restaurant-id="4">
-
-					<div class="img_block">
-						<img src="https://via.placeholder.com/300x250" />
-					</div> <span class="item_name">曉明韓式料理</span><br> <span
-					class="item_description">提供正宗韓式美食。</span>
-
-				</li>
-				<li data-restaurant-id="5">
-
-					<div class="img_block">
-						<img src="https://via.placeholder.com/300x250" />
-					</div> <span class="item_name">大山泰式料理</span><br> <span
-					class="item_description">提供道地泰式風味。</span>
-
-				</li>
-				<li data-restaurant-id="6">
-
-					<div class="img_block">
-						<img src="https://via.placeholder.com/300x250" />
-					</div> <span class="item_name">小柔印度料理</span><br> <span
-					class="item_description">提供正宗印度料理。</span>
-
-				</li>
-				<li data-restaurant-id="7">
-
-					<div class="img_block">
-						<img src="https://via.placeholder.com/300x250" />
-					</div> <span class="item_name">大志素食餐廳</span><br> <span
-					class="item_description">提供健康美味的素食餐點。</span>
-
-				</li>
-				<li data-restaurant-id="8">
-
-					<div class="img_block">
-						<img src="https://via.placeholder.com/300x250" />
-					</div> <span class="item_name">美玉燒烤</span><br> <span
-					class="item_description">提供美味的燒烤料理。</span>
-
-				</li>
-				<li data-restaurant-id="9">
-
-					<div class="img_block">
-						<img src="https://via.placeholder.com/300x250" />
-					</div> <span class="item_name">小芳火鍋</span><br> <span
-					class="item_description">提供豐富多樣的火鍋選擇。</span>
-
-				</li>
-				<li data-restaurant-id="10">
-
-					<div class="img_block">
-						<img src="https://via.placeholder.com/300x250" />
-					</div> <span class="item_name">大華咖啡廳</span><br> <span
-					class="item_description">提供香濃美味的咖啡。</span>
-
-				</li>
-			</ul>
 
 		</div>
 		<div class="table-container"></div>
@@ -223,9 +165,40 @@ List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("resta
 			<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 		</footer>
 		<script>
-			const contextPath = "<%=request.getContextPath()%>";
+			const contextPath = "<%=request.getContextPath()%>
+			";
 		</script>
 		<script
 			src="<%=request.getContextPath()%>/frontstage/memberFrontend/vote/js/restaurant_selector.js"></script>
+		<script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		    const maxAllowed = 3;
+
+		    checkboxes.forEach(function(checkbox) {
+		        checkbox.addEventListener('change', function() {
+		            const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+		            
+		            if (checkedCount >= maxAllowed) {
+		                checkboxes.forEach(function(cb) {
+		                    if (!cb.checked) {
+		                        cb.disabled = true;
+		                    }
+		                });
+		            } else {
+		                checkboxes.forEach(function(cb) {
+		                    cb.disabled = false;
+		                });
+		            }
+		        });
+
+		        // 新增點擊事件監聽器
+		        checkbox.addEventListener('click', function(event) {
+		            if (this.disabled) {
+		                event.preventDefault(); // 阻止默認行為
+		                alert('最多選擇三家餐廳，如要新增請取消不需要的選項');
+		            }
+		        });
+		    });
+		});</script>
 </body>
 </html>

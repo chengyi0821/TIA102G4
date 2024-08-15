@@ -22,6 +22,9 @@ $(document).ready(function() {
 					if (data && Array.isArray(data.List)) {
 						const today = new Date(); // 當前日期
 						data.List.forEach(announcement => {
+							const startDate = new Date(announcement.startDate);
+							const endDate = new Date(announcement.endDate);
+							if (today >= startDate && today <= endDate) {
 								let type;
 								switch (announcement.type) {
 									case "SYSTEM": type = '系統公告'; break;
@@ -46,6 +49,7 @@ $(document).ready(function() {
 									row.append(`<td>${imageHtml}</td>`); // 將圖片加入當前行
 									itemCount++;
 								}
+							}
 						});
 					} else {
 						console.error('數據格式錯誤：沒有 List 數組');

@@ -19,6 +19,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import com.tia102g4.anno.model.Anno;
+import com.tia102g4.restNews.model.RestaurantNews;
 import com.tia102g4.util.HibernateUtil;
 
 public class AnnoDAOImpl implements AnnoDAO {
