@@ -50,6 +50,9 @@ public class JedisOptionHandler extends HttpServlet{
 		case "choose":
 			forwardPath = voting(req,res);
 			break;
+		case "choice":
+			forwardPath = makeChoice(req,res);
+			break;
 		default:
 			forwardPath = "/frontstage/memberFrontend/vote/preparing_vote.jsp";
 		}
@@ -96,10 +99,49 @@ public class JedisOptionHandler extends HttpServlet{
 		return "/frontstage/memberFrontend/vote/voting.jsp";
 	}
 	
+	//轉交三間餐廳與eventId作為Redis使用，
+	private String makeChoice(HttpServletRequest req, HttpServletResponse res) {
+		String redisKey = null;
+		String[] choices = req.getParameterValues("restchoice"); //會得到option:restId 有1~~3個 option:1 option:2 option:3
+		//取得event的資料
+		List<Event> eventList = (List<Event>) req.getSession().getAttribute("eventList");
+		for(Event event : eventList) {
+			Long eventId = event.getEventId();
+			redisKey = "event:"+eventId; //redisKey:eventId
+		}
+		for(String item: choices) {
+			jedis.hset(redisKey, item, "0"); //在redis存入 redisKey:option1~3:"票數"
+		}
+		//上一頁已經從EventServlet 裡面getAllRestaurant帶出資料 req.setAttribute("restaurantList", restaurantList); 現在要讓選擇的optionID 對上restaurants的順序
+		//List的索引值=餐廳的ID - 1 當兩者相同的時候丟去voting.jsp印出來給使用者看
+		List<Restaurant> voteOptions = new ArrayList<>();
+		List<Restaurant> restaurantList =(List<Restaurant>) req.getSession().getAttribute("restaurantList");
+		//當選出的餐廳ID跟getAll裡面某間餐廳ID一樣的時候加入 voteOptions 拿去votiong.jsp打印出來
+		for(String option : choices) {
+			String[] parts = option.split(":");
+			if(parts.length==2) {
+				int optionId = Integer.parseInt(parts[1]);
+				for(Restaurant rest : restaurantList) {
+					if(rest.getRestId() == optionId) {
+						voteOptions.add(rest);
+						break;
+					}
+				}
+			}
+		}
+		req.getSession().setAttribute("redisKey", redisKey);//給redis用的key
+		req.getSession().setAttribute("choices", choices);//給redis用的option:restId 有三個
+		req.getSession().setAttribute("voteOptions", voteOptions); //裝著三間餐廳VO的List<>();
+		return "/frontstage/memberFrontend/vote/voting.jsp";
+	}
+	
 	private String voting(HttpServletRequest req, HttpServletResponse res) {
 //		Long restId = Long.parseLong(req.getParameter("restId"));//取得使用者點選的餐廳，使用input type='radio'
 		String key = String.valueOf(req.getSession().getAttribute("redisKey"));
-		
+		List<Restaurant> voteOptions =(List<Restaurant>) req.getSession().getAttribute("voteOptions");
+		String[] choices = req.getParameterValues("choices");
+
+//				Long restId = Long.parseLong(req.getParameter("restId"));//取得使用者點選的餐廳，使用input type='radio'
 		String selectedOption = req.getParameter("selectedOption");
 		jedis.hincrBy(key, selectedOption, 1); 
 		Map<String, String> voteCount = jedis.hgetAll(key);
