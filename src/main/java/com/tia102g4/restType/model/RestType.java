@@ -1,17 +1,10 @@
 package com.tia102g4.restType.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 //import com.tia102g4.model.Restaurant;
@@ -28,10 +21,6 @@ public class RestType implements java.io.Serializable {
 
 	@Column(name = "type_name", nullable = false, unique = true)
 	private String typeName;
-
-//	    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="rest_type")
-//	    @OrderBy("rest_id asc")
-//		private Set<Restaurant> rests = new HashSet<Restaurant>();
 
 	public RestType() {
 	}
@@ -51,14 +40,6 @@ public class RestType implements java.io.Serializable {
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
-
-//		public Set<Restaurant> getRests() {
-//			return rests;
-//		}
-	//
-//		public void setRests(Set<Restaurant> rests) {
-//			this.rests = rests;
-//		}
 
 	@Override
 	public String toString() {

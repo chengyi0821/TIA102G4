@@ -72,32 +72,28 @@ $(document).ready(function() {
 				if (data && Array.isArray(data.List)) {
 					const today = new Date(); // 當前日期
 					data.List.forEach(announcement => {
-						const startDate = new Date(announcement.startDate);
-						const endDate = new Date(announcement.endDate);
-						if (today >= startDate && today <= endDate) {
-							let type;
-							switch (announcement.type) {
-								case "SYSTEM": type = '系統公告'; break;
-								case "FOOD_SAFETY": type = '食安新聞'; break;
-								default: type = '';
-							}
-							let imageHtml =
-								`<img class="thumbnail" src="data:image/jpeg;base64,${announcement.image}" alt="公告圖片"
+						let type;
+						switch (announcement.type) {
+							case "SYSTEM": type = '系統公告'; break;
+							case "FOOD_SAFETY": type = '食安新聞'; break;
+							default: type = '';
+						}
+						let imageHtml =
+							`<img class="thumbnail" src="data:image/jpeg;base64,${announcement.image}" alt="公告圖片"
                                 data-img-src="data:image/jpeg;base64,${announcement.image}"
                                 data-heading="${announcement.heading}"
                                 data-content="${announcement.content}"
                                 data-type="| ${type}"
                                 data-start-date="${announcement.startDate}"
                                 data-end-date="${announcement.endDate}">`;
-							if (type == "系統公告") {
-								if (itemCount % 4 === 0) {
-									row = $('<tr></tr>'); // 創建新的一行
-									dataList1.append(row);
-								}
-
-								row.append(`<td>${imageHtml}</td>`); // 將圖片加入當前行
-								itemCount++;
+						if (type == "系統公告") {
+							if (itemCount % 4 === 0) {
+								row = $('<tr></tr>'); // 創建新的一行
+								dataList1.append(row);
 							}
+
+							row.append(`<td>${imageHtml}</td>`); // 將圖片加入當前行
+							itemCount++;
 						}
 					});
 				} else {

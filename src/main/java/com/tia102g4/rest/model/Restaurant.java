@@ -11,29 +11,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import com.google.gson.annotations.Expose;
 import com.tia102g4.blacklist.model.BlackList;
 import com.tia102g4.favorite.model.Favorite;
 import com.tia102g4.myorder.model.MyOrder;
+import com.tia102g4.restType.model.RestType;
 
 //import com.tia102g4.favorite.model.Favorite;
 
 @Entity
 @Table(name = "restaurant")
 public class Restaurant {
-	
+
 	@Id
 	@Expose
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "rest_id")
 	private Long restId; // 餐廳ID
-
-//	@ManyToOne
-//	@JoinColumn(name = "type_id", nullable = false)
-//	private Long typeId; // 餐廳類型
 
 	@Column(name = "rest_name", nullable = false, unique = true)
 	@Expose
@@ -77,47 +77,27 @@ public class Restaurant {
 
 	@Column(name = "rating_star")
 	private Integer ratingStar; // 評分總星星數
-	
-	
 
-//	// 一對多關係：一個餐廳可以有多個評論
-//	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-//	private Set<Comment> comments;
-//
-	// 一對多關係：一個餐廳可以有多個訂單
+	@Column(name = "deleted", nullable = false)
+	private Boolean deleted = false; // 刪除狀態
+
+	@Size(max = 2147483647, message = "圖片大小不得超過2GB")
+	@Column(name = "image", columnDefinition = "LONGBLOB")
+	private Byte[] image; // 餐廳圖片
+
+	@ManyToOne
+	@JoinColumn(name = "type_id", nullable = false)
+	private RestType restType; // 餐廳類型
+
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	private Set<MyOrder> myorder;
-//
-	// 一對多關係：一個餐廳可以有多個黑名單
+
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	private Set<BlackList> blackList;
-//
-//	// 一對多關係：一個餐廳可以有多個客戶服務
-//	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-//	private Set<CustomerService> customerServices;
-//
-	// 一對多關係：一個餐廳可以被多次收藏
+
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	private Set<Favorite> favorite;
-//
-//	// 一對多關係：一個餐廳可以有多個活動
-//	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-//	private Set<Event> events;
-//
-//	// 一對多關係：一個餐廳可以有多個投票
-//	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-//	private Set<Vote> votes;
-//
-//	// 一對多關係：一個餐廳可以有多個餐廳消息
-//	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-//	private Set<RestaurantNews> restaurantNews;
-//
-//	// 一對多關係：一個餐廳可以有多個餐廳菜單圖片
-//	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-//	private Set<MenuImage> menuImages;
 
-	
-	
 	public Restaurant() {
 		super();
 	}
@@ -129,14 +109,6 @@ public class Restaurant {
 	public void setRestId(Long restId) {
 		this.restId = restId;
 	}
-
-//	public Long getTypeId() {
-//		return typeId;
-//	}
-//
-//	public void setType(Long typeId) {
-//		this.typeId = typeId;
-//	}
 
 	public String getRestName() {
 		return restName;
@@ -250,14 +222,22 @@ public class Restaurant {
 		this.ratingStar = ratingStar;
 	}
 
-//	public Set<Comment> getComments() {
-//		return comments;
-//	}
-//
-//	public void setComments(Set<Comment> comments) {
-//		this.comments = comments;
-//	}
-//
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(Byte[] image) {
+		this.image = image;
+	}
+
 	public Set<MyOrder> getMyOrders() {
 		return myorder;
 	}
@@ -265,84 +245,14 @@ public class Restaurant {
 	public void setMyOrders(Set<MyOrder> myorder) {
 		this.myorder = myorder;
 	}
-//
-//	public Set<BlackList> getBlackLists() {
-//		return blackLists;
-//	}
-//
-//	public void setBlackLists(Set<BlackList> blackLists) {
-//		this.blackLists = blackLists;
-//	}
-//
-//	public Set<CustomerService> getCustomerServices() {
-//		return customerServices;
-//	}
-//
-//	public void setCustomerServices(Set<CustomerService> customerServices) {
-//		this.customerServices = customerServices;
-//	}
-//
-//	public Set<FavoriteRestaurant> getFavoriteRestaurants() {
-//		return favoriteRestaurants;
-//	}
-//
-//	public void setFavoriteRestaurants(Set<FavoriteRestaurant> favoriteRestaurants) {
-//		this.favoriteRestaurants = favoriteRestaurants;
-//	}
-//
-//	public Set<Event> getEvents() {
-//		return events;
-//	}
-//
-//	public void setEvents(Set<Event> events) {
-//		this.events = events;
-//	}
-//
-//	public Set<Vote> getVotes() {
-//		return votes;
-//	}
-//
-//	public void setVotes(Set<Vote> votes) {
-//		this.votes = votes;
-//	}
-//
-//	public Set<RestaurantNews> getRestaurantNews() {
-//		return restaurantNews;
-//	}
-//
-//	public void setRestaurantNews(Set<RestaurantNews> restaurantNews) {
-//		this.restaurantNews = restaurantNews;
-//	}
-//
-//	public Set<MenuImage> getMenuImages() {
-//		return menuImages;
-//	}
-//
-//	public void setMenuImages(Set<MenuImage> menuImages) {
-//		this.menuImages = menuImages;
-//	}
 
-	
-	
 	@Override
 	public String toString() {
-	    return "Restaurant {" +
-	           "restId=" + restId +
-	           ", restName='" + restName + '\'' +
-	           ", description='" + description + '\'' +
-	           ", location='" + location + '\'' +
-	           ", phone='" + phone + '\'' +
-	           ", registTime=" + registTime +
-	           ", email='" + email + '\'' +
-	           ", openDay='" + openDay + '\'' +
-	           ", openTime1=" + openTime1 +
-	           ", closeTime1=" + closeTime1 +
-	           ", openTime2=" + openTime2 +
-	           ", closeTime2=" + closeTime2 +
-	           ", password='" + password + '\'' +
-	           ", ratingPnum=" + ratingPnum +
-	           ", ratingStar=" + ratingStar +
-	           '}';
+		return "Restaurant [restId=" + restId + ", restName=" + restName + ", description=" + description
+				+ ", location=" + location + ", phone=" + phone + ", registTime=" + registTime + ", email=" + email
+				+ ", openDay=" + openDay + ", openTime1=" + openTime1 + ", closeTime1=" + closeTime1 + ", openTime2="
+				+ openTime2 + ", closeTime2=" + closeTime2 + ", password=" + password + ", ratingPnum=" + ratingPnum
+				+ ", ratingStar=" + ratingStar + "]";
 	}
 
 }
