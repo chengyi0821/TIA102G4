@@ -94,14 +94,12 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 							<a href="#" class="nav-item nav-link active">揪團系統</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="#">發起揪團</a></li>
-								<li><a style="color: black;" href="#">參與揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">訂單管理</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="#">編輯訂單</a></li>
-								<li><a style="color: black;" href="#">取消訂單</a></li>
 								<li><a style="color: black;" href="#">餐後評論</a></li>
 							</ul>
 						</div>
@@ -109,7 +107,6 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 							<a href="#" class="nav-item nav-link">聯絡客服</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="#">客服信箱</a></li>
-								<li><a style="color: black;" href="#">Q&A</a></li>
 
 							</ul>
 						</div>
@@ -128,7 +125,7 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 					<h3>${restaurant.restName}</h3>
 					<p>ID: ${restaurant.restId}</p>
 					<p>${restaurant.description}</p>
-					<input type="radio" name="restId" value="${restaurant.restId}" required>
+					<input type="radio" name="selectedOption" value="option:${restaurant.restId}" required>
 				</div>
 				<c:if test="${status.count % 3 == 0 || status.last}">
 		</div>
