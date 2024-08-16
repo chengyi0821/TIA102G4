@@ -35,9 +35,9 @@ public class RestFeedbackDAOImpl implements RestFeedbackDAO {
 	}
 
 	@Override
-	public void insert(Integer feedbackType, String feedbackContent) {
+	public void insert(Integer feedbackType, String feedbackContent, Long restId) {
 		CustomerService cs = new CustomerService();
-		Restaurant rest = getSession().get(Restaurant.class, 1L);
+		Restaurant rest = getSession().get(Restaurant.class, restId);
 		cs.setFeedbackType(feedbackType);
 		cs.setFeedbackContent(feedbackContent);
 		cs.setFeedbackTime(new Timestamp(System.currentTimeMillis()));
@@ -56,8 +56,8 @@ public class RestFeedbackDAOImpl implements RestFeedbackDAO {
 	}
 
 	@Override
-	public List<CustomerService> getByCompositeQuery(Map<String, String> map) {
-		Restaurant rest = getSession().get(Restaurant.class, 1L);
+	public List<CustomerService> getByCompositeQuery(Map<String, String> map, Long restId) {
+		Restaurant rest = getSession().get(Restaurant.class, restId);
 		// 創建各種查詢條件
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
 		// 指定查詢的返回類型為CustomerService
@@ -115,12 +115,11 @@ public class RestFeedbackDAOImpl implements RestFeedbackDAO {
 	}
 
 	@Override
-	public List<CustomerService> getAll(int currentPage) {
-		Long rest = 1L;
+	public List<CustomerService> getAll(int currentPage, Long restId) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
 		return getSession().createQuery(
 				"SELECT cs FROM CustomerService cs LEFT JOIN fetch cs.restaurant r LEFT JOIN fetch cs.admin WHERE cs.member IS NULL AND cs.deletedRest = false AND r.restId = :restId",
-				CustomerService.class).setParameter("restId", rest).setFirstResult(first).setMaxResults(PAGE_MAX_RESULT)
+				CustomerService.class).setParameter("restId", restId).setFirstResult(first).setMaxResults(PAGE_MAX_RESULT)
 				.list();
 	}
 

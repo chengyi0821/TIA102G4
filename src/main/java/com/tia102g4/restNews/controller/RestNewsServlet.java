@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.ValidationException;
 
 import com.google.gson.Gson;
@@ -37,6 +38,9 @@ public class RestNewsServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
+		HttpSession session = req.getSession();
+		Long restId = (Long) session.getAttribute("restId");
+
 		BufferedReader reader = req.getReader();
 		StringBuilder stringBuilder = new StringBuilder();
 		String line;
@@ -49,20 +53,20 @@ public class RestNewsServlet extends HttpServlet {
 		try {
 			switch (action) {
 			case "getAll":
-				jsonObject = getAll(req);
+				jsonObject = getAll(req, restId);
 				break;
 			case "getAllForMember":
 				jsonObject = getAllForMember(req);
 				break;
 			case "compositeQuery":
-				jsonObject = getCompositeQuery(req);
+				jsonObject = getCompositeQuery(req, restId);
 				break;
 			case "add":
-				add(requestBody);
+				add(requestBody, restId);
 				res.setStatus(HttpServletResponse.SC_OK);
 				break;
 			case "update":
-				update(requestBody);
+				update(requestBody, restId);
 				res.setStatus(HttpServletResponse.SC_OK);
 				break;
 			case "delete":
@@ -90,11 +94,12 @@ public class RestNewsServlet extends HttpServlet {
 	}
 
 	// 查詢所有資料
-	private JsonObject getAll(HttpServletRequest req) {
+	private JsonObject getAll(HttpServletRequest req, Long restId) {
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		int totalPageQty = restNewsService.getPageTotal();
-		List<RestNewsReqTO> reqTOList = restNewsService.getAllRestNews(currentPage);
+
+		List<RestNewsReqTO> reqTOList = restNewsService.getAllRestNews(currentPage, restId);
 
 		if (req.getSession().getAttribute("RestNewsPageQty") == null) {
 			req.getSession().setAttribute("RestNewsPageQty", totalPageQty);
@@ -109,26 +114,28 @@ public class RestNewsServlet extends HttpServlet {
 	}
 
 	// 複合查詢
-	private JsonObject getCompositeQuery(HttpServletRequest req) {
+	private JsonObject getCompositeQuery(HttpServletRequest req, Long restId) {
 		Map<String, String[]> map = req.getParameterMap();
 
 		// 如果map沒資料就回傳空值
 		if (map == null) {
 			return null;
 		}
-		List<RestNewsReqTO> reqTOList = restNewsService.getRestNewsByCompositeQuery(map);
+		List<RestNewsReqTO> reqTOList = restNewsService.getRestNewsByCompositeQuery(map, restId);
 		return baseResponse.jsonResponse(reqTOList);
 	}
 
 	// 新增資料
-	private void add(String requestBody) {
+	private void add(String requestBody, Long restId) {
 		RestNewsReqTO reqTO = gson.fromJson(requestBody, RestNewsReqTO.class);
+		reqTO.setRestId(restId);
 		restNewsService.create(reqTO);
 	}
 
 	// 更新資料
-	private void update(String requestBody) {
+	private void update(String requestBody, Long restId) {
 		RestNewsReqTO reqTO = gson.fromJson(requestBody, RestNewsReqTO.class);
+		reqTO.setRestId(restId);
 		restNewsService.update(reqTO);
 	}
 

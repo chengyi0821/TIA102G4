@@ -38,7 +38,7 @@ public class RestNewsServiceImpl implements RestNewsService {
 		RestaurantNews restNews = restNewsMapper.setRestNews(reqTO);
 		Long restId = reqTO.getRestId();
 		validateRestNews(restNews); // 驗證
-		if (dao.isOverlappingPeriods(restNews, restId, "create")) {
+		if (dao.isOverlappingPeriods(restNews, restId)) {
 			throw new IllegalStateException("該餐廳日期區間已有公告，無法新增公告。");
 		}
 		dao.insert(restNews, restId);
@@ -49,7 +49,7 @@ public class RestNewsServiceImpl implements RestNewsService {
 		RestaurantNews restNews = restNewsMapper.setRestNews(reqTO);
 		Long restId = reqTO.getRestId();
 		validateRestNews(restNews); // 驗證
-		if (dao.isOverlappingPeriods(restNews, restId, "update")) {
+		if (dao.isOverlappingPeriods(restNews, restId)) {
 			throw new IllegalStateException("該餐廳日期區間已有公告，無法更新公告。");
 		}
 		dao.update(restNews, restId);
@@ -64,8 +64,8 @@ public class RestNewsServiceImpl implements RestNewsService {
 	}
 
 	@Override
-	public List<RestNewsReqTO> getAllRestNews(int currentPage) {
-		List<RestaurantNews> restNews = dao.getAll(currentPage);
+	public List<RestNewsReqTO> getAllRestNews(int currentPage, Long restId) {
+		List<RestaurantNews> restNews = dao.getAll(currentPage, restId);
 		List<RestNewsReqTO> reqTOs = new ArrayList<>();
 		for (RestaurantNews restNew : restNews) {
 			RestNewsReqTO dto = restNewsMapper.setRestNewsReqTO(restNew);
@@ -86,7 +86,7 @@ public class RestNewsServiceImpl implements RestNewsService {
 	}
 
 	@Override
-	public List<RestNewsReqTO> getRestNewsByCompositeQuery(Map<String, String[]> map) {
+	public List<RestNewsReqTO> getRestNewsByCompositeQuery(Map<String, String[]> map, Long restId) {
 		Map<String, String> query = new HashMap<>();
 		// Map.Entry即代表一組key-value
 		Set<Map.Entry<String, String[]>> entry = map.entrySet();
@@ -104,7 +104,7 @@ public class RestNewsServiceImpl implements RestNewsService {
 			}
 			query.put(key, value);
 		}
-		List<RestaurantNews> restNews = dao.getByCompositeQuery(query);
+		List<RestaurantNews> restNews = dao.getByCompositeQuery(query, restId);
 		List<RestNewsReqTO> reqTOs = new ArrayList<>();
 		for (RestaurantNews restNew : restNews) {
 			RestNewsReqTO dto = restNewsMapper.setRestNewsReqTO(restNew);

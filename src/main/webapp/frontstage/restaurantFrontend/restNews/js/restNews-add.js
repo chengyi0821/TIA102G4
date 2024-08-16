@@ -155,7 +155,6 @@ $(document).ready(function() {
 				formData.append('type', $('#type').val());
 				formData.append('image', base64String);
 				formData.append('deleted', false);
-				formData.append('restId', 1);
 
 				const jsonData = {};
 

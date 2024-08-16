@@ -8,14 +8,14 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class MemberLoginFilter implements Filter {
-
-    @Override
+public class RestaurantLoginFilter implements Filter {
+       
+	@Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
@@ -28,13 +28,20 @@ public class MemberLoginFilter implements Filter {
         HttpSession session = req.getSession(false);
 
         // 登入頁面的 URI
-        String loginURI = req.getContextPath() + "/frontstage/memberFrontend/member/memberlogin.jsp";
+        String loginURI = req.getContextPath() + "/frontstage/restaurantFrontend/restaurantLogin/restaurantLogin.html";
+
+        String requestURI = req.getRequestURI();
+        if (requestURI.endsWith(".css") || requestURI.endsWith(".js") || requestURI.endsWith(".png") ||
+            requestURI.endsWith(".jpg") || requestURI.endsWith(".gif")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         // 檢查用戶是否已經登入
-        boolean loggedIn = (session != null && session.getAttribute("memberId") != null);
+        boolean loggedIn = (session != null && session.getAttribute("restId") != null);
 
         // 檢查當前請求是否為登入頁面請求
-        boolean loginRequest = req.getRequestURI().equals(loginURI);
+        boolean loginRequest = requestURI.equals(loginURI);
 
         // 如果用戶已經登入，或者當前請求是登入頁面請求，允許請求繼續
         if (loggedIn || loginRequest) {
@@ -49,4 +56,3 @@ public class MemberLoginFilter implements Filter {
     public void destroy() {
     }
 }
-
