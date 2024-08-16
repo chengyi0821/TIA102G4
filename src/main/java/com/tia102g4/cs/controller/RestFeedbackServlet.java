@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.ValidationException;
 
 import com.google.gson.Gson;
@@ -38,6 +39,9 @@ public class RestFeedbackServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
+		HttpSession session = req.getSession();
+		Long restId = (Long) session.getAttribute("restId");
+		
 		BufferedReader reader = req.getReader();
 		StringBuilder stringBuilder = new StringBuilder();
 		String line;
@@ -50,13 +54,13 @@ public class RestFeedbackServlet extends HttpServlet {
 		try {
 			switch (action) {
 			case "getAll":
-				jsonObject = getAll(req);
+				jsonObject = getAll(req, restId);
 				break;
 			case "compositeQuery":
-				jsonObject = getCompositeCSQuery(req);
+				jsonObject = getCompositeCSQuery(req, restId);
 				break;
 			case "add":
-				insert(requestBody);
+				insert(requestBody, restId);
 				res.setStatus(HttpServletResponse.SC_OK);
 				break;
 			case "deleted":
@@ -77,11 +81,11 @@ public class RestFeedbackServlet extends HttpServlet {
 	}
 
 	// 查詢所有資料
-	private JsonObject getAll(HttpServletRequest req) {
+	private JsonObject getAll(HttpServletRequest req, Long restId) {
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		int totalPageQty = restFeedbackService.getPageTotal();
-		List<CSReqTO> reqTOList = restFeedbackService.getAllCS(currentPage);
+		List<CSReqTO> reqTOList = restFeedbackService.getAllCS(currentPage, restId);
 
 		if (req.getSession().getAttribute("csMemberPageQty") == null) {
 			req.getSession().setAttribute("csMemberPageQty", totalPageQty);
@@ -90,22 +94,22 @@ public class RestFeedbackServlet extends HttpServlet {
 	}
 
 	// 複合查詢
-	private JsonObject getCompositeCSQuery(HttpServletRequest req) {
+	private JsonObject getCompositeCSQuery(HttpServletRequest req, Long restId) {
 		Map<String, String[]> map = req.getParameterMap();
 
 		// 如果map沒資料就回傳空值
 		if (map == null) {
 			return null;
 		}
-		List<CSReqTO> reqTOList = restFeedbackService.getCSByCompositeQuery(map);
+		List<CSReqTO> reqTOList = restFeedbackService.getCSByCompositeQuery(map, restId);
 
 		return baseResponse.gsonBuilderForJsonResponse(reqTOList);
 	}
 
 	// 填寫餐廳意見表
-	private void insert(String requestBody) {
+	private void insert(String requestBody, Long restId) {
 		FeedbackReqTO reqTO = gson.fromJson(requestBody, FeedbackReqTO.class);
-		restFeedbackService.insert(reqTO);
+		restFeedbackService.insert(reqTO, restId);
 	}
 
 	// 刪除單筆信件

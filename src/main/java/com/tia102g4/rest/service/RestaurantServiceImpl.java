@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.security.auth.login.LoginException;
+import javax.servlet.http.HttpSession;
+
 import com.tia102g4.rest.dao.RestaurantDAO;
 import com.tia102g4.rest.dao.RestaurantDAOImpl;
 import com.tia102g4.rest.model.Restaurant;
@@ -75,6 +78,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 		long total = dao.getTotal();
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
+	}
+
+	@Override
+	public Restaurant findAccountByUser(Restaurant entity) throws LoginException {
+		Restaurant rest = dao.findAccountByUser(entity);
+		if(rest == null) {
+			throw new LoginException("帳號密碼輸入錯誤,請重新輸入");
+		}
+		return rest;
 	}
 
 }

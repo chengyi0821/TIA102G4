@@ -1,0 +1,99 @@
+form#loginForm {
+	margin-right: 50px;
+}
+
+label#password-title {
+	font-weight: bold;
+}
+
+label#account-title {
+	font-weight: bold;
+}
+
+input#account {
+	height: 32px;
+	width: 25%;
+	margin-bottom: 40px;
+	border: 3px solid #fdc001;
+}
+
+input#password {
+	height: 32px;
+	width: 25%;
+	border: 3px solid #fdc001;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	padding: 48px 144px !important;
+}
+
+button#login {
+	font-weight: bold;
+	margin-top: 19px;
+	margin-left: 212px;
+	height: 30px;
+	width: 65px;
+	border-radius: 3px;
+	border: 1px solid #FFF2CC;
+	background-color: #FFF2CC;
+}
+
+div#login\ title {
+    margin-right: 112px;
+    margin-bottom: 57px;
+    margin-top: 208px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #4D3900;
+}
+
+/* ==============================下拉式選單CSS start================================================== */
+.orderlist {
+	list-style: none;
+	font-size: 25px;
+	padding-inline-start: 0px;
+	unicode-bidi: isolate;
+}
+
+.orderlist {
+	display: none;
+	position: absolute;
+	background-color: #ffdf7e;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 0.3cm;
+}
+
+.orderblock:hover .orderlist {
+	display: block;
+}
+
+.orderlist li {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+	color: black;
+}
+
+.orderlist a:hover {
+	color: #e83e8c !important;
+	text-decoration: none;
+}
+
+.orderlist li:hover {
+	box-shadow: 0px 8px 16px 0px rgba(232, 62, 140, 0.15);
+	border-radius: 10px;
+}
+
+.orderblock {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	padding: 50px 17px;
+}
+
+/* ==============================下拉式選單CSS end================================================== */

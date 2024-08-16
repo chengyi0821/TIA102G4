@@ -30,15 +30,15 @@ public class RestFeedbackServiceImpl implements FeedbackService {
 	public RestFeedbackServiceImpl() {
 		dao = new RestFeedbackDAOImpl();
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+		validator = factory.getValidator();
 	}
 
 	@Override
-	public void insert(FeedbackReqTO reqTO) {
+	public void insert(FeedbackReqTO reqTO, Long restId) {
 		validateReqTO(reqTO);
 		Integer feedbackType = reqTO.getFeedbackType().getFeedbackType();
 		String feedbackContent = reqTO.getFeedbackContent();
-		dao.insert(feedbackType, feedbackContent);
+		dao.insert(feedbackType, feedbackContent, restId);
 	}
 
 	@Override
@@ -49,8 +49,8 @@ public class RestFeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<CSReqTO> getAllCS(int currentPage) {
-		List<CustomerService> customerServices = dao.getAll(currentPage);
+	public List<CSReqTO> getAllCS(int currentPage, Long restId) {
+		List<CustomerService> customerServices = dao.getAll(currentPage, restId);
 		List<CSReqTO> reqTOs = new ArrayList<>();
 		for (CustomerService customerService : customerServices) {
 			CSReqTO dto = csMapper.setCSReqTO(customerService);
@@ -60,7 +60,7 @@ public class RestFeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<CSReqTO> getCSByCompositeQuery(Map<String, String[]> map) {
+	public List<CSReqTO> getCSByCompositeQuery(Map<String, String[]> map, Long restId) {
 		Map<String, String> query = new HashMap<>();
 		Set<Map.Entry<String, String[]>> entry = map.entrySet();
 
@@ -75,7 +75,7 @@ public class RestFeedbackServiceImpl implements FeedbackService {
 			}
 			query.put(key, value);
 		}
-		List<CustomerService> customerServices = dao.getByCompositeQuery(query);
+		List<CustomerService> customerServices = dao.getByCompositeQuery(query, restId);
 		List<CSReqTO> reqTOs = new ArrayList<>();
 		for (CustomerService cs : customerServices) {
 			CSReqTO dto = csMapper.setCSReqTO(cs);

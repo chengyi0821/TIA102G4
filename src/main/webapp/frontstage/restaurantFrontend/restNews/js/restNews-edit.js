@@ -193,8 +193,7 @@ $(document).ready(function() {
 											content: $('#content').val(),
 											type: $('#type').val(),
 											image: base64Image,
-											deleted: false,
-											restId: 1
+											deleted: false
 										}),
 										success: function(response) {
 											alert("編輯成功!");
@@ -228,8 +227,7 @@ $(document).ready(function() {
 										content: $('#content').val(),
 										type: $('#type').val(),
 										image: imageNotChange,
-										deleted: false,
-										restId: 1
+										deleted: false
 									}),
 									success: function(response) {
 										alert("編輯成功!");

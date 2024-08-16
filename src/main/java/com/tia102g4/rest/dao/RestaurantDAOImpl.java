@@ -52,8 +52,6 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	public void delete(Restaurant entity) {
 		String delete = "UPDATE Restaurant r SET r.deleted = :deleted WHERE r.restId = :restId";
 		Query query = getSession().createQuery(delete);
-		System.out.println(entity.getRestId());
-		System.out.println(entity.getDeleted());
 		query.setParameter("restId", entity.getRestId());
 		query.setParameter("deleted", entity.getDeleted());
 		query.executeUpdate();
@@ -104,6 +102,14 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from Restaurant where deleted = false", Long.class)
 				.uniqueResult();
+	}
+
+	@Override
+	public Restaurant findAccountByUser(Restaurant entity) {
+		return (Restaurant) getSession().createQuery("FROM Restaurant WHERE email = :email AND password = :password")
+				.setParameter("email", entity.getEmail())
+				.setParameter("password", entity.getPassword())
+                .uniqueResult();
 	}
 
 }

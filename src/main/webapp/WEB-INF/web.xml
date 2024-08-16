@@ -11,5 +11,26 @@
 		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	<!-- 	餐廳Filter	 -->
+	<filter>
+		<filter-name>RestaurantLoginFilter</filter-name>
+		<filter-class>com.tia102g4.filter.RestaurantLoginFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>RestaurantLoginFilter</filter-name>
+		<url-pattern>/frontstage/restaurantFrontend/restFeedback/restFeedback.html</url-pattern>
+	</filter-mapping>
 	
+	<!-- 	會員Filter	 -->
+	<filter>
+		<filter-name>MemberLoginFilter</filter-name>
+		<filter-class>com.tia102g4.filter.MemberLoginFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>MemberLoginFilter</filter-name>
+		<url-pattern>/frontstage/memberFrontend/memberFeedback/memberFeedback.html</url-pattern>
+	</filter-mapping>
+
 </web-app>

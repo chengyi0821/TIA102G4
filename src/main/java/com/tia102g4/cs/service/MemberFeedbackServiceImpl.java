@@ -18,7 +18,6 @@ import com.tia102g4.cs.dao.MemberFeedbackDAO;
 import com.tia102g4.cs.dao.MemberFeedbackDAOImpl;
 import com.tia102g4.cs.mapper.CustomerServiceMapper;
 import com.tia102g4.cs.model.CustomerService;
-import com.tia102g4.cs.to.req.CSInsertReqTO;
 import com.tia102g4.cs.to.req.CSReqTO;
 import com.tia102g4.cs.to.req.FeedbackReqTO;
 
@@ -30,15 +29,15 @@ public class MemberFeedbackServiceImpl implements FeedbackService {
 	public MemberFeedbackServiceImpl() {
 		dao = new MemberFeedbackDAOImpl();
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+		validator = factory.getValidator();
 	}
 
 	@Override
-	public void insert(FeedbackReqTO reqTO) {
+	public void insert(FeedbackReqTO reqTO, Long id) {
 		validateReqTO(reqTO);
 		Integer feedbackType = reqTO.getFeedbackType().getFeedbackType();
 		String feedbackContent = reqTO.getFeedbackContent();
-		dao.insert(feedbackType, feedbackContent);
+		dao.insert(feedbackType, feedbackContent, id);
 	}
 
 	@Override
@@ -49,8 +48,8 @@ public class MemberFeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<CSReqTO> getAllCS(int currentPage) {
-		List<CustomerService> customerServices = dao.getAll(currentPage);
+	public List<CSReqTO> getAllCS(int currentPage, Long id) {
+		List<CustomerService> customerServices = dao.getAll(currentPage, id);
 		List<CSReqTO> reqTOs = new ArrayList<>();
 		for (CustomerService customerService : customerServices) {
 			CSReqTO dto = csMapper.setCSReqTO(customerService);
@@ -60,7 +59,7 @@ public class MemberFeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public List<CSReqTO> getCSByCompositeQuery(Map<String, String[]> map) {
+	public List<CSReqTO> getCSByCompositeQuery(Map<String, String[]> map, Long id) {
 		Map<String, String> query = new HashMap<>();
 		Set<Map.Entry<String, String[]>> entry = map.entrySet();
 
@@ -75,7 +74,7 @@ public class MemberFeedbackServiceImpl implements FeedbackService {
 			}
 			query.put(key, value);
 		}
-		List<CustomerService> customerServices = dao.getByCompositeQuery(query);
+		List<CustomerService> customerServices = dao.getByCompositeQuery(query, id);
 		List<CSReqTO> reqTOs = new ArrayList<>();
 		for (CustomerService cs : customerServices) {
 			CSReqTO dto = csMapper.setCSReqTO(cs);
@@ -90,15 +89,15 @@ public class MemberFeedbackServiceImpl implements FeedbackService {
 		int pageQty = (int) (total % PAGE_MAX_RESULT == 0 ? (total / PAGE_MAX_RESULT) : (total / PAGE_MAX_RESULT + 1));
 		return pageQty;
 	}
-	
+
 	private void validateReqTO(FeedbackReqTO reqTO) {
-        Set<ConstraintViolation<FeedbackReqTO>> violations = validator.validate(reqTO);
-        if (!violations.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (ConstraintViolation<FeedbackReqTO> violation : violations) {
-                sb.append(violation.getMessage());
-            }
-            throw new ConstraintViolationException(violations);
-        }
-    }
+		Set<ConstraintViolation<FeedbackReqTO>> violations = validator.validate(reqTO);
+		if (!violations.isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			for (ConstraintViolation<FeedbackReqTO> violation : violations) {
+				sb.append(violation.getMessage());
+			}
+			throw new ConstraintViolationException(violations);
+		}
+	}
 }

@@ -7,13 +7,13 @@ import com.tia102g4.cs.to.req.CSReqTO;
 import com.tia102g4.cs.to.req.FeedbackReqTO;
 
 public interface FeedbackService {
-	void insert(FeedbackReqTO reqTO);
+	void insert(FeedbackReqTO reqTO, Long restId);
 
 	void delete(CSReqTO reqTO);
 
-	List<CSReqTO> getAllCS(int currentPage);
+	List<CSReqTO> getAllCS(int currentPage, Long restId);
 
 	int getPageTotal();
 
-	List<CSReqTO> getCSByCompositeQuery(Map<String, String[]> map);
+	List<CSReqTO> getCSByCompositeQuery(Map<String, String[]> map, Long restId);
 }
