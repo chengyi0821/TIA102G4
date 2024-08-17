@@ -110,10 +110,9 @@ public class JedisOptionHandler extends HttpServlet{
 			redisKey = "event:"+eventId; //redisKey:eventId
 		}
 		for(String item: choices) {
-			jedis.hset(redisKey, item, "0"); //在redis存入 redisKey:option1~3:"票數"
+			jedis.hset(redisKey, item, "0"); //在redis存入 redisKey:option1~3:"票數" //選項有進去redis
 		}
 		//上一頁已經從EventServlet 裡面getAllRestaurant帶出資料 req.setAttribute("restaurantList", restaurantList); 現在要讓選擇的optionID 對上restaurants的順序
-		//List的索引值=餐廳的ID - 1 當兩者相同的時候丟去voting.jsp印出來給使用者看
 		List<Restaurant> voteOptions = new ArrayList<>();
 		List<Restaurant> restaurantList =(List<Restaurant>) req.getSession().getAttribute("restaurantList");
 		//當選出的餐廳ID跟getAll裡面某間餐廳ID一樣的時候加入 voteOptions 拿去votiong.jsp打印出來
@@ -135,16 +134,18 @@ public class JedisOptionHandler extends HttpServlet{
 		return "/frontstage/memberFrontend/vote/voting.jsp";
 	}
 	
+	//投票之後導向去看投票結果與等其他人投完票去看訂單預覽
 	private String voting(HttpServletRequest req, HttpServletResponse res) {
-//		Long restId = Long.parseLong(req.getParameter("restId"));//取得使用者點選的餐廳，使用input type='radio'
 		String key = String.valueOf(req.getSession().getAttribute("redisKey"));
 		List<Restaurant> voteOptions =(List<Restaurant>) req.getSession().getAttribute("voteOptions");
 		String[] choices = req.getParameterValues("choices");
 
-//				Long restId = Long.parseLong(req.getParameter("restId"));//取得使用者點選的餐廳，使用input type='radio'
-		String selectedOption = req.getParameter("selectedOption");
-		jedis.hincrBy(key, selectedOption, 1); 
-		Map<String, String> voteCount = jedis.hgetAll(key);
+		String selectedOption = req.getParameter("selectedOption");//使用者選取的餐廳，傳restId
+		if(selectedOption != null) {
+			jedis.hincrBy(key, selectedOption, 1); 
+		}
+		
+		Map<String, String> voteCount = jedis.hgetAll(key);  //票數統計後裝到Session準備印出
 		req.getSession().setAttribute("count", voteCount);
 		return "/frontstage/memberFrontend/room/testcheckroom.jsp"; //導向之後讓大家等待投票結束
 	}

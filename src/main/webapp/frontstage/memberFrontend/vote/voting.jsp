@@ -120,11 +120,12 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 		<form action="option.do" method="post">
 			
 		<div style="display: flex; justify-content: space-between;">
-			<c:forEach var="restaurant" items="${restaurants}" varStatus="status">
+			<c:forEach var="restaurant" items="${voteOptions}" varStatus="status">
 				<div style="width: 30%;" class="option">
-					<h3>${restaurant.restName}</h3>
-					<p>ID: ${restaurant.restId}</p>
-					<p>${restaurant.description}</p>
+					<h3>餐廳名稱：${restaurant.restName}</h3>
+					<p>ID： ${restaurant.restId}</p>
+					<p>簡介：${restaurant.description}</p>
+					<p></p>
 					<input type="radio" name="selectedOption" value="option:${restaurant.restId}" required>
 				</div>
 				<c:if test="${status.count % 3 == 0 || status.last}">
