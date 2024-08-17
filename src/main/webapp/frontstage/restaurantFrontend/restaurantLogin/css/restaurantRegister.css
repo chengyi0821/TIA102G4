@@ -1,0 +1,50 @@
+/* ==============================下拉式選單CSS start================================================== */
+.orderlist {
+	list-style: none;
+	font-size: 25px;
+	padding-inline-start: 0px;
+	unicode-bidi: isolate;
+}
+
+.orderlist {
+	display: none;
+	position: absolute;
+	background-color: #ffdf7e;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 0.3cm;
+}
+
+.orderblock:hover .orderlist {
+	display: block;
+}
+
+.orderlist li {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+	color: black;
+}
+
+.orderlist a:hover {
+	color: #e83e8c !important;
+	text-decoration: none;
+}
+
+.orderlist li:hover {
+	box-shadow: 0px 8px 16px 0px rgba(232, 62, 140, 0.15);
+	border-radius: 10px;
+}
+
+.orderblock {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	padding: 50px 17px;
+}
+
+/* ==============================下拉式選單CSS end================================================== */
