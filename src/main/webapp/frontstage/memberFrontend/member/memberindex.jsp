@@ -13,7 +13,7 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
     <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/css/member.css" rel="stylesheet" />
-   <style>
+   
         
     
 </head>
