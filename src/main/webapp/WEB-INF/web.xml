@@ -20,6 +20,8 @@
 	<filter-mapping>
 		<filter-name>RestaurantLoginFilter</filter-name>
 		<url-pattern>/frontstage/restaurantFrontend/restFeedback/restFeedback.html</url-pattern>
+		<url-pattern>/frontstage/restaurantFrontend/restNews/restNews.html</url-pattern>
+		<url-pattern>/frontstage/restaurantFrontend/myorder/*</url-pattern>
 	</filter-mapping>
 	
 	<!-- 	會員Filter	 -->

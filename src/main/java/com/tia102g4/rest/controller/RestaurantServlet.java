@@ -68,6 +68,9 @@ public class RestaurantServlet extends HttpServlet {
 				add(requestBody);
 				res.setStatus(HttpServletResponse.SC_OK);
 				break;
+			case "restaurantLogout":
+				RestaueantLogout(req, res);
+				break;
 			}
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
@@ -109,8 +112,9 @@ public class RestaurantServlet extends HttpServlet {
 	private void add(String requestBody) {
 		System.out.println(requestBody);
 		RestaurantReqTO reqTO = gson.fromJson(requestBody, RestaurantReqTO.class);
-	    restService.create(reqTO);
+		restService.create(reqTO);
 	}
+
 	// 更新資料
 	private void update(String requestBody) {
 		Restaurant rest = gson.fromJson(requestBody, Restaurant.class);
@@ -127,6 +131,15 @@ public class RestaurantServlet extends HttpServlet {
 		Restaurant restId = restService.findAccountByUser(rest);
 		HttpSession session = req.getSession();
 		session.setAttribute("restId", restId.getRestId());
+	}
+
+	private void RestaueantLogout(HttpServletRequest req, HttpServletResponse res)
+			throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+		res.setStatus(HttpServletResponse.SC_OK);
 	}
 
 	@Override
