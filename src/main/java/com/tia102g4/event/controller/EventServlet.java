@@ -52,7 +52,7 @@ public class EventServlet extends HttpServlet{
 			forwardPath = getCompositeQuery(req,res);
 			break;
 		default:
-			forwardPath = "/index.jsp";
+			forwardPath = "/frontstage/memberFrontend/event/gate.jsp";
 		}
 		
 		res.setContentType("text/html; charset=UTF-8");

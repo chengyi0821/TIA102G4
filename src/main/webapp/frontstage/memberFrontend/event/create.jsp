@@ -123,8 +123,8 @@
 					id="name" name="name" required style="margin:10px;"/> <br> <label for="info" style="margin:10px;">活動詳細資訊:</label>
 				<br>
 				<textarea id="info" name="info" rows="4" cols="50" required style="margin:10px;"></textarea>
-				<br> <label for="maxseat" style="margin:10px;">最大參與人數(1~20人)</label><br> <input
-					type="number" name="maxseat" min=1 max=20 style="margin:10px;"> <br>
+				<br> <label for="maxseat" style="margin:10px;">最大參與人數(2~20人)</label><br> <input
+					type="number" name="maxseat" min=2 max=20 style="margin:10px;"> <br>
 			</main>
 			<div>
 				<input type="hidden" name="action" value="add"> <input
