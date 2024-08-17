@@ -17,6 +17,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.tia102g4.rest.model.Restaurant;
+import com.tia102g4.restType.model.RestType;
+import com.tia102g4.util.Base64Util;
 import com.tia102g4.util.HibernateUtil;
 
 public class RestaurantDAOImpl implements RestaurantDAO {
@@ -32,9 +34,12 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 	}
 
 	@Override
-	public void insert(Restaurant entity) {
+	public void insert(Restaurant entity, Long restType) {
+		RestType restId = getSession().get(RestType.class, restType);
+		entity.setRestType(restId);
+		getSession().save(entity);
 	}
-
+	
 	@Override
 	public void update(Restaurant entity) {
 		String update = "UPDATE Restaurant r SET r.restName = :restName, r.email = :email, r.password = :password, r.phone = :phone, r.location = :location WHERE r.restId = :restId";

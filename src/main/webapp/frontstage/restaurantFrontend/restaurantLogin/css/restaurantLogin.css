@@ -47,6 +47,10 @@ div#login\ title {
     color: #4D3900;
 }
 
+div#login-title{
+	margin-top:10px;
+}
+
 /* ==============================下拉式選單CSS start================================================== */
 .orderlist {
 	list-style: none;

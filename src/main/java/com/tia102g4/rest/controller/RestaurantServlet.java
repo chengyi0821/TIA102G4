@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.rest.service.RestaurantService;
 import com.tia102g4.rest.service.RestaurantServiceImpl;
+import com.tia102g4.rest.to.RestaurantReqTO;
 import com.tia102g4.util.BaseResponse;
 
 @WebServlet("/rest/rest.do")
@@ -50,9 +51,6 @@ public class RestaurantServlet extends HttpServlet {
 			case "getAll":
 				jsonObject = getAll(req);
 				break;
-			case "getAllForMember":
-//				jsonObject = getAllForMember(req);
-				break;
 			case "compositeQuery":
 				jsonObject = getCompositeQuery(req);
 				break;
@@ -65,9 +63,10 @@ public class RestaurantServlet extends HttpServlet {
 			case "restaurantLogin":
 				RestaurantLogin(req, requestBody);
 				res.setStatus(HttpServletResponse.SC_OK);
+				break;
 			case "add":
-//				add(requestBody);
-//				res.setStatus(HttpServletResponse.SC_OK);
+				add(requestBody);
+				res.setStatus(HttpServletResponse.SC_OK);
 				break;
 			}
 			res.setContentType("application/json");
@@ -107,6 +106,11 @@ public class RestaurantServlet extends HttpServlet {
 		return baseResponse.jsonResponse(restList);
 	}
 
+	private void add(String requestBody) {
+		System.out.println(requestBody);
+		RestaurantReqTO reqTO = gson.fromJson(requestBody, RestaurantReqTO.class);
+	    restService.create(reqTO);
+	}
 	// 更新資料
 	private void update(String requestBody) {
 		Restaurant rest = gson.fromJson(requestBody, Restaurant.class);

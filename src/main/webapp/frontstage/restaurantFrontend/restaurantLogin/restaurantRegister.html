@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>客服管理</title>
+<!-- 載入 jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link href="../css/style.css" rel="stylesheet">
+<link href="css/restaurantLogin.css" rel="stylesheet">
+<style>
+</style>
+</head>
+
+<body>
+	<!-- Topbar Start -->
+	<div class="container-fluid bg-primary py-3 d-none d-md-block">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+					<div class="d-inline-flex align-items-center">
+						<a href="page1.html" class="navbar-brand mx-5 d-none d-lg-block">
+							<img class="logo" src="../image/logo.png">
+						</a>
+						<h1 class="m-0 display-4 text-primary">Chugether</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Topbar End -->
+
+	<div class="container-fluid position-relative nav-bar p-0">
+		<div class="container-lg position-relative p-0 px-lg-3"
+			style="z-index: 9;">
+			<nav
+				class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
+				<div class="collapse navbar-collapse justify-content-between"
+					id="navbarCollapse">
+					<div class="navbar-nav ml-auto py-0">
+						<div class="orderblock">
+							<a href="restaurantLogin.html" class="nav-item nav-link">店家登入</a>
+						</div>
+					</div>
+
+					<div class="navbar-nav mr-auto py-0">
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link active active">加入會員</a>
+						</div>
+					</div>
+				</div>
+
+			</nav>
+		</div>
+	</div>
+	<!-- Navbar End -->
+	<div id="main-content1"></div>
+	<div id="main-content2">
+		<div id="login-title">加入會員</div>
+		<div class="form-container">
+			<form id="restaurantForm">
+				<div class="form-group">
+					<label for="restName">餐廳名稱</label> <input type="text" id="restName"
+						name="restName" required>
+				</div>
+				<div class="form-group">
+					<label for="location">餐廳位置</label> <input type="text" id="location"
+						name="location" required>
+				</div>
+				<div class="form-group">
+					<label for="phone">餐廳電話</label> <input type="tel" id="phone"
+						name="phone" required>
+				</div>
+				<div class="form-group">
+					<label for="email">餐廳信箱</label> <input type="email" id="email"
+						name="email" required>
+				</div>
+				<div class="form-group">
+					<label for="password">餐廳密碼</label> <input type="password"
+						id="password" name="password" required>
+				</div>
+
+				<!-- 星期一到星期日的營業日設定 -->
+				<div class="form-group">
+					<label>營業日</label>
+					<div>
+						<label><input type="checkbox" name="openDay" value="1"
+							checked> 星期一</label> <label><input type="checkbox"
+							name="openDay" value="1" checked> 星期二</label> <label><input
+							type="checkbox" name="openDay" value="1" checked> 星期三</label> <label><input
+							type="checkbox" name="openDay" value="0" checked> 星期四</label> <label><input
+							type="checkbox" name="openDay" value="0" checked> 星期五</label> <label><input
+							type="checkbox" name="openDay" value="1"> 星期六</label> <label><input
+							type="checkbox" name="openDay" value="1"> 星期日</label>
+					</div>
+				</div>
+				<!-- 營業時間設定 -->
+				<div class="form-group">
+					<label for="openTime1">營業時段1</label> <input type="time"
+						id="openTime1" name="openTime1" required>
+				</div>
+				<div class="form-group">
+					<label for="closeTime1">打烊時間1</label> <input type="time"
+						id="closeTime1" name="closeTime1" required>
+				</div>
+				<div class="form-group">
+					<label for="openTime2">營業時段2（選填）</label> <input type="time"
+						id="openTime2" name="openTime2">
+				</div>
+				<div class="form-group">
+					<label for="closeTime2">打烊時間2（選填）</label> <input type="time"
+						id="closeTime2" name="closeTime2">
+				</div>
+
+				<!-- 圖片上傳 -->
+				<div class="form-group">
+					<label for="image">餐廳圖片（選填）</label> <input type="file"
+						id="imageInput" accept="image/*">
+				</div>
+
+				<!-- 餐廳類型 -->
+				<div class="form-group">
+					<label for="restType">餐廳類型</label> <select id="restType"
+						name="restType" required>
+						<option value="1">中餐</option>
+						<option value="2">西餐</option>
+						<option value="3">日式料理</option>
+						<option value="4">韓式料理</option>
+						<option value="5">泰式料理</option>
+						<option value="6">印度料理'</option>
+						<option value="7">素食餐廳</option>
+						<option value="8">燒烤</option>
+						<option value="9">火鍋</option>
+						<option value="10">咖啡廳</option>
+						<!-- 其他類型選項 -->
+					</select>
+				</div>
+
+				<!-- 餐廳描述 -->
+				<div class="form-group">
+					<label for="description">餐廳描述</label>
+					<textarea id="description" name="description" rows="4" required></textarea>
+				</div>
+
+				<!-- 提交按鈕與取消按鈕 -->
+				<div class="form-actions">
+					<button type="submit">提交</button>
+					<button type="reset" class="cancel">取消</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="table-container"></div>
+
+	<div id="main-content3"></div>
+	<footer id="footer">
+		<h5 class="footerh5_1">chugether 揪來鳩去有限公司</h5>
+		<h5 class="footerh5">常見問題</h5>
+		<h5 class="footerh5">網站地圖</h5>
+		<h5 class="footerh5">使用者條款</h5>
+		<h5 class="footerh5">隱私權條款</h5>
+		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
+	</footer>
+	<script src="js/restaurant-register.js"></script>
+</body>
+
+</html>
