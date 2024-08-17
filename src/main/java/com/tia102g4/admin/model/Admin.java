@@ -35,8 +35,8 @@ public class Admin {
     @Column(name = "permission", nullable = false)
     private Integer permission; // 權限: 1.管理員 2.一般
 
-    @Column(name = "regis_date", nullable = false)
-    private Timestamp regisDate; // 註冊時間
+    @Column(name = "regis_date", insertable = false, updatable = false)
+    private Timestamp regisDate = new Timestamp(System.currentTimeMillis());
 
 //    // 一對多關係：一個後台人員可以處理多個客服
 //    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
