@@ -6,9 +6,10 @@ import java.util.Map;
 import javax.security.auth.login.LoginException;
 
 import com.tia102g4.rest.model.Restaurant;
+import com.tia102g4.rest.to.RestaurantReqTO;
 
 public interface RestaurantService {
-	void create(Restaurant entity);
+	void create(RestaurantReqTO reqTO);
 
 	void update(Restaurant entity);
 

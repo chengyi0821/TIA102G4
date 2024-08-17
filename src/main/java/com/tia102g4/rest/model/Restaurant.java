@@ -15,7 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.Size;
+
+import org.hibernate.query.criteria.internal.expression.function.CurrentTimeFunction;
 
 import com.google.gson.annotations.Expose;
 import com.tia102g4.blacklist.model.BlackList;
@@ -48,8 +51,8 @@ public class Restaurant {
 	@Column(name = "phone", nullable = false, unique = true)
 	private String phone; // 餐廳電話
 
-	@Column(name = "regist_time", nullable = false)
-	private Timestamp registTime; // 註冊時間
+	@Column(name = "regist_time", nullable = false, updatable = false)
+	private Timestamp registTime = new Timestamp(System.currentTimeMillis());// 註冊時間
 
 	@Column(name = "email", nullable = false, unique = true)
 	private String email; // 餐廳信箱
@@ -236,6 +239,14 @@ public class Restaurant {
 
 	public void setImage(Byte[] image) {
 		this.image = image;
+	}
+	
+	public RestType getRestType() {
+		return restType;
+	}
+
+	public void setRestType(RestType restType) {
+		this.restType = restType;
 	}
 
 	public Set<MyOrder> getMyOrders() {

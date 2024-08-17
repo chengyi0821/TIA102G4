@@ -6,7 +6,7 @@ import java.util.Map;
 import com.tia102g4.rest.model.Restaurant;
 
 public interface RestaurantDAO {
-	void insert(Restaurant entity);
+	void insert(Restaurant entity, Long restType);
 
 	void update(Restaurant entity);
 
