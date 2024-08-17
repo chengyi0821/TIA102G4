@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>客服管理</title>
+	<!-- 載入 jQuery -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<link href="../css/style.css" rel="stylesheet">
+	<link href="css/restaurantLogin.css" rel="stylesheet">
+<style>
+
+</style>
+</head>
+
+<body>
+	  <!-- Topbar Start -->
+	  <div class="container-fluid bg-primary py-3 d-none d-md-block">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+					<div class="d-inline-flex align-items-center">
+						<a href="page1.html" class="navbar-brand mx-5 d-none d-lg-block">
+							<img class="logo" src="../image/logo.png">
+						</a>
+							<h1 class="m-0 display-4 text-primary">Chugether</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Topbar End -->
+	 
+	<div class="container-fluid position-relative nav-bar p-0">
+		<div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+			<nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
+				<div class="collapse navbar-collapse justify-content-between"
+					id="navbarCollapse">
+					<div class="navbar-nav ml-auto py-0">
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link">店家登入</a>
+						</div>
+					</div>
+
+					<div class="navbar-nav mr-auto py-0">
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link">加入會員</a>
+						</div>
+					</div>
+				</div>
+
+			</nav>
+		</div>
+	</div>
+	<!-- Navbar End -->
+	<div id="main-content1"></div>
+	<div id="main-content2">
+	<div id="login title">店家登入</div>
+		<form id="loginForm">
+		    <label for="account" id="account-title">帳號:</label>
+		    <input id="account" name="account" class="login" type="text" required><br>
+		    
+		    <label for="password" id="password-title">密碼:</label>
+		    <input id="password" name="password" class="login" type="password" required><br>
+		    
+		    <button type="submit" id="login">登入</button>
+		</form>
+	</div>
+	<div class="table-container">
+
+	</div>
+
+		<div id="main-content3"></div>
+		<footer id="footer">
+			<h5 class="footerh5_1">chugether 揪來鳩去有限公司</h5>
+			<h5 class="footerh5">常見問題</h5>
+			<h5 class="footerh5">網站地圖</h5>
+			<h5 class="footerh5">使用者條款</h5>
+			<h5 class="footerh5">隱私權條款</h5>
+			<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
+		</footer>
+		<script src="js/restaurant-login.js"></script>
+</body>
+
+</html>

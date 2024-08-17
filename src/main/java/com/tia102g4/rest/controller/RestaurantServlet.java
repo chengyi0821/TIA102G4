@@ -2,14 +2,17 @@ package com.tia102g4.rest.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
+import javax.security.auth.login.LoginException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -42,30 +45,42 @@ public class RestaurantServlet extends HttpServlet {
 		}
 		String requestBody = stringBuilder.toString();
 		JsonObject jsonObject = null;
-		switch (action) {
-		case "getAll":
-			jsonObject = getAll(req);
-			break;
-		case "getAllForMember":
+		try {
+			switch (action) {
+			case "getAll":
+				jsonObject = getAll(req);
+				break;
+			case "getAllForMember":
 //				jsonObject = getAllForMember(req);
-			break;
-		case "compositeQuery":
-			jsonObject = getCompositeQuery(req);
-			break;
-		case "update":
-			update(requestBody);
-			break;
-		case "delete":
-			delete(requestBody);
-			break;
-		case "add":
+				break;
+			case "compositeQuery":
+				jsonObject = getCompositeQuery(req);
+				break;
+			case "update":
+				update(requestBody);
+				break;
+			case "delete":
+				delete(requestBody);
+				break;
+			case "restaurantLogin":
+				RestaurantLogin(req, requestBody);
+				res.setStatus(HttpServletResponse.SC_OK);
+			case "add":
 //				add(requestBody);
 //				res.setStatus(HttpServletResponse.SC_OK);
-			break;
+				break;
+			}
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(gson.toJson(jsonObject));
+		} catch (LoginException e) {
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(e.getMessage());
+			out.flush();
 		}
-		res.setContentType("application/json");
-		res.setCharacterEncoding("UTF-8");
-		res.getWriter().write(gson.toJson(jsonObject));
 	}
 
 	// 查詢所有資料
@@ -101,6 +116,13 @@ public class RestaurantServlet extends HttpServlet {
 	private void delete(String requestBody) {
 		Restaurant rest = gson.fromJson(requestBody, Restaurant.class);
 		restService.delete(rest);
+	}
+
+	private void RestaurantLogin(HttpServletRequest req, String requestBody) throws IOException, LoginException {
+		Restaurant rest = gson.fromJson(requestBody, Restaurant.class);
+		Restaurant restId = restService.findAccountByUser(rest);
+		HttpSession session = req.getSession();
+		session.setAttribute("restId", restId.getRestId());
 	}
 
 	@Override

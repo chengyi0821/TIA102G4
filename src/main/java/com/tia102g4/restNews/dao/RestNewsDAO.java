@@ -13,11 +13,11 @@ public interface RestNewsDAO {
 
 	void delete(RestaurantNews entity);
 
-	boolean isOverlappingPeriods(RestaurantNews restaurantNews, Long restId, String type);
+	boolean isOverlappingPeriods(RestaurantNews restaurantNews, Long restId);
 
-	List<RestaurantNews> getByCompositeQuery(Map<String, String> map);
+	List<RestaurantNews> getByCompositeQuery(Map<String, String> map, Long restId);
 
-	List<RestaurantNews> getAll(int currentPage);
+	List<RestaurantNews> getAll(int currentPage, Long restId);
 
 	List<RestaurantNews> getAll();
 

@@ -14,11 +14,11 @@ public interface RestNewsService {
 
 	void delete(RestNewsDeleteReqTO reqTO);
 
-	List<RestNewsReqTO> getAllRestNews(int currentPage);
+	List<RestNewsReqTO> getAllRestNews(int currentPage, Long restId);
 	
 	List<RestNewsReqTO> getAllRestNews();
 
 	int getPageTotal();
 
-	List<RestNewsReqTO> getRestNewsByCompositeQuery(Map<String, String[]> map);
+	List<RestNewsReqTO> getRestNewsByCompositeQuery(Map<String, String[]> map, Long restId);
 }

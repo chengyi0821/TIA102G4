@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.ValidationException;
 
 import com.google.gson.Gson;
@@ -38,6 +39,9 @@ public class MemberFeedbackServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
+		HttpSession session = req.getSession();
+		Long memberId = (Long) session.getAttribute("memberId");
+
 		BufferedReader reader = req.getReader();
 		StringBuilder stringBuilder = new StringBuilder();
 		String line;
@@ -50,13 +54,13 @@ public class MemberFeedbackServlet extends HttpServlet {
 		try {
 			switch (action) {
 			case "getAll":
-				jsonObject = getAll(req);
+				jsonObject = getAll(req, memberId);
 				break;
 			case "compositeQuery":
-				jsonObject = getCompositeCSQuery(req);
+				jsonObject = getCompositeCSQuery(req, memberId);
 				break;
 			case "add":
-				insert(requestBody);
+				insert(requestBody, memberId);
 				res.setStatus(HttpServletResponse.SC_OK);
 				break;
 			case "deleted":
@@ -77,11 +81,11 @@ public class MemberFeedbackServlet extends HttpServlet {
 	}
 
 	// 查詢所有資料
-	private JsonObject getAll(HttpServletRequest req) {
+	private JsonObject getAll(HttpServletRequest req, Long memberId) {
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		int totalPageQty = memberFeedbackService.getPageTotal();
-		List<CSReqTO> reqTOList = memberFeedbackService.getAllCS(currentPage);
+		List<CSReqTO> reqTOList = memberFeedbackService.getAllCS(currentPage, memberId);
 
 		if (req.getSession().getAttribute("csMemberPageQty") == null) {
 			req.getSession().setAttribute("csMemberPageQty", totalPageQty);
@@ -90,22 +94,22 @@ public class MemberFeedbackServlet extends HttpServlet {
 	}
 
 	// 複合查詢
-	private JsonObject getCompositeCSQuery(HttpServletRequest req) {
+	private JsonObject getCompositeCSQuery(HttpServletRequest req, Long memberId) {
 		Map<String, String[]> map = req.getParameterMap();
 
 		// 如果map沒資料就回傳空值
 		if (map == null) {
 			return null;
 		}
-		List<CSReqTO> reqTOList = memberFeedbackService.getCSByCompositeQuery(map);
+		List<CSReqTO> reqTOList = memberFeedbackService.getCSByCompositeQuery(map, memberId);
 
 		return baseResponse.gsonBuilderForJsonResponse(reqTOList);
 	}
 
 	// 填寫餐廳意見表
-	private void insert(String requestBody) {
+	private void insert(String requestBody, Long memberId) {
 		FeedbackReqTO reqTO = gson.fromJson(requestBody, FeedbackReqTO.class);
-		memberFeedbackService.insert(reqTO);
+		memberFeedbackService.insert(reqTO, memberId);
 	}
 
 	// 刪除單筆信件

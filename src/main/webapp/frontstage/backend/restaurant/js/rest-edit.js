@@ -72,7 +72,7 @@ $(document).ready(function() {
 									<div id="annoCreate-title">編輯店家</div>
 									<div id="announcement-form">
 											<label for="start-date" class="label">店家編號</label>
-											<input type="text" id="restId" class="rest" name="heading" value="${restId}"><br>
+											<label type="text" id="restId">${restId}</label><br>
 											<label for="end-date" class="label">店家名稱:</label>
 											<input type="text" id="restName" class="rest" name="heading" value="${restName}"><br>
 											<label for="heading" class="label">信箱</label>

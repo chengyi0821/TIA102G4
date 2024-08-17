@@ -35,9 +35,9 @@ public class MemberFeedbackDAOImpl implements MemberFeedbackDAO {
 	}
 
 	@Override
-	public void insert(Integer feedbackType, String feedbackContent) {
+	public void insert(Integer feedbackType, String feedbackContent, Long id) {
 		CustomerService cs = new CustomerService();
-		Member member = getSession().get(Member.class, 1L);
+		Member member = getSession().get(Member.class, id);
 		cs.setFeedbackType(feedbackType);
 		cs.setFeedbackContent(feedbackContent);
 		cs.setFeedbackTime(new Timestamp(System.currentTimeMillis()));
@@ -56,8 +56,8 @@ public class MemberFeedbackDAOImpl implements MemberFeedbackDAO {
 	}
 
 	@Override
-	public List<CustomerService> getByCompositeQuery(Map<String, String> map) {
-		Member member = getSession().get(Member.class, 1L);
+	public List<CustomerService> getByCompositeQuery(Map<String, String> map, Long id) {
+		Member member = getSession().get(Member.class, id);
 		// 創建各種查詢條件
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
 		// 指定查詢的返回類型為CustomerService
@@ -115,12 +115,11 @@ public class MemberFeedbackDAOImpl implements MemberFeedbackDAO {
 	}
 
 	@Override
-	public List<CustomerService> getAll(int currentPage) {
-		Long memberId = 1L;
+	public List<CustomerService> getAll(int currentPage, Long id) {
 		int first = (currentPage - 1) * PAGE_MAX_RESULT;
 		return getSession().createQuery(
 				"SELECT cs FROM CustomerService cs LEFT JOIN fetch cs.member m LEFT JOIN fetch cs.admin WHERE cs.restaurant IS NULL AND cs.deletedMember = false AND m.memberId = :memberId",
-				CustomerService.class).setParameter("memberId", memberId).setFirstResult(first)
+				CustomerService.class).setParameter("memberId", id).setFirstResult(first)
 				.setMaxResults(PAGE_MAX_RESULT).list();
 	}
 
