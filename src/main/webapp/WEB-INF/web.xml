@@ -33,6 +33,11 @@
 	<filter-mapping>
 		<filter-name>MemberLoginFilter</filter-name>
 		<url-pattern>/frontstage/memberFrontend/memberFeedback/memberFeedback.html</url-pattern>
+		<url-pattern>/frontstage/memberFrontend/myorder/*</url-pattern>
+		<url-pattern>/frontstage/memberFrontend/favorite/favoriteList.jsp</url-pattern>
+		<url-pattern>/frontstage/memberFrontend/event/*</url-pattern>
+		<url-pattern>/frontstage/memberFrontend/room/*</url-pattern>
+		<url-pattern>/frontstage/memberFrontend/vote/*</url-pattern>
 	</filter-mapping>
 
 </web-app>

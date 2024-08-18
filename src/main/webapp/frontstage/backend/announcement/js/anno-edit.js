@@ -123,7 +123,7 @@ $(document).ready(function() {
 						var today = new Date();
 						// 計算下一天的日期
 						var tomorrow = new Date(today);
-						tomorrow.setDate(today.getDate() + 1);
+						tomorrow.setDate(today.getDate());
 						// 格式化日期為 YYYY-MM-DD
 						var minDate = tomorrow.toISOString().split('T')[0];
 
