@@ -20,6 +20,7 @@ import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.rest.service.RestaurantService;
 import com.tia102g4.rest.service.RestaurantServiceImpl;
 import com.tia102g4.rest.to.RestaurantReqTO;
+import com.tia102g4.rest.to.RestaurantUpdateReqTO;
 import com.tia102g4.util.BaseResponse;
 
 @WebServlet("/rest/rest.do")
@@ -37,6 +38,9 @@ public class RestaurantServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+
+		HttpSession session = req.getSession();
+		Long restId = (Long) session.getAttribute("restId");
 
 		BufferedReader reader = req.getReader();
 		StringBuilder stringBuilder = new StringBuilder();
@@ -61,7 +65,7 @@ public class RestaurantServlet extends HttpServlet {
 				delete(requestBody);
 				break;
 			case "restaurantLogin":
-				RestaurantLogin(req, requestBody);
+				restaurantLogin(req, requestBody);
 				res.setStatus(HttpServletResponse.SC_OK);
 				break;
 			case "add":
@@ -69,7 +73,13 @@ public class RestaurantServlet extends HttpServlet {
 				res.setStatus(HttpServletResponse.SC_OK);
 				break;
 			case "restaurantLogout":
-				RestaueantLogout(req, res);
+				restaueantLogout(req, res);
+				break;
+			case "findIdByUser":
+				jsonObject = findIdByUser(requestBody, restId);
+				break;
+			case "updateForRest":
+				updateForRest(requestBody, restId);
 				break;
 			}
 			res.setContentType("application/json");
@@ -110,30 +120,41 @@ public class RestaurantServlet extends HttpServlet {
 	}
 
 	private void add(String requestBody) {
-		System.out.println(requestBody);
 		RestaurantReqTO reqTO = gson.fromJson(requestBody, RestaurantReqTO.class);
 		restService.create(reqTO);
 	}
 
-	// 更新資料
+	// 後台更新資料
 	private void update(String requestBody) {
 		Restaurant rest = gson.fromJson(requestBody, Restaurant.class);
 		restService.update(rest);
 	}
 
+	// 前台修改資料
+	private void updateForRest(String requestBody, Long restId) {
+		System.out.println(requestBody);
+		RestaurantReqTO reqTO = gson.fromJson(requestBody, RestaurantReqTO.class);
+		restService.updateForRest(reqTO, restId);
+	}
+
+	private JsonObject findIdByUser(String requestBody, Long restId) {
+	    RestaurantReqTO resultTO = restService.findIdByUser(restId);
+	    return gson.toJsonTree(resultTO).getAsJsonObject();
+	}
+	
 	private void delete(String requestBody) {
 		Restaurant rest = gson.fromJson(requestBody, Restaurant.class);
 		restService.delete(rest);
 	}
 
-	private void RestaurantLogin(HttpServletRequest req, String requestBody) throws IOException, LoginException {
+	private void restaurantLogin(HttpServletRequest req, String requestBody) throws IOException, LoginException {
 		Restaurant rest = gson.fromJson(requestBody, Restaurant.class);
 		Restaurant restId = restService.findAccountByUser(rest);
 		HttpSession session = req.getSession();
 		session.setAttribute("restId", restId.getRestId());
 	}
 
-	private void RestaueantLogout(HttpServletRequest req, HttpServletResponse res)
+	private void restaueantLogout(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
 		if (session != null) {
