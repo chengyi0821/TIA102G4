@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.ValidationException;
 
 import com.google.gson.Gson;
@@ -38,6 +39,9 @@ public class CSRestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
+		HttpSession session = req.getSession();
+		Long adminId = (Long) session.getAttribute("adminId");
 
 		BufferedReader reader = req.getReader();
 		StringBuilder stringBuilder = new StringBuilder();
@@ -57,7 +61,7 @@ public class CSRestServlet extends HttpServlet {
 				jsonObject = getCompositeCSQuery(req);
 				break;
 			case "add":
-				update(requestBody);
+				update(requestBody, adminId);
 				res.setStatus(HttpServletResponse.SC_OK);
 				break;
 			case "deleted":
@@ -104,8 +108,9 @@ public class CSRestServlet extends HttpServlet {
 	}
 
 	// 回覆訊息
-	private void update(String requestBody) {
+	private void update(String requestBody, Long adminId) {
 		CSInsertReqTO reqTO = gson.fromJson(requestBody, CSInsertReqTO.class);
+		reqTO.setAdminId(adminId);
 		customerServiceRest.insert(reqTO);
 	}
 

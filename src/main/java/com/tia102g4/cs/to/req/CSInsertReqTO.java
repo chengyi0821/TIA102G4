@@ -49,4 +49,10 @@ public class CSInsertReqTO {
 		return adminId;
 	}
 
+	public void setAdminId(Long adminId) {
+		this.adminId = adminId;
+	}
+	
+	
+
 }

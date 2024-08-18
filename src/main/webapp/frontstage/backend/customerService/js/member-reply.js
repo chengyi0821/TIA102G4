@@ -122,8 +122,7 @@ $(document).ready(function() {
 							data: JSON.stringify({
 								csId: csId,
 								replyHeading: $('select#reply-type').val(),
-								replyContent: $('textarea#replycontent').val(),
-								adminId: "1"
+								replyContent: $('textarea#replycontent').val()
 							}),
 							success: function() {
 								alert("回覆成功");
