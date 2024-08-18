@@ -21,7 +21,10 @@
 		<filter-name>RestaurantLoginFilter</filter-name>
 		<url-pattern>/frontstage/restaurantFrontend/restFeedback/restFeedback.html</url-pattern>
 		<url-pattern>/frontstage/restaurantFrontend/restNews/restNews.html</url-pattern>
+		<url-pattern>/frontstage/restaurantFrontend/blacklist/listAllBlackList.jsp</url-pattern>
 		<url-pattern>/frontstage/restaurantFrontend/myorder/*</url-pattern>
+		<url-pattern>/frontstage/restaurantFrontend/restaurantAboutUs/restaurantAboutUs.html</url-pattern>
+		<url-pattern>/frontstage/restaurantFrontend/restaurantEdit/restaurantEdit.html</url-pattern>
 	</filter-mapping>
 	
 	<!-- 	會員Filter	 -->
