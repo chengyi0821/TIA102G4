@@ -17,20 +17,7 @@
 	<link href="css/room.css" rel="stylesheet">
 	<script src="js/main.js"></script>
 	
-	<script>
-		// 檢查驗證碼長度並顯示提示訊息
-		function checkInviteCodeLength() {
-			const inviteCode = document.getElementById("inviteCode").value;
-			const lengthMessage = document.getElementById("lengthMessage");
 
-			if (inviteCode.length !== 7) {
-				lengthMessage.textContent = "驗證碼必須為 7 位數字。";
-				lengthMessage.style.color = "red";
-			} else {
-				lengthMessage.textContent = "";  // 清除訊息
-			}
-		}
-	</script>
 </head>
 
 <body>

@@ -95,8 +95,7 @@ public class MemberServlet extends HttpServlet {
 	}
 
 	private String updateMember(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-        Long memberId = (Long) session.getAttribute("memberId");
+		Long memberId = 16L;
 		String genderStr = req.getParameter("gender");
 		boolean gender = Boolean.parseBoolean(genderStr);
 
@@ -111,6 +110,7 @@ public class MemberServlet extends HttpServlet {
 		member.setAccStatus(true);
 
 		memberService.updateMember(member);
+		HttpSession session = req.getSession();
 		session.setAttribute("loggedInMember", member);
 		req.setAttribute("successMessage", "會員更新成功！");
 		return "/frontstage/memberFrontend/member/memberindex.jsp"; // 返回到會員列表頁面
