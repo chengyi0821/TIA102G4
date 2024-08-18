@@ -2,11 +2,13 @@
     background-color: #f8f9fa; /* 背景顏色 */
     padding: 30px; /* 增加內邊距 */
     border-radius: 12px; /* 邊角圓角 */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
     margin-top: 20px; /* 上邊距 */
     max-width: 1200px; /* 最大寬度 */
     margin-left: auto; /* 自動水平居中 */
     margin-right: auto; /* 自動水平居中 */
+    background-color:#fffbeb !important;
+	border:1px solid #fffbeb !important;
+	margin-bottom:50px;
 }
 
 #main-content2 .row {
@@ -20,6 +22,7 @@
     border-radius: 12px; /* 圓角邊框 */
     border: 2px solid #ddd; /* 輕微的邊框 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
+    
 }
 
 #restName {
@@ -119,3 +122,5 @@
 }
 
 /* ==============================下拉式選單CSS end================================================== */
+
+

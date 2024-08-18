@@ -227,111 +227,111 @@ public class MemberMyOrderServlet extends HttpServlet {
 	    }
 	 
 	 //這個方法是用假資料
-//	 private String addOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//		    MyOrder order = new MyOrder();
-//		    Restaurant restaurant = new Restaurant();
-//		    restaurant.setRestId(1L); 
-//		    restaurant.setRestName("瓦城");
-//		    
-//		    Event event = new Event();
-//		    event.setEventId(9L); 
-//		    
-//		    Member member = new Member();
-//		    member.setMemberId(1L); 
-//		    
-//		    order.setMember(member);
-//		    order.setEvent(event);
-//		    order.setRestaurant(restaurant);
-//		    order.setMemberName("陳小一");
-//		    order.setPhone("09776555");
-//		    order.setOrderDate(new Timestamp(System.currentTimeMillis()));
-//		    order.setOrderStatus("1");
-//		    order.setReserDate(Date.valueOf("2024-08-09"));
-//		    order.setReserTime(Time.valueOf("18:00:00"));
-//		    order.setReserPeopleNumber(12);
-//		    order.setReserNote("趕快給我吃高~aaa");
-//
-//		    try {
-//		        boolean isBlacklisted = blackListService.isMemberInBlackList(member.getMemberId(), restaurant.getRestId());
-//		        
-//		        if (isBlacklisted) {
-//		            req.setAttribute("errorMsg", "餐廳拒絕訂單，請往其它餐廳訂單。");
-//		          
-//		            return "/frontstage/memberFrontend/myorder/member_order_index.jsp";
-//		        }
-//		        orderService.addOrder(order);
-//		       
-//		        sendOrderConfirmationEmail(order);
-//		      
-//		    } catch (Exception e) {
-//		        e.printStackTrace();
-//		        req.setAttribute("errorMsg", "訂單處理失敗，請稍後再試。");
-//		        return "/error.jsp";
-//		    }
-//
-//		    req.setAttribute("order", order);
-//		    return getOrderStatus1Member(req, res);
-//		}
-
-
-	 
 	 private String addOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-		  
-//		    Member member = (Member) req.getSession().getAttribute("loggedInMember");
-		 	Long memberId = 1L;
-		 	Member member = new Member();
-		    member.setMemberId(1L); 
-		 
-		   
-//		    List<Event> eventList = (List<Event>) req.getAttribute("eventList");
-//		    Event event = eventList.get(0);
-		    Event event = new Event();
-		    event.setEventId(9L);
-
-		    Long winningRestId = (Long) req.getAttribute("winningRestId");
-
-		    Restaurant restaurant = new Restaurant();
-		    restaurant.setRestId(winningRestId);
-		   
-
-	
 		    MyOrder order = new MyOrder();
+		    Restaurant restaurant = new Restaurant();
+		    restaurant.setRestId(1L); 
+		    restaurant.setRestName("金龍軒");
+		    
+		    Event event = new Event();
+		    event.setEventId(19L); 
+		    
+		    Member member = new Member();
+		    member.setMemberId(1L); 
+		    
 		    order.setMember(member);
 		    order.setEvent(event);
 		    order.setRestaurant(restaurant);
-		    order.setMemberName(member.getName());
-		    order.setPhone(member.getMobileNo()); 
-		    order.setOrderDate(new Timestamp(System.currentTimeMillis())); 
-		    order.setOrderStatus("1"); 
-		    order.setReserDate(event.getDate()); 
-		    order.setReserTime(event.getTime()); 
-		    order.setReserPeopleNumber(3); 
-		    order.setReserNote(event.getInfo()); 
+		    order.setMemberName("王小明");
+		    order.setPhone("0912345678");
+		    order.setOrderDate(new Timestamp(System.currentTimeMillis()));
+		    order.setOrderStatus("1");
+		    order.setReserDate(Date.valueOf("2024-08-25"));
+		    order.setReserTime(Time.valueOf("18:00:00"));
+		    order.setReserPeopleNumber(12);
+		    order.setReserNote("無");
 
 		    try {
-		       
 		        boolean isBlacklisted = blackListService.isMemberInBlackList(member.getMemberId(), restaurant.getRestId());
-
+		        
 		        if (isBlacklisted) {
-		        	req.getSession().setAttribute("errorMsg", "餐廳拒絕訂單，請往其它餐廳訂單。");
+		            req.setAttribute("errorMsg", "餐廳拒絕訂單，請往其它餐廳訂單。");
+		          
 		            return "/frontstage/memberFrontend/myorder/member_order_index.jsp";
 		        }
-
-		       
 		        orderService.addOrder(order);
-
-		      
+		       
 		        sendOrderConfirmationEmail(order);
-
+		      
 		    } catch (Exception e) {
 		        e.printStackTrace();
-		        req.getSession().setAttribute("errorMsg", "訂單處理失敗，請稍後再試。");
+		        req.setAttribute("errorMsg", "訂單處理失敗，請稍後再試。");
 		        return "/error.jsp";
 		    }
-		    req.getSession().setAttribute("order", order);
+
+		    req.setAttribute("order", order);
 		    return getOrderStatus1Member(req, res);
 		}
+
+
+	 
+//	 private String addOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+//
+//		  
+////		    Member member = (Member) req.getSession().getAttribute("loggedInMember");
+//		 	Long memberId = 1L;
+//		 	Member member = new Member();
+//		    member.setMemberId(1L); 
+//		 
+//		   
+////		    List<Event> eventList = (List<Event>) req.getAttribute("eventList");
+////		    Event event = eventList.get(0);
+//		    Event event = new Event();
+//		    event.setEventId(9L);
+//
+//		    Long winningRestId = (Long) req.getAttribute("winningRestId");
+//
+//		    Restaurant restaurant = new Restaurant();
+//		    restaurant.setRestId(winningRestId);
+//		   
+//
+//	
+//		    MyOrder order = new MyOrder();
+//		    order.setMember(member);
+//		    order.setEvent(event);
+//		    order.setRestaurant(restaurant);
+//		    order.setMemberName(member.getName());
+//		    order.setPhone(member.getMobileNo()); 
+//		    order.setOrderDate(new Timestamp(System.currentTimeMillis())); 
+//		    order.setOrderStatus("1"); 
+//		    order.setReserDate(event.getDate()); 
+//		    order.setReserTime(event.getTime()); 
+//		    order.setReserPeopleNumber(3); 
+//		    order.setReserNote(event.getInfo()); 
+//
+//		    try {
+//		       
+//		        boolean isBlacklisted = blackListService.isMemberInBlackList(member.getMemberId(), restaurant.getRestId());
+//
+//		        if (isBlacklisted) {
+//		        	req.getSession().setAttribute("errorMsg", "餐廳拒絕訂單，請往其它餐廳訂單。");
+//		            return "/frontstage/memberFrontend/myorder/member_order_index.jsp";
+//		        }
+//
+//		       
+//		        orderService.addOrder(order);
+//
+//		      
+//		        sendOrderConfirmationEmail(order);
+//
+//		    } catch (Exception e) {
+//		        e.printStackTrace();
+//		        req.getSession().setAttribute("errorMsg", "訂單處理失敗，請稍後再試。");
+//		        return "/error.jsp";
+//		    }
+//		    req.getSession().setAttribute("order", order);
+//		    return getOrderStatus1Member(req, res);
+//		}
 
 //===================================================================================================================
 

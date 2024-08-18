@@ -161,7 +161,7 @@
 						<tr>
 							<td>${myorder.orderId}</td>
 							<td>${myorder.restaurant.restName}</td>
-							<td>${myorder.event.name}</td>
+							<td>${myorder.member.name}</td>
 							<td>${myorder.member.mobileNo}</td>
 							<td>${fn:substring(myorder.orderDate, 0, 10)}</td>
 							<td>${myorder.reserDate}</td>
