@@ -117,7 +117,7 @@ Admin entity = (Admin) request.getAttribute("admin");
     <ul>
         <li><a href="<%=request.getContextPath()%>/admin/admin.do?action=getAll">查看所有管理員</a></li>
         <li><a href="<%=request.getContextPath()%>/frontstage/backend/admin/adminregister.jsp">新增後台員工</a></li>
-        <li><a href="<%=request.getContextPath()%>/frontstage/bankend/admin/adminrestpassword.jsp">更改密碼</a></li>
+        
     </ul>
     <c:if test="${not empty successMessage}">
         <p style="color: green;">${successMessage}</p>
