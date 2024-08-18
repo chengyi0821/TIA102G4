@@ -16,6 +16,7 @@ import com.tia102g4.rest.dao.RestaurantDAO;
 import com.tia102g4.rest.dao.RestaurantDAOImpl;
 import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.rest.to.RestaurantReqTO;
+import com.tia102g4.rest.to.RestaurantUpdateReqTO;
 import com.tia102g4.util.Base64Util;
 
 public class RestaurantServiceImpl implements RestaurantService {
@@ -30,16 +31,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	@Override
 	public void create(RestaurantReqTO reqTO) {
-		Restaurant rest = new Restaurant();
-		rest.setRestName(reqTO.getRestName());
-		rest.setDescription(reqTO.getDescription());
-		rest.setLocation(reqTO.getLocation());
-		rest.setPhone(reqTO.getPhone());
-		rest.setEmail(reqTO.getEmail());
-		rest.setOpenDay(reqTO.getOpenDay());
-		setRestaurantTimes(rest, reqTO.getOpenTime1(), reqTO.getCloseTime1(), reqTO.getOpenTime2(), reqTO.getCloseTime2());
-		rest.setPassword(reqTO.getPassword());
-		rest.setImage(base64Util.base64ToByteArray(reqTO.getImage()));
+		Restaurant rest = setRest(reqTO);
 		Long restType = reqTO.getRestType();
 		dao.insert(rest, restType);
 	}
@@ -47,6 +39,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public void update(Restaurant entity) {
 		dao.update(entity);
+	}
+	
+	public void updateForRest(RestaurantReqTO reqTO, Long restId) {
+		Restaurant rest = setRest(reqTO);
+		rest.setRestId(restId);
+		Long restType = reqTO.getRestType();
+		dao.updateForRest(rest, restType);
 	}
 
 	@Override
@@ -106,6 +105,27 @@ public class RestaurantServiceImpl implements RestaurantService {
 		return rest;
 	}
 	
+	@Override
+	public RestaurantReqTO findIdByUser(Long restId) {
+		Restaurant rest = dao.findIdByUser(restId);
+		RestaurantReqTO reqTO = new RestaurantReqTO();
+		reqTO.setRestName(rest.getRestName());
+		reqTO.setDescription(rest.getDescription());
+		reqTO.setLocation(rest.getLocation());
+		reqTO.setPhone(rest.getPhone());
+		reqTO.setEmail(rest.getEmail());
+		reqTO.setOpenDay(rest.getOpenDay());
+		reqTO.setOpenTime1(TIME_FORMAT.format(rest.getOpenTime1()));
+		reqTO.setCloseTime1(TIME_FORMAT.format(rest.getCloseTime1()));
+		reqTO.setOpenTime2(TIME_FORMAT.format(rest.getOpenTime2()));
+		reqTO.setCloseTime2(TIME_FORMAT.format(rest.getCloseTime2()));
+		reqTO.setPassword(rest.getPassword());
+		reqTO.setImage(base64Util.byteArrayTobase64(rest.getImage()));
+		reqTO.setRestType(rest.getRestType().getTypeId());
+		return reqTO;
+	}
+
+	
 	public void setRestaurantTimes(Restaurant rest, String openTime1Str, String closeTime1Str, String openTime2Str, String closeTime2Str) {
         try {
             Time openTime1 = new Time(TIME_FORMAT.parse(openTime1Str).getTime());
@@ -121,5 +141,19 @@ public class RestaurantServiceImpl implements RestaurantService {
             e.printStackTrace();
         }
     }
+	
+	public Restaurant setRest(RestaurantReqTO reqTO) {
+		Restaurant restaurant = new Restaurant();
+		restaurant.setRestName(reqTO.getRestName());
+		restaurant.setDescription(reqTO.getDescription());
+		restaurant.setLocation(reqTO.getLocation());
+		restaurant.setPhone(reqTO.getPhone());
+		restaurant.setEmail(reqTO.getEmail());
+		restaurant.setOpenDay(reqTO.getOpenDay());
+		setRestaurantTimes(restaurant, reqTO.getOpenTime1(), reqTO.getCloseTime1(), reqTO.getOpenTime2(), reqTO.getCloseTime2());
+		restaurant.setPassword(reqTO.getPassword());
+		restaurant.setImage(base64Util.base64ToByteArray(reqTO.getImage()));
+		return restaurant;
+	}
 
 }

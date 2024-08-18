@@ -40,6 +40,12 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 		getSession().save(entity);
 	}
 	
+	public void updateForRest(Restaurant entity, Long restType) {
+		RestType restId = getSession().get(RestType.class, restType);
+		entity.setRestType(restId);
+		getSession().update(entity);
+	}
+	
 	@Override
 	public void update(Restaurant entity) {
 		String update = "UPDATE Restaurant r SET r.restName = :restName, r.email = :email, r.password = :password, r.phone = :phone, r.location = :location WHERE r.restId = :restId";
@@ -114,6 +120,13 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 		return (Restaurant) getSession().createQuery("FROM Restaurant WHERE email = :email AND password = :password")
 				.setParameter("email", entity.getEmail())
 				.setParameter("password", entity.getPassword())
+                .uniqueResult();
+	}
+
+	@Override
+	public Restaurant findIdByUser(Long restId) {
+		return (Restaurant)getSession().createQuery("FROM Restaurant WHERE restId = :restId")
+				.setParameter("restId", restId)
                 .uniqueResult();
 	}
 
