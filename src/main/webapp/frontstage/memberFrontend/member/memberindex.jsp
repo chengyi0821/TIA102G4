@@ -96,7 +96,7 @@
             <h2>會員系統</h2>
             <a href="<%=request.getContextPath()%>/member/member.do?action=getAll">查詢所有會員</a>
             <br><br>
-            <h3><b>複合查詢 (使用 Criteria Query)：</b></h3>
+            <h3><b>複合查詢：</b></h3>
             <form action="<%=request.getContextPath()%>/member/member.do" method="post">
                 <p><label>會員名字模糊查詢：</label></p>
                 <input type="text" name="name"><br>
