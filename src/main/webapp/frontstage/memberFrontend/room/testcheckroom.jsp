@@ -118,7 +118,7 @@ List<Member> memberList = (List<Member>) request.getSession().getAttribute("memb
 					id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="<%=request.getContextPath() %>/frontstage/memberFrontend/memberHome/memberHome.html">&nbsp&nbsp&nbsp首頁 </a>
+							<a class="nav-item nav-link" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberHome/memberHome.html">&nbsp&nbsp&nbsp首頁 </a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberlogin.jsp">會員登入</a></li>
 								<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
@@ -128,7 +128,7 @@ List<Member> memberList = (List<Member>) request.getSession().getAttribute("memb
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">會員專區</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favorite.jsp">查看收藏</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favoriteList.jsp">查看收藏</a></li>
 							</ul>
 						</div>
 					</div>
