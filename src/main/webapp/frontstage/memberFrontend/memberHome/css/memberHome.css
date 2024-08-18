@@ -1,0 +1,188 @@
+/* 設定整體背景和文字顏色 */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5; /* 淡灰藍色背景 */
+    color: #333; /* 深灰文字顏色 */
+}
+
+/* 餐廳卡片樣式 */
+.restaurant-card {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 15px; /* 更圓的圓角 */
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* 更深的陰影效果 */
+    align-items: center;
+    transition: box-shadow 0.3s ease; /* 添加過渡效果 */
+}
+
+.restaurant-card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* 滑鼠懸停時更明顯的陰影 */
+}
+
+/* 餐廳圖片樣式 */
+.restaurant-image {
+    max-width: 320px; /* 最大寬度 */
+    height: 200px; /* 高度固定 */
+    object-fit: cover; /* 確保圖片完整顯示 */
+    border-radius: 15px; /* 圓角 */
+    background-color: #f5f5f5; /* 更淺的背景色 */
+    margin-right: 20px; /* 右側間距 */
+    border: 1px solid #ddd; /* 邊框 */
+}
+
+/* 餐廳詳細資訊樣式 */
+.restaurant-details {
+    flex: 1;
+    padding: 10px;
+}
+
+.restaurant-details h3 {
+    margin-top: 0;
+    font-weight: bold;
+    font-size: 1.6rem; /* 更大的標題字體 */
+    color: #212529; /* 更深的字體顏色 */
+    margin-bottom: 10px; /* 底部間距 */
+}
+
+.restaurant-details p {
+    margin: 5px 0;
+    font-size: 1.1rem; /* 調整內容字體大小 */
+    color: #495057; /* 深灰色 */
+}
+
+.restaurant-details p span {
+    font-weight: bold;
+    color: #007bff; /* 藍色強調 */
+}
+
+/* 分頁控制樣式 */
+#pagination-controls {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#pagination-controls button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 25px; /* 更圓的按鈕 */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease; /* 添加過渡效果 */
+}
+
+#pagination-controls button:hover {
+    background-color: #0056b3; /* 滑鼠懸停時的顏色 */
+}
+
+#pagination-controls button:disabled {
+    background-color: #c0c0c0;
+    cursor: not-allowed;
+}
+
+#current-page {
+    font-size: 1.2rem;
+    margin: 10px;
+    display: inline-block;
+    color: #007bff; /* 藍色 */
+}
+
+/* 主內容樣式 */
+#main-content2 {
+    padding: 30px;
+    background-color: #ffffff; /* 白色背景 */
+    border-radius: 15px; /* 更圓的邊緣 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* 更深的陰影效果 */
+    margin: 30px auto; /* 自動水平置中 */
+    max-width: 1200px;
+    overflow: hidden; /* 隱藏超出內容 */
+}
+/* 頁首標題樣式 */
+h1 {
+    font-size: 2.5rem;
+    color: #343a40;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* 表單元素樣式 */
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* 圓角 */
+    margin-bottom: 15px;
+    font-size: 1rem;
+    box-sizing: border-box; /* 包括邊框和內邊距 */
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+    border-color: #007bff; /* 藍色邊框 */
+    outline: none; /* 去掉預設的聚焦外框 */
+}
+
+
+
+
+/* ==============================下拉式選單CSS start================================================== */
+.orderlist {
+	list-style: none;
+	font-size: 25px;
+	padding-inline-start: 0px;
+	unicode-bidi: isolate;
+}
+
+.orderlist {
+	display: none;
+	position: absolute;
+	background-color: #ffdf7e;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 0.3cm;
+}
+
+.orderblock:hover .orderlist {
+	display: block;
+}
+
+.orderlist li {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+	color: black;
+}
+
+.orderlist a:hover {
+	color: #e83e8c !important;
+	text-decoration: none;
+}
+
+.orderlist li:hover {
+	box-shadow: 0px 8px 16px 0px rgba(232, 62, 140, 0.15);
+	border-radius: 10px;
+}
+
+.orderblock {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	padding: 50px 17px;
+}
+
+/* ==============================下拉式選單CSS end================================================== */
