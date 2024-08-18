@@ -81,9 +81,9 @@
 							<li><a style="color: black;" href="#">取消訂單</a></li>
 						</ul>
 					</div>
-					<div class="orderblock"> <a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html1" class="nav-item nav-link">聯絡客服</a>
+					<div class="orderblock"> <a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html" class="nav-item nav-link">聯絡客服</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberfeedback.html1">客服信箱</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
 							
 						
 							
