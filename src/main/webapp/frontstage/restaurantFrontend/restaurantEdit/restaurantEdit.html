@@ -9,6 +9,10 @@
 <link href="../css/style.css" rel="stylesheet">
 <link href="css/restaurantEdit.css" rel="stylesheet">
 <style>
+.submit{
+margin-left:300px !important;
+}
+
 </style>
 </head>
 
@@ -84,65 +88,69 @@
 	<!-- Navbar End -->
 	<div id="main-content1"></div>
 	<div id="main-content2" class="container mt-5">
-		<h2>餐廳資訊修改</h2>
+	<div id="restform">
+		<div id="editform"><svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+  		<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+  		<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+		</svg>餐廳資訊修改</div>
 		<form id="restaurantForm">
 			<div class="form-group">
-				<label for="restName">餐廳名稱:</label> <input type="text" id="restName"
+				<label for="restName">餐廳名稱<span class="red">*</span></label>&nbsp <input type="text" class="input_form" id="restName"
 					name="restName" required>
 			</div>
 			<div class="form-group">
-				<label for="location">餐廳位置:</label> <input type="text" id="location"
+				<label for="location">餐廳位置<span class="red">*</span></label>&nbsp <input type="text" class="input_form" id="location"
 					name="location" required>
 			</div>
 			<div class="form-group">
-				<label for="phone">餐廳電話:</label> <input type="tel" id="phone"
+				<label for="phone">餐廳電話<span class="red">*</span></label>&nbsp <input type="tel" class="input_form" id="phone"
 					name="phone" required>
 			</div>
 			<div class="form-group">
-				<label for="email">餐廳信箱:</label> <input type="email" id="email"
+				<label for="email">餐廳信箱<span class="red">*</span></label>&nbsp <input type="email" class="input_form" id="email"
 					name="email" required>
 			</div>
 			<div class="form-group">
-				<label for="password">餐廳密碼:</label> <input type="password"
+				<label for="password">餐廳密碼<span class="red">*</span></label>&nbsp <input type="password" class="input_form"
 					id="password" name="password" required>
 			</div>
 			<div class="form-group">
-				<label>營業日:</label>
+				<label>營業日<span class="red">*</span></label>
 				<div>
-					<label><input type="checkbox" name="openDay" value="1">
-						星期一</label> <label><input type="checkbox" name="openDay" value="2">
-						星期二</label> <label><input type="checkbox" name="openDay" value="3">
-						星期三</label> <label><input type="checkbox" name="openDay" value="4">
-						星期四</label> <label><input type="checkbox" name="openDay" value="5">
-						星期五</label> <label><input type="checkbox" name="openDay" value="6">
-						星期六</label> <label><input type="checkbox" name="openDay" value="7">
+					<label><input type="checkbox" class="openDay" name="openDay" value="1">
+						星期一</label> <label><input type="checkbox" class="openDay" name="openDay" value="2">
+						星期二</label> <label><input type="checkbox" class="openDay" name="openDay" value="3">
+						星期三</label> <label><input type="checkbox" class="openDay" name="openDay" value="4">
+						星期四</label> <label><input type="checkbox" class="openDay" name="openDay" value="5">
+						星期五</label> <label><input type="checkbox" class="openDay" name="openDay" value="6">
+						星期六</label> <label><input type="checkbox" class="openDay" name="openDay" value="7">
 						星期日</label>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="openTime1">營業時段1:</label> <input type="time"
+				<label for="openTime1">營業時段1<span class="red">*</span></label> <input type="time" class="input_form"
 					id="openTime1" name="openTime1" required>
 			</div>
 			<div class="form-group">
-				<label for="closeTime1">打烊時間1:</label> <input type="time"
+				<label for="closeTime1">打烊時間1<span class="red">*</span></label> <input type="time" class="input_form"
 					id="closeTime1" name="closeTime1" required>
 			</div>
 			<div class="form-group">
-				<label for="openTime2">營業時段2（選填）:</label> <input type="time"
+				<label for="openTime2">營業時段2&nbsp</label> <input type="time" class="input_form"
 					id="openTime2" name="openTime2">
 			</div>
 			<div class="form-group">
-				<label for="closeTime2">打烊時間2（選填）:</label> <input type="time"
+				<label for="closeTime2">打烊時間2&nbsp</label> <input type="time" class="input_form"
 					id="closeTime2" name="closeTime2">
 			</div>
 			<div class="form-group">
-				<label for="image">餐廳圖片（選填）:</label> <input type="file"
+				<label for="image">餐廳圖片</label> <input type="file"
 					id="imageInput" accept="image/*"> <img id="imagePreview"
 					src="" alt="Image preview"
 					style="display: none; max-width: 200px; margin-top: 10px;">
 			</div>
 			<div class="form-group">
-				<label for="restType">餐廳類型:</label> <select id="restType"
+				<label for="restType">餐廳類型<span class="red">*</span></label>&nbsp <select id="restType" class="input_form"
 					name="restType" required>
 					<option value="1">中餐</option>
 					<option value="2">西餐</option>
@@ -158,11 +166,12 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label for="description">餐廳描述:</label>
-				<textarea id="description" name="description" rows="4" required></textarea>
+				<label for="description">餐廳描述<span class="red">*</span>&nbsp</label>
+				<textarea id="description" name="description" rows="4" class="input_form" required></textarea>
 			</div>
 			<div class="form-actions">
-				<button type="submit">提交</button>
+				<button type="submit" class="submit">提交</button>
+			</div>
 			</div>
 		</form>
 
