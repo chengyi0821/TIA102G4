@@ -112,24 +112,24 @@ public class MemberMyOrderServlet extends HttpServlet {
 //	 =================================餐廳的訂單狀態1================================================
 
 	private String getOrderStatus1Member(HttpServletRequest req, HttpServletResponse res) {
-		Long memberId = 1L;
-//		Long memberId = ((Number) req.getSession().getAttribute("memberId")).longValue();
+//		Long memberId = 1L;
+		Long memberId = ((Number) req.getSession().getAttribute("memberId")).longValue();
 		List<MyOrder> orderList = orderService.getOrderStatus1Member(memberId);
-		req.setAttribute("orderList", orderList);
+		req.getSession().setAttribute("orderList", orderList);
 		return "/frontstage/memberFrontend/myorder/member_orderStatus1.jsp";
 	}
 	
 	private String getOrderStatus2Member(HttpServletRequest req, HttpServletResponse res) {
-		Long memberId = 1L;
+		Long memberId = ((Number) req.getSession().getAttribute("memberId")).longValue();
 		List<MyOrder> orderList = orderService.getOrderStatus2Member(memberId);
-		req.setAttribute("orderList", orderList);
+		req.getSession().setAttribute("orderList", orderList);
 		return "/frontstage/memberFrontend/myorder/member_orderStatus2.jsp";
 	}
 	
 	private String getOrderStatus3Member(HttpServletRequest req, HttpServletResponse res) {
-		Long memberId = 1L;
+		Long memberId = ((Number) req.getSession().getAttribute("memberId")).longValue();
 		List<MyOrder> orderList = orderService.getOrderStatus3Member(memberId);
-		req.setAttribute("orderList", orderList);
+		req.getSession().setAttribute("orderList", orderList);
 		return "/frontstage/memberFrontend/myorder/member_orderStatus3.jsp";
 	}
 	
@@ -138,8 +138,7 @@ public class MemberMyOrderServlet extends HttpServlet {
 
 	private String updateOrderStatus2Mem(HttpServletRequest req, HttpServletResponse res) throws InterruptedException {
 		String action = req.getParameter("action");
-		Long memberId = 1L;
-
+		Long memberId = ((Number) req.getSession().getAttribute("memberId")).longValue();
 		if ("updateOrderStatus2Mem".equals(action)) {
 			Long orderId = Long.parseLong(req.getParameter("orderId"));
 			orderService.updateOrderStatus2Mem(orderId, "2", memberId);
@@ -269,7 +268,7 @@ public class MemberMyOrderServlet extends HttpServlet {
 		        return "/error.jsp";
 		    }
 
-		    req.setAttribute("order", order);
+		    req.getSession().setAttribute("order", order);
 		    return getOrderStatus1Member(req, res);
 		}
 
