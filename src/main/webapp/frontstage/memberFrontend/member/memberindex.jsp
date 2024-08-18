@@ -92,7 +92,7 @@
     <div id="main-content2">
         <!-- 會員管理功能內容開始 -->
         <div class="form-container">
-            <h1>會員管理網站 QQ</h1>
+            <h1>會員管理網站</h1>
             <h2>會員系統</h2>
             <a href="<%=request.getContextPath()%>/member/member.do?action=getAll">查詢所有會員</a>
             <br><br>
@@ -123,6 +123,8 @@
     </footer>
     <!-- Footer End -->
     <script src=<%="js/main.js"%>></script>
+    <script src="../memberLogout/memberLogout.js"></script>
+    
 </body>
 
 </html>

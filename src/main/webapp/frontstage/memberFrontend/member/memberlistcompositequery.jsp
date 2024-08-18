@@ -173,6 +173,7 @@ display-4 text-primary">Chugether</h1>
 	<!-- Footer End -->
 
 	<script src="js/main.js"></script>
+	<script src="../memberLogout/memberLogout.js"></script>
 
 
 </body>

@@ -145,6 +145,7 @@
 		</footer>
 	<!-- Footer end -->
 		<script src="js/main.js"></script>
+		<script src="../memberLogout/memberLogout.js"></script>
 </body>
 
 </html>

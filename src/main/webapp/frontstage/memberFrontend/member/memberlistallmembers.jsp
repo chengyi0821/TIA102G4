@@ -155,5 +155,6 @@
     <!-- Footer End -->
 
     <script src="<%=request.getContextPath()%>/js/main.js"></script>
+    <script src="../memberLogout/memberLogout.js"></script>
 </body>
 </html>

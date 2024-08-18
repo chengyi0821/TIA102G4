@@ -1,106 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.tia102g4.member.model.*" %>
-<%
-    Member entity = (Member) request.getAttribute("member");
-%>    
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>忘記密碼</title>
+    <title>會員管理</title>
     <!-- 載入 jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
     <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/css/member.css" rel="stylesheet" />
-    <script src="<%=request.getContextPath() %>/js/main.js"></script>
-    <style>
-        .table-container {
-            margin: 50px auto;
-            width: 80%;
-            max-width: 800px;
-            border: 2px solid black;
-            border-radius: 8px;
-            padding: 20px;
-            background-color: #FFFFAA;
-        }
-
-        .table-container table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table-container th,
-        .table-container td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .table-container th {
-            background-color: #FFFFAA;
-            font-size: 18px;
-        }
-
-        .table-container td {
-            font-size: 16px;
-        }
-
-        .confirm-box {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid red;
-            background-color: #fff0f0;
-            color: red;
-            text-align: center;
-            font-size: 16px;
-        }
-
-        .button-container {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .button-container button {
-            background-color: #C57F00;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-
-        .button-container button:hover {
-            background-color: #b36d00;
-        }
-
-        .container-fluid.position-relative.nav-bar.p-0 li {
-            color: black !important;
-        }
-    </style>
 </head>
 <body>
     <!-- Topbar Start -->
-    <div id="main-content2">
-        <div class="container-fluid bg-primary py-3 d-none d-md-block">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
-                        <div class="d-inline-flex align-items-center">
-                            <a href="page1.html" class="navbar-brand mx-5 d-none d-lg-block">
-                                <img class="logo" src="<%=request.getContextPath() %>/frontstage/memberFrontend/image/logo.png" /> 
-                                <h1 class="m-0 display-4 text-primary">Chugether</h1>
-                            </a>
-                        </div>
+    <div class="container-fluid bg-primary py-3 d-none d-md-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center">
+                        <a href="page1.html" class="navbar-brand mx-5 d-none d-lg-block">
+                            <img class="logo" src="<%=request.getContextPath() %>/frontstage/memberFrontend/image/logo.png" />
+                            <h1 class="m-0 display-4 text-primary">Chugether</h1>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Topbar End -->
+    </div>
+    <!-- Topbar End -->
 
-       <!-- Navbar Start -->
+    <!-- Navbar Start -->
+    <!-- Navbar Start -->
 	<div class="container-fluid position-relative nav-bar p-0">
 		<div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
 			<nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
@@ -151,8 +81,10 @@
     <!-- Navbar End -->
 
     <div id="main-content1"></div>
-    <div id="main-content2">
-        <h2>忘記密碼</h2>
+    
+    <!-- 這裡是放入會員列表的主要區域 -->
+    <div id="main-content2">  
+            <h2>忘記密碼</h2>
         <form action="<%=request.getContextPath()%>/member/member.do" method="post">
             <input type="hidden" name="action" value="forgotPassword"/> 
               
@@ -175,7 +107,8 @@
         <c:if test="${not empty successMessage}">
             <p style="color:green;">${successMessage}</p>
         </c:if>
-    </div>
+    </div>   
+        
 
     <div class="table-container"></div>
     <div id="main-content3"></div>
@@ -189,8 +122,10 @@
         <h5 class="footerh5">隱私權條款</h5>
         <h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
     </footer>
-    <!-- Footer end -->
+    <!-- Footer End -->
 
-    <script src="/js/main.js"></script>
+    <script src="<%=request.getContextPath()%>/js/main.js"></script>
+    <script src="../memberLogout/memberLogout.js"></script>
 </body>
 </html>
+
