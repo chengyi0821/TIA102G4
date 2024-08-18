@@ -8,7 +8,7 @@ function showError(inputId, errorMessage) {
 }
 
 function goToRestNewsPage() {
-	window.location.href = '../restNews/restNews.html';
+	window.location.href = '../restaurantAboutUs/restaurantAboutUs.html';
 }
 
 $(document).ready(function() {
