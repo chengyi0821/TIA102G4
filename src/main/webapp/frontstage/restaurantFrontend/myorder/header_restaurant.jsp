@@ -49,8 +49,8 @@
 				<div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
 					<div class="d-inline-flex align-items-center">
 						<a href="page1.html" class="navbar-brand mx-5 d-none d-lg-block">
-<%-- 							<img class="logo" src="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/image/logo.png"> --%>
-							<h1 class="m-0 display-4 text-primary">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspChugether</h1>
+							<img class="logo" src="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/image/logo.png">
+							<h1 class="m-0 display-4 text-primary">Chugether</h1>
 						</a>
 					</div>
 				</div>
