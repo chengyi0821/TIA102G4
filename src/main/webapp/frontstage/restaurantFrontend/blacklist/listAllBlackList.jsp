@@ -241,7 +241,7 @@
 						<ul class="blist_detail">
 							<li>訂單編號: ${myOrder.orderId}</li>
 							<li>用戶編號: ${myOrder.member.memberId}</li>
-							<li>用戶姓名: ${myOrder.event.name}</li>
+							<li>用戶姓名: ${myOrder.member.name}</li>
 							<li>用戶電話: ${myOrder.member.mobileNo}</li>
 
 							<form method="post"

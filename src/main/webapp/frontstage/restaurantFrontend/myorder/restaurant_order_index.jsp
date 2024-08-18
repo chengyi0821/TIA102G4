@@ -79,7 +79,7 @@
 					  </div>
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">店家資訊</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">關於我們</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/restaurantFrontend/restaurantAboutUs/restaurantAboutUs.html">關於我們</a></li>
 							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/restaurantFrontend/restNews/restNews.html">最新消息</a></li>
 							<li><a style="color: black;" href="#">菜單瀏覽</a></li>
 							<li><a style="color: black;" href="#">營業資訊</a></li>
