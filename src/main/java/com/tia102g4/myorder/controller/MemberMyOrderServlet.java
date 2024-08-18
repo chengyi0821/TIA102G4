@@ -5,7 +5,15 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 //import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,10 +22,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tia102g4.blacklist.service.BlackListService;
+import com.tia102g4.blacklist.service.BlackListServiceImpl;
 import com.tia102g4.event.model.Event;
 import com.tia102g4.event.service.EventService;
 import com.tia102g4.event.service.EventServiceImpl;
 import com.tia102g4.member.model.Member;
+import com.tia102g4.member.service.MemberService;
+import com.tia102g4.member.service.MemberServiceImp1;
 //import com.tia102g4.member.service.MemberService;
 //import com.tia102g4.member.service.MemberServiceImpl;
 import com.tia102g4.myorder.model.MyOrder;
@@ -25,6 +37,10 @@ import com.tia102g4.myorder.model.MyOrder;
 import com.tia102g4.myorder.service.MyOrderService;
 import com.tia102g4.myorder.service.MyOrderServiceImpl;
 import com.tia102g4.rest.model.Restaurant;
+import com.tia102g4.rest.service.RestaurantService;
+import com.tia102g4.rest.service.RestaurantServiceImpl;
+import com.tia102g4.vote.service.VoteService;
+import com.tia102g4.vote.service.VoteServiceImpl;
 //import com.tia102g4.rest.service.RestService;
 //import com.tia102g4.rest.service.RestServiceImpl;
 //import com.tia102g4.vote.service.VoteService;
@@ -35,18 +51,20 @@ public class MemberMyOrderServlet extends HttpServlet {
 
 	    private MyOrderService orderService;
 	    private EventService eventService;
-//	    private MemberService memberService;
-//	    private RestService restService;
-//	    private VoteService voteService;
+	    private MemberService memberService;
+	    private RestaurantService restService;
+	    private VoteService voteService;
+	    private BlackListService blackListService;
 
 
 	    @Override
 	    public void init() throws ServletException {
 	        orderService = new MyOrderServiceImpl();
 	        eventService = new EventServiceImpl();
-//	        memberService = new MemberServiceImpl();
-//	        restService = new RestServiceImpl();
-//	        voteService = new VoteServiceImpl();
+	        memberService = new MemberServiceImp1();
+	        restService = new RestaurantServiceImpl();
+	        voteService = new VoteServiceImpl();
+	        blackListService = new BlackListServiceImpl();
 	    }
 
 	@Override
@@ -95,6 +113,7 @@ public class MemberMyOrderServlet extends HttpServlet {
 
 	private String getOrderStatus1Member(HttpServletRequest req, HttpServletResponse res) {
 		Long memberId = 1L;
+//		Long memberId = ((Number) req.getSession().getAttribute("memberId")).longValue();
 		List<MyOrder> orderList = orderService.getOrderStatus1Member(memberId);
 		req.setAttribute("orderList", orderList);
 		return "/frontstage/memberFrontend/myorder/member_orderStatus1.jsp";
@@ -152,121 +171,167 @@ public class MemberMyOrderServlet extends HttpServlet {
 	        return getOrderStatus1Member(req, res);
 	    }
 
+//	 ========================================add order===============================================
+	 private void sendOrderConfirmationEmail(MyOrder order) {
+	        final String username = "chugetherfood@gmail.com"; 
+	        final String password = "javq rros emec ruwf"; 
+
+	        Properties props = new Properties();
+	        props.put("mail.smtp.auth", "true");
+	        props.put("mail.smtp.starttls.enable", "true");
+	        props.put("mail.smtp.host", "smtp.gmail.com");
+	        props.put("mail.smtp.port", "587");
+
+	        Session session = Session.getInstance(props,
+	            new javax.mail.Authenticator() {
+	                protected PasswordAuthentication getPasswordAuthentication() {
+	                    return new PasswordAuthentication(username, password);
+	                }
+	            });
+
+	        try {
+	            Message message = new MimeMessage(session);
+	            message.setFrom(new InternetAddress("Maitran.ttvh@gmail.com"));
+	            message.setRecipients(Message.RecipientType.TO,
+//	                InternetAddress.parse(order.getMember().getEmail()));
+	            	InternetAddress.parse("Maitran.ttvh@gmail.com"));	//測試
+	            message.setSubject("Chugether 揪團訂單明細");
+	        
+	            String htmlContent = "<html>" +
+	            		  "<h2>Dear " + order.getMemberName() + ",</h2>" +
+	            		  "<div style=\"border: 1px solid #ffc107; background-color: #ffc107; border-radius: 10px; width: 300px; height: 450px; margin-left: 20%;\">" +
+	            		    "    <div style=\"text-align: center; font-size: 20px; padding-top: 15px;\">恭喜揪團成功~<br>這是您的訂單明細</div>" +
+	            		    "    <table class=\"receipt_detail\" style=\"border:1px solid white; background-color: white; text-align: left; border-radius: 10px; width: 300px; height: 280px; margin-left: 0px;margin-top: 10px;\">" +
+	            		    "        <tr><th>訂單編號:</th><td>" + order.getOrderId() + "</td></tr>" +
+	            		    "        <tr><th>餐廳:</th><td>" + order.getRestaurant().getRestName() + "</td></tr>" +
+	            		    "        <tr><th>用餐日期:</th><td>" + order.getReserDate() + "</td></tr>" +
+	            		    "        <tr><th>用餐時間:</th><td>" + order.getReserTime() + "</td></tr>" +
+	            		    "        <tr><th>人數:</th><td>" + order.getReserPeopleNumber() + "</td></tr>" +
+	            		    "        <tr><th>備註:</th><td>" + order.getReserNote() + "</td></tr>" +
+	            		    "    </table>" +
+	            		    "    <div style=\"display: flex; flex-wrap: nowrap;\">" +
+	            		    "        <div style=\"font-size: 20px; padding-bottom: 10px; padding-top:10px; padding-left: 85px; text-align: center;\">Chugether <br>揪團開趴吧~</div>" +
+	            		    "    </div>" +
+	            		    "</div>"+
+	                "</body>" +
+	                "</html>";
+	            
+	          
+	            message.setContent(htmlContent, "text/html; charset=utf-8");
+	            Transport.send(message);
+
+
+	        } catch (MessagingException e) {
+	            throw new RuntimeException(e);
+	        }
+	    }
 	 
-//	 private String updateOrder(HttpServletRequest req, HttpServletResponse res) throws InterruptedException, IOException, ServletException {
-//		    Long orderId = Long.parseLong(req.getParameter("orderId"));
-//		    MyOrder order = orderService.getMyOrderByOrderId(orderId);
+	 //這個方法是用假資料
+//	 private String addOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+//		    MyOrder order = new MyOrder();
+//		    Restaurant restaurant = new Restaurant();
+//		    restaurant.setRestId(1L); 
+//		    restaurant.setRestName("瓦城");
+//		    
+//		    Event event = new Event();
+//		    event.setEventId(9L); 
+//		    
+//		    Member member = new Member();
+//		    member.setMemberId(1L); 
+//		    
+//		    order.setMember(member);
+//		    order.setEvent(event);
+//		    order.setRestaurant(restaurant);
+//		    order.setMemberName("陳小一");
+//		    order.setPhone("09776555");
+//		    order.setOrderDate(new Timestamp(System.currentTimeMillis()));
+//		    order.setOrderStatus("1");
+//		    order.setReserDate(Date.valueOf("2024-08-09"));
+//		    order.setReserTime(Time.valueOf("18:00:00"));
+//		    order.setReserPeopleNumber(12);
+//		    order.setReserNote("趕快給我吃高~aaa");
 //
-//		    // 获取新的人数
-//		    int newPeopleNumber = Integer.parseInt(req.getParameter("reserPeopleNumber"));
-//
-//		    // 获取 Event 对象和最大座位数
-//		    Event event = order.getEvent();
-//		    int maxSeat = event.getMaxSeat();
-//
-//		    // 检查新的人数是否超过最大座位数
-//		    if (newPeopleNumber > maxSeat) {
-//		        // 设置错误消息和orderId并重定向回表单页面
-//		        req.setAttribute("errorMessage", "人數不能大於活動的最大座位數 (" + maxSeat + ")");
+//		    try {
+//		        boolean isBlacklisted = blackListService.isMemberInBlackList(member.getMemberId(), restaurant.getRestId());
 //		        
-//		        // 将用户输入的数据保留，便于他们修改
-//		        req.setAttribute("reserDate", req.getParameter("reserDate"));
-//		        req.setAttribute("reserTime", req.getParameter("reserTime"));
-//		        req.setAttribute("reserPeopleNumber", req.getParameter("reserPeopleNumber"));
-//		        req.setAttribute("reserNote", req.getParameter("reserNote"));
-//		        
-//		        // 转发请求，保留 orderId 在 URL 中
-//		        req.getRequestDispatcher("/myorder/membermyorder.do?action=loadOrderForEdit&orderId=" + orderId).forward(req, res);
-//		        return null; // 停止后续处理
+//		        if (isBlacklisted) {
+//		            req.setAttribute("errorMsg", "餐廳拒絕訂單，請往其它餐廳訂單。");
+//		          
+//		            return "/frontstage/memberFrontend/myorder/member_order_index.jsp";
+//		        }
+//		        orderService.addOrder(order);
+//		       
+//		        sendOrderConfirmationEmail(order);
+//		      
+//		    } catch (Exception e) {
+//		        e.printStackTrace();
+//		        req.setAttribute("errorMsg", "訂單處理失敗，請稍後再試。");
+//		        return "/error.jsp";
 //		    }
 //
-//		    // 如果人数符合条件，继续更新订单
-//		    order.setReserDate(Date.valueOf(req.getParameter("reserDate")));
-//		    order.setReserTime(Time.valueOf(req.getParameter("reserTime") + ":00"));
-//		    order.setReserPeopleNumber(newPeopleNumber);
-//		    order.setReserNote(req.getParameter("reserNote"));
-//
-//		    // 更新订单
-//		    orderService.updateOrder(order);
-//
-//		    // 模拟延迟
-//		    Thread.sleep(1500);
-//
-//		    // 返回到订单状态页面
+//		    req.setAttribute("order", order);
 //		    return getOrderStatus1Member(req, res);
 //		}
 
 
-//	 ========================================add order===============================================
 	 
 	 private String addOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		    MyOrder order = new MyOrder();
-		    Restaurant restaurant = new Restaurant();
-		    restaurant.setRestId(1L); 
-		    
-		    Event event = new Event();
-//		    event.setEventno(20L); 
-		    
-		    Member member = new Member();
+
+		  
+//		    Member member = (Member) req.getSession().getAttribute("loggedInMember");
+		 	Long memberId = 1L;
+		 	Member member = new Member();
 		    member.setMemberId(1L); 
+		 
 		   
+//		    List<Event> eventList = (List<Event>) req.getAttribute("eventList");
+//		    Event event = eventList.get(0);
+		    Event event = new Event();
+		    event.setEventId(9L);
+
+		    Long winningRestId = (Long) req.getAttribute("winningRestId");
+
+		    Restaurant restaurant = new Restaurant();
+		    restaurant.setRestId(winningRestId);
+		   
+
+	
+		    MyOrder order = new MyOrder();
 		    order.setMember(member);
 		    order.setEvent(event);
 		    order.setRestaurant(restaurant);
-		    order.setMemberName("陳小明");
-		    order.setPhone("09776555");
-		    order.setOrderDate(new Timestamp(System.currentTimeMillis()));
-		    order.setOrderStatus("1");
-		    order.setReserDate(Date.valueOf("2024-08-09"));
-		    order.setReserTime(Time.valueOf("18:00:00"));
-		    order.setReserPeopleNumber(12);
-		    order.setReserNote("aaaaaa");
+		    order.setMemberName(member.getName());
+		    order.setPhone(member.getMobileNo()); 
+		    order.setOrderDate(new Timestamp(System.currentTimeMillis())); 
+		    order.setOrderStatus("1"); 
+		    order.setReserDate(event.getDate()); 
+		    order.setReserTime(event.getTime()); 
+		    order.setReserPeopleNumber(3); 
+		    order.setReserNote(event.getInfo()); 
 
 		    try {
+		       
+		        boolean isBlacklisted = blackListService.isMemberInBlackList(member.getMemberId(), restaurant.getRestId());
+
+		        if (isBlacklisted) {
+		        	req.getSession().setAttribute("errorMsg", "餐廳拒絕訂單，請往其它餐廳訂單。");
+		            return "/frontstage/memberFrontend/myorder/member_order_index.jsp";
+		        }
+
+		       
 		        orderService.addOrder(order);
-		        
+
+		      
+		        sendOrderConfirmationEmail(order);
+
 		    } catch (Exception e) {
 		        e.printStackTrace();
-		        req.setAttribute("errorMsg", "新增訂單失敗");
+		        req.getSession().setAttribute("errorMsg", "訂單處理失敗，請稍後再試。");
 		        return "/error.jsp";
 		    }
-
-		    req.setAttribute("order", order);
+		    req.getSession().setAttribute("order", order);
 		    return getOrderStatus1Member(req, res);
 		}
-
-	 
-//	 private String addOrder(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//	
-//		    	Long memberId = 1L; // Hardcoded memberId
-//	        	Long eventId = 1L;
-//
-////	        Event event = eventService.getEventById(eventId);
-////	        Member member = memberService.getMemberById(memberId);
-////	        Vote vote = voteService.getVoteById(eventId);
-////	        Restaurant restaurant = restService.getRestById(vote.getRestaurant().getRestId());
-//
-////	        MyOrder order = new MyOrder();
-////	        order.setMember(member);
-////	        order.setEvent(event);
-////	        order.setRestaurant(restaurant);
-////	        order.setMemberName(event.getName());
-////	        order.setPhone(member.getMobileNo());
-////	        order.setOrderDate(new Timestamp(System.currentTimeMillis()));
-////	        order.setOrderStatus("1");
-////	        order.setReserDate(event.getDate());
-////	        order.setReserTime(event.getTime());
-////	        order.setReserPeopleNumber(event.getSeat());
-////	        order.setReserNote(req.getParameter("reserNote"));
-//
-//	        
-//	        orderService.addOrder(order);
-//	       
-//
-//	        req.setAttribute("order", order);
-//	        return "/myorder/addOrder.jsp";
-//		}
-	 
 
 //===================================================================================================================
 

@@ -75,7 +75,7 @@
 					<div class="navbar-nav ml-auto py-0">
 					  <div class="orderblock">  <a href="#" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a> 
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">會員登入</a></li>
+						<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
 							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
 						</ul>
 					  </div>
@@ -97,11 +97,10 @@
 						</ul>
 					  </div> 
 					</div>
-				
+					
 					<div class="navbar-nav mr-auto py-0">
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">揪團系統</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">發起揪團</a></li>
 							<li><a style="color: black;" href="#">參與揪團</a></li>
 						</ul>
 					   </div>
@@ -116,7 +115,7 @@
 					<div class="orderblock"> <a href="#" class="nav-item nav-link">聯絡客服</a>
 						<ul class="orderlist">
 							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
-							<li><a style="color: black;" href="#">Q&A</a></li>
+							
 						
 							
 						</ul>
@@ -125,6 +124,7 @@
 		</div>
 	</div>
 	<!-- Navbar End -->
+	<script src="../memberLogout/memberLogout.js"></script>
 </body>
 
 </html>

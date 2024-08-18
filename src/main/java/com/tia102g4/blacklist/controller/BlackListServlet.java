@@ -67,23 +67,20 @@ public class BlackListServlet extends HttpServlet {
 	}
 
 	private String getAllBlackList(HttpServletRequest req, HttpServletResponse res) {
-		Long restId = 1L;  // 測試用
-		  
-//		  HttpSession session = req.getSession();
-//		  Long memberId = (Long) session.getAttribute("restId");
+		Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
 		
 		List<BlackList> blackListList = blackListService.getAllBlackList(restId);
-		req.setAttribute("blackListList", blackListList);
+		req.getSession().setAttribute("blackListList", blackListList);
 		return "/frontstage/restaurantFrontend/blacklist/listAllBlackList.jsp";
 	}
 
 	private String getCompositeBlackListQuery(HttpServletRequest req, HttpServletResponse res) {
-	    Long restId = 1L;  // 测试用
+		Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
 	    Map<String, String[]> map = req.getParameterMap();
 	    
 	    if (map != null) {
 	        List<BlackList> blackListList = blackListService.getBlackListByCompositeQuery(map, restId);
-	        req.setAttribute("blackListList", blackListList);
+	        req.getSession().setAttribute("blackListList", blackListList);
 	    } else {
 	        return "/index.jsp";
 	    }
@@ -99,10 +96,10 @@ public class BlackListServlet extends HttpServlet {
 
 	private String addBlackList(HttpServletRequest req, HttpServletResponse res) {
 	    String orderIdStr = req.getParameter("orderId");
-	    Long restId = 1L; 
+	    Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
 
 	    if (orderIdStr == null || orderIdStr.isEmpty()) {
-	        req.setAttribute("orderIdError", "錯誤");
+	    	req.setAttribute("orderIdError", "錯誤");
 	        return "/error.jsp";
 	    }
 
@@ -110,21 +107,21 @@ public class BlackListServlet extends HttpServlet {
 	    try {
 	        orderId = Long.parseLong(orderIdStr);
 	    } catch (NumberFormatException e) {
-	        req.setAttribute("orderIdError", "錯誤");
+	    	req.getSession().setAttribute("orderIdError", "錯誤");
 	        return "/error.jsp";
 	    }
 
 	
 	    MyOrder order = orderService.getMyOrderByOrderId1(orderId, restId);
 	    if (order == null) {
-	        req.setAttribute("orderIdError", "訂單編號錯誤");
+	    	req.setAttribute("orderIdError", "訂單編號錯誤");
 	        return getAllBlackList(req, res);
 	    }
 
 	    Long memberId = order.getMember().getMemberId();
 
 	    if (blackListService.isMemberInBlackList(memberId, restId)) {
-	        req.setAttribute("message", "此用戶已在黑名單列表！");
+	    	req.setAttribute("message", "此用戶已在黑名單列表！");
 	        return getAllBlackList(req, res);
 	    }
 
@@ -138,7 +135,7 @@ public class BlackListServlet extends HttpServlet {
 	    BlackList savedBlackList = blackListService.addBlackList(blackList);
 
 	    if (savedBlackList == null) {
-	        req.setAttribute("error", "Failed to add to blacklist.");
+	    	req.getSession().setAttribute("error", "Failed to add to blacklist.");
 	        return "/error.jsp";
 	    }
 

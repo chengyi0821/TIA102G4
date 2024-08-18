@@ -89,7 +89,7 @@
 					  <div class="orderblock"> <a href="#" class="nav-item nav-link">公告管理</a>
 						<ul class="orderlist">
 							<li><a style="color: black;" href="<%=request.getContextPath()%>/frontstage/backend/announcement/announcement.html">系統公告</a></li>
-							<li><a style="color: black;" href="#">店家廣告</a></li>
+						
 						</ul>
 					  </div> 
 					</div>

@@ -293,5 +293,8 @@
 											});
 						});
 	</script>
+	
+	<script src="<%=request.getContextPath() %>restaurantFrontend/restaurantLogout/restaurantLogout.js"></script>
+	
 </body>
 </html>

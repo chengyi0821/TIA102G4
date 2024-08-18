@@ -74,7 +74,7 @@
 					  <div class="orderblock">  <a href="#" class="nav-item nav-link">會員中心</a>
 						<ul class="orderlist">
 							<li><a style="color: black;" href="#">修改資料</a></li>
-							<li><a style="color: black;" href="#">登出會員</a></li>
+							<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
 						</ul>
 					  </div>
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">店家資訊</a>
@@ -100,7 +100,7 @@
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">聯絡客服</a>
 						<ul class="orderlist">
 							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/restaurantFrontend/restFeedback/restFeedback.html">意見反應</a></li>
-							<li><a style="color: black;" href="#">系統公告</a></li>
+						
 						</ul>
 					   </div>
 					  
@@ -197,30 +197,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
  <div id="messages"></div>
-    <script>
-        var socket = new WebSocket("ws://localhost:8080/websocket/restaurant");
+  
 
-        socket.onmessage = function(event) {
-            var messageDiv = document.getElementById("messages");
-            var newMessage = document.createElement("p");
-            newMessage.textContent = event.data;
-            messageDiv.appendChild(newMessage);
-        };
-
-        socket.onopen = function(event) {
-            console.log("Connected to WebSocket server.");
-        };
-
-        socket.onclose = function(event) {
-            console.log("Disconnected from WebSocket server.");
-        };
-
-        socket.onerror = function(error) {
-            console.log("WebSocket Error: " + error);
-        };
-    </script>
-
-
+	<script src="../restaurantLogout/restaurantLogout.js"></script>
 
 </body>
 
