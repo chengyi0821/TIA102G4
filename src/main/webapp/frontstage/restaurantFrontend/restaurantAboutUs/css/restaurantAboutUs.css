@@ -1,0 +1,121 @@
+#main-content2 {
+    background-color: #f8f9fa; /* 背景顏色 */
+    padding: 30px; /* 增加內邊距 */
+    border-radius: 12px; /* 邊角圓角 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
+    margin-top: 20px; /* 上邊距 */
+    max-width: 1200px; /* 最大寬度 */
+    margin-left: auto; /* 自動水平居中 */
+    margin-right: auto; /* 自動水平居中 */
+}
+
+#main-content2 .row {
+	margin-left:100px;
+    margin-top: 100px; /* 移除上邊距 */
+    align-items: center;
+}
+
+#imagePreview {
+    max-width: 100%; /* 確保圖片不會超出容器範圍 */
+    border-radius: 12px; /* 圓角邊框 */
+    border: 2px solid #ddd; /* 輕微的邊框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
+}
+
+#restName {
+    font-size: 2.5rem; /* 增大字體大小 */
+    color: #333; /* 字體顏色 */
+    margin-bottom: 15px; /* 增加底部邊距 */
+    font-weight: bold; /* 字體加粗 */
+}
+
+#main-content2 p {
+    font-size: 1.1rem; /* 字體大小 */
+    color: #555; /* 字體顏色 */
+    margin: 10px 0; /* 增加上下邊距 */
+}
+
+#main-content2 p strong {
+    color: #333; /* 強調文字顏色 */
+}
+
+@media (max-width: 768px) {
+    #main-content2 {
+        padding: 20px; /* 小螢幕下減少內邊距 */
+    }
+
+    #restName {
+        font-size: 2rem; /* 小螢幕下減小字體大小 */
+    }
+
+    #main-content2 p {
+        font-size: 1rem; /* 小螢幕下減小字體大小 */
+    }
+}
+
+
+
+/* ==============================下拉式選單CSS start================================================== */
+.orderlist {
+	list-style: none;
+	font-size: 25px;
+	padding-inline-start: 0px;
+	unicode-bidi: isolate;
+}
+
+.orderlist {
+	display: none;
+	position: absolute;
+	background-color: #ffdf7e;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+	border-radius: 0.3cm;
+}
+
+.orderblock:hover .orderlist {
+	display: block;
+}
+
+#restform {
+	border: 1px solid #fffbeb;
+	/*     height:810px; */
+	max-height: 1000px;
+	margin-top: 0px;
+	background-color: #fffbeb;
+	border-radius: 30px;
+	width: 97%;
+	margin-bottom: 40px;
+	padding-top: 15px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	overflow: auto;
+}
+
+.orderlist li {
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+	color: black;
+}
+
+.orderlist a:hover {
+	color: #e83e8c !important;
+	text-decoration: none;
+}
+
+.orderlist li:hover {
+	box-shadow: 0px 8px 16px 0px rgba(232, 62, 140, 0.15);
+	border-radius: 10px;
+}
+
+.orderblock {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	padding: 50px 17px;
+}
+
+/* ==============================下拉式選單CSS end================================================== */
