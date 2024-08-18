@@ -32,46 +32,68 @@
     </div>
     <!-- Topbar 結束 -->
 
-    <!-- Navbar 開始 -->
-    <div class="container-fluid position-relative nav-bar p-0">
-        <style>
-            .container-fluid.position-relative.nav-bar.p-0 li {
-                color: black !important;
-            }
-        </style>
-        <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
-            <nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav ml-auto py-0">
-                        <div class="orderblock">
-                            <a href="#" class="nav-item nav-link">首頁</a>
-                            <ul class="orderlist">
-                                <li><a style="color: black;" href="#">管理員登入</a></li>
-                                <li><a style="color: black;" href="#">最新消息</a></li>
-                                <li><a id="logout" style="color: black;" href="#">登出會員</a></li>
-                            </ul>
-                        </div>
-                        <div class="orderblock">
-                            <a href="#" class="nav-item nav-link">管理員專區</a>
-                            <ul class="orderlist">
-                                <li><a style="color: black;" href="#">管理員資料</a></li>
-                                <li><a style="color: black;" href="#">查看記錄</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="navbar-nav mr-auto py-0">
-                        <div class="orderblock">
-                            <a href="#" class="nav-item nav-link active">管理系統</a>
-                            <ul class="orderlist">
-                                <li><a style="color: black;" href="#">新增管理員</a></li>
-                                <li><a style="color: black;" href="#">查看管理員</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
+    <!-- Navbar Start -->
+		<div class="container-fluid position-relative nav-bar p-0">
+		<div class="container-lg position-relative p-0 px-lg-3"
+			style="z-index: 9;">
+			<nav
+				class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
+
+				<div class="collapse navbar-collapse justify-content-between"
+					id="navbarCollapse">
+					<div class="navbar-nav ml-auto py-0">
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link">後台帳戶</a>
+							<ul class="orderlist">
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/backend/admin/adminindex.jsp">後台帳戶</a></li>
+								<li><a id="logout" style="color: black;" href="#">後台登出</a></li>
+							</ul>
+						</div>
+						<div class="orderblock">
+							<a href="#" class="nav-item nav-link active">會員管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/backend/admin/adminlistallmembers.jsp">會員列表</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/backend/restaurant/restaurant.html">店家列表</a></li>
+							</ul>
+
+
+						</div>
+						<div class="orderblock">
+							<a href="<%=request.getContextPath() %>/frontstage/backend/announcement/announcement.html"
+								class="nav-item nav-link">公告管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;"
+									href="<%=request.getContextPath() %>/frontstage/backend/announcement/announcement.html">系統公告</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="navbar-nav mr-auto py-0">
+						<div class="orderblock">
+							<a
+								href="<%=request.getContextPath() %>/frontstage/backend/admin_order_index.jsp"
+								class="nav-item nav-link">訂單管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;"
+									href="<%=request.getContextPath() %>/frontstage/backend/myorder/admin_order_index.jsp">訂單列表</a></li>
+							</ul>
+						</div>
+						<div class="orderblock">
+							<a href="<%=request.getContextPath() %>/frontstage/backend/customerService/member-reply.html"
+								class="nav-item nav-link">客服管理</a>
+							<ul class="orderlist">
+								<li><a style="color: black;"
+									href="<%=request.getContextPath() %>/frontstage/backend/customerService/member-reply.html">會員信件</a></li>
+								<li><a style="color: black;"
+									href="<%=request.getContextPath() %>/frontstage/backend/customerService/restaurant-reply.html">餐廳信件</a></li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
     <!-- Navbar 結束 -->
 
     <div id="main-content1"></div>
@@ -138,6 +160,6 @@
     <!-- Footer 結束 -->
 
     <script src="<%=request.getContextPath()%>/js/main.js"></script>
-    <script src="../memberLogout/memberLogout.js"></script>
+    <script src="../adminLogout/admin-logout.js"></script>
 </body>
 </html>

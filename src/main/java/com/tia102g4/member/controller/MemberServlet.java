@@ -53,8 +53,8 @@ public class MemberServlet extends HttpServlet {
 			forwardPath = getMembersByCompositeQuery(req, res);
 			break;
 		case "login":
-			forwardPath = login(req, res);
-			break;
+			login(req, res);
+			return;
 		case "forgotPassword":
 			forwardPath = forgotPassword(req, res);
 			break;
@@ -113,7 +113,7 @@ public class MemberServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.setAttribute("loggedInMember", member);
 		req.setAttribute("successMessage", "會員更新成功！");
-		return "/frontstage/memberFrontend/member/memberindex.jsp"; // 返回到會員列表頁面
+		return "/frontstage/memberFrontend/memberHome/memberHome.html"; // 返回到會員列表頁面
 	}
 
 	private String deleteMember(HttpServletRequest req, HttpServletResponse res) {
@@ -165,27 +165,31 @@ public class MemberServlet extends HttpServlet {
 		return "/frontstage/memberFrontend/member/memberlistcompositequery.jsp";
 	}
 
-	private String login(HttpServletRequest req, HttpServletResponse res) {
-		String email = req.getParameter("email");
-		String password = req.getParameter("password");
+	private void login(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+	    String email = req.getParameter("email");
+	    String password = req.getParameter("password");
 
-		// 使用 email 和 password 登入取得 Member 
-		Member member = memberService.login(email, password);
+	    // 使用 email 和 password 登录获取 Member 
+	    Member member = memberService.login(email, password);
 
-		if (member != null) {
-			HttpSession session = req.getSession();
+	    if (member != null) {
+	        HttpSession session = req.getSession();
 
-			// 將 Member 存入 session
-			session.setAttribute("loggedInMember", member);
+	        // 将 Member 存入 session
+	        session.setAttribute("loggedInMember", member);
 
-			// 將 memberId 存入 session
-			session.setAttribute("memberId", member.getMemberId());
-			return "/frontstage/memberFrontend/member/memberindex.jsp";
-		} else {
-			req.setAttribute("errorMessage", "登入失敗,請檢查您的帳號和密碼 !");
-			return "/frontstage/memberFrontend/member/memberlogin.jsp";
-		}
+	        // 将 memberId 存入 session
+	        session.setAttribute("memberId", member.getMemberId());
+
+	        // 重定向到目标页面
+	        res.sendRedirect(req.getContextPath() + "/frontstage/memberFrontend/memberHome/memberHome.html");
+	    } else {
+	        // 登录失败的情况
+	        req.setAttribute("errorMessage", "登入失敗,請檢查您的帳號和密碼 !");
+	        req.getRequestDispatcher("/frontstage/memberFrontend/member/memberlogin.jsp").forward(req, res);
+	    }
 	}
+
 
 	private String forgotPassword(HttpServletRequest req, HttpServletResponse res) {
 		String email = req.getParameter("email");

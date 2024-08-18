@@ -27,7 +27,7 @@
 				<div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
 					<div class="d-inline-flex align-items-center">
 						<a href="page1.html" class="navbar-brand mx-5 d-none d-lg-block">
-							<img class="logo" src="../image/logo.png">
+							<img class="logo" src="<%=request.getContextPath() %>/frontstage/memberFrontend/image/logo.png" />
 							<h1 class="m-0 display-4 text-primary">Chugether</h1>
 						</a>
 					</div>
@@ -38,6 +38,7 @@
 	<!-- Topbar End -->
 
 	<!-- Navbar Start -->
+
 	<div class="container-fluid position-relative nav-bar p-0">
 		<style>
             .container-fluid.position-relative.nav-bar.p-0 li {
@@ -49,49 +50,40 @@
 				
 				<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
-					  <div class="orderblock">  <a href="#" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a> 
+					  <div class="orderblock">  <a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberHome/memberHome.html" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a> 
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">會員登入</a></li>
-							<li><a style="color: black;" href="#">最新消息</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberlogin.jsp">會員登入</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
+							<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
 						</ul>
 					  </div>
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">會員專區</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">會員資料</a></li>
-							<li><a style="color: black;" href="#">查看收藏</a></li>
+
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favoriteList.jsp">查看收藏</a></li>
 						</ul>
 	
 	
 					   </div>
-					  <div class="orderblock"> <a href="#" class="nav-item nav-link">店家介紹</a>
-						<ul class="orderlist">
-							<li><a style="color: black;" href="#">查看店家</a></li>
-							<li><a style="color: black;" href="#">查看評價</a></li>
-							<li><a style="color: black;" href="#">營業資訊</a></li>
-							<li><a style="color: black;" href="#">類別搜尋</a></li>
-							
-						</ul>
-					  </div> 
+					
 					</div>
 				
 					<div class="navbar-nav mr-auto py-0">
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link active">揪團系統</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">發起揪團</a></li>
-							<li><a style="color: black;" href="#">參與揪團</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/room/inviteroom.jsp">發起揪團</a></li>
 						</ul>
 					   </div>
-					   <div class="orderblock"> <a href="#" class="nav-item nav-link">訂單管理</a>
+					   <div class="orderblock"> <a href="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/my_order_index.jsp" class="nav-item nav-link">訂單管理</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">編輯訂單</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/member_orderStatus1.jsp">編輯訂單</a></li>
 							<li><a style="color: black;" href="#">取消訂單</a></li>
-							<li><a style="color: black;" href="#">餐後評論</a></li>
 						</ul>
 					</div>
-					<div class="orderblock"> <a href="#" class="nav-item nav-link">聯絡客服</a>
+					<div class="orderblock"> <a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html1" class="nav-item nav-link">聯絡客服</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">客服信箱</a></li>
-							<li><a style="color: black;" href="#">Q&A</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberfeedback.html1">客服信箱</a></li>
+							
 						
 							
 						</ul>
@@ -106,11 +98,12 @@
 		<h2>會員註冊</h2>
     <form action="<%=request.getContextPath()%>/member/member.do" method="post">
         <input type="hidden" name="action" value="register"/>
+        
         <label for="name">姓名:</label>
-        <input type="text" id="name" name="name" required><br>
+        <input type="text" id="name" name="name" required pattern="[\u4e00-\u9fa5]+" title="姓名只能包含中文字符"><br>
         
         <label for="account">帳號:</label>
-        <input type="text" id="account" name="account" required><br>
+        <input type="text" id="account" name="account" required pattern="[a-zA-Z0-9_]+" title="帳號只能包含英文字符和数字"><br>
         
         <label for="password">密碼:</label>
         <input type="password" id="password" name="password" required><br>
@@ -119,13 +112,13 @@
         <input type="email" id="email" name="email" required><br>
         
         <label for="gender">性別:</label>
-        <select id="gender" name="gender">
+        <select id="gender" name="gender" required>
             <option value="1">男</option>
             <option value="0">女</option>
         </select><br>
         
         <label for="mobileNo">手機號碼:</label>
-        <input type="text" id="mobileNo" name="mobileNo" required><br>
+        <input type="text" id="mobileNo" name="mobileNo" required pattern="\d{10}" title="手機號碼必須是10位數字"><br>
         
         <input type="submit" value="註冊">
     </form>
