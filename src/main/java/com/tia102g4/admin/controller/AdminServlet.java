@@ -91,7 +91,7 @@ public class AdminServlet extends HttpServlet {
 
 
 	private String updateAdmin(HttpServletRequest req, HttpServletResponse res) {
-		    Long adminId = 13L;
+		    Long adminId = 10L;
 		    String permissionStr = req.getParameter("permission");
 		    int permission = Integer.valueOf(permissionStr);
 
