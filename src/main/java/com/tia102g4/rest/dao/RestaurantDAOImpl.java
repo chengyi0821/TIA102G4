@@ -18,7 +18,6 @@ import org.hibernate.SessionFactory;
 
 import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.restType.model.RestType;
-import com.tia102g4.util.Base64Util;
 import com.tia102g4.util.HibernateUtil;
 
 public class RestaurantDAOImpl implements RestaurantDAO {
@@ -128,6 +127,17 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 		return (Restaurant)getSession().createQuery("FROM Restaurant WHERE restId = :restId")
 				.setParameter("restId", restId)
                 .uniqueResult();
+	}
+
+	@Override
+	public Restaurant resetPassword(String email, String password) {
+		getSession().createQuery("UPDATE Restaurant r SET r.password = :password WHERE r.email = :email")
+					.setParameter("password", password)
+					.setParameter("email", email)
+					.executeUpdate();
+		return (Restaurant)getSession().createQuery("FROM Restaurant r WHERE r.email = :email")
+						.setParameter("email", email)
+						.uniqueResult();
 	}
 
 }

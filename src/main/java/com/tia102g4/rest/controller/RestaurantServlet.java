@@ -20,6 +20,7 @@ import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.rest.service.RestaurantService;
 import com.tia102g4.rest.service.RestaurantServiceImpl;
 import com.tia102g4.rest.to.RestaurantReqTO;
+import com.tia102g4.rest.to.RestaurantResetPasswordReqTO;
 import com.tia102g4.rest.to.RestaurantUpdateReqTO;
 import com.tia102g4.util.BaseResponse;
 
@@ -81,11 +82,21 @@ public class RestaurantServlet extends HttpServlet {
 			case "updateForRest":
 				updateForRest(requestBody, restId);
 				break;
+			case "resetPassword":
+				resetPassword(requestBody);
+				break;
 			}
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(gson.toJson(jsonObject));
 		} catch (LoginException e) {
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(e.getMessage());
+			out.flush();
+		} catch (Exception e) {
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
@@ -138,10 +149,10 @@ public class RestaurantServlet extends HttpServlet {
 	}
 
 	private JsonObject findIdByUser(String requestBody, Long restId) {
-	    RestaurantReqTO resultTO = restService.findIdByUser(restId);
-	    return gson.toJsonTree(resultTO).getAsJsonObject();
+		RestaurantReqTO resultTO = restService.findIdByUser(restId);
+		return gson.toJsonTree(resultTO).getAsJsonObject();
 	}
-	
+
 	private void delete(String requestBody) {
 		Restaurant rest = gson.fromJson(requestBody, Restaurant.class);
 		restService.delete(rest);
@@ -161,6 +172,11 @@ public class RestaurantServlet extends HttpServlet {
 			session.invalidate();
 		}
 		res.setStatus(HttpServletResponse.SC_OK);
+	}
+	
+	private void resetPassword(String requestBody) {
+		RestaurantResetPasswordReqTO reqTO = gson.fromJson(requestBody, RestaurantResetPasswordReqTO.class);
+		restService.resetPassword(reqTO);
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import javax.security.auth.login.LoginException;
 
 import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.rest.to.RestaurantReqTO;
-import com.tia102g4.rest.to.RestaurantUpdateReqTO;
+import com.tia102g4.rest.to.RestaurantResetPasswordReqTO;
 
 public interface RestaurantService {
 	void create(RestaurantReqTO reqTO);
@@ -29,5 +29,7 @@ public interface RestaurantService {
 	int getPageTotal();
 
 	List<Restaurant> getByCompositeQuery(Map<String, String[]> map);
+	
+	void resetPassword(RestaurantResetPasswordReqTO reqTO);
 	
 }
