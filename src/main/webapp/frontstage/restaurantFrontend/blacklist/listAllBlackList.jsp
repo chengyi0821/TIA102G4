@@ -111,17 +111,15 @@
 					<div class="navbar-nav ml-auto py-0">
 					  <div class="orderblock">  <a href="#" class="nav-item nav-link">會員中心</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">修改資料</a></li>
-							<li><a style="color: black;" href="#">登出會員</a></li>
+							<li><a style="color: black;" href="#<%=request.getContextPath() %>/frontstage/restaurantFrontend/restaurantEdit/restaurantEdit.html">修改資料</a></li>
+							<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
 						</ul>
 					  </div>
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">店家資訊</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">關於我們</a></li>
-							<li><a style="color: black;" href="#">最新消息</a></li>
-							<li><a style="color: black;" href="#">菜單瀏覽</a></li>
-							<li><a style="color: black;" href="#">營業資訊</a></li>
-							<li><a style="color: black;" href="#">顧客評價</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/restaurantFrontend/restaurantAboutUs/restaurantAboutUs.html">關於我們</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/restaurantFrontend/restNews/restNews.html">最新消息</a></li>
+							
 						</ul>
 	
 	
@@ -137,8 +135,9 @@
 					<div class="navbar-nav mr-auto py-0">
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">聯絡客服</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">意見反應</a></li>
-							<li><a style="color: black;" href="#">系統公告</a></li>
+						<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/restaurantFrontend/restFeedback/restFeedback.html">意見反應</a></li>
+
+							
 						</ul>
 					   </div>
 					  
@@ -381,6 +380,7 @@ function showNotification0() {
         }
     </script>
 	<!-- ============================刪除成功的提示訊息 End===================================================== -->
+<script src="../restaurantLogout/restaurantLogout.js"></script>
 
 
 </body>

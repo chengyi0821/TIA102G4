@@ -76,15 +76,16 @@
 				
 				<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
-					  <div class="orderblock">  <a href="#" class="nav-item nav-link">後台帳戶</a>
+					  <div class="orderblock">  <a href="<%=request.getContextPath()%>/frontstage/backend/admin/adminindex.jsp" class="nav-item nav-link">後台帳戶</a>
 						<ul class="orderlist">
 							<li><a style="color: black;" href="#">後台帳戶</a></li>
+							<li><a id="logout" style="color: black;" href="#">後台登出</a></li>
 						</ul>
 					  </div>
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">會員管理</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">會員列表</a></li>
-							<li><a style="color: black;" href="#">店家列表</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath()%>/frontstage/backend/admin/adminlistallmembers.jsp">會員列表</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath()%>/frontstage/backend/restaurant/restaurant.html">店家列表</a></li>
 							
 						</ul>
 	
@@ -117,7 +118,7 @@
 		</div>
 	</div>
 	<!-- Navbar End -->
-
+<script src="../adminLogout/admin-logout.js"></script>
 </body>
 
 </html>
