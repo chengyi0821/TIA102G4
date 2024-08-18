@@ -28,6 +28,7 @@ $(document).ready(function() {
                     success: function(response) {
                         alert('重置密碼郵件已發送。');
                         $('#main-content2').empty(); // 成功後可以選擇刪除新表單
+                        window.location.href = '../restaurantLogin/restaurantLogin.html';
                     },
                     error: function(xhr) {
                         alert(xhr.responseText);
