@@ -21,7 +21,19 @@
     <title>編輯訂單</title>
     <link href="../css/style.css" rel="stylesheet">
    <style>
+   .submit-button{
+   background-color:#ffc107;
+   border:1px solid #ffc107;
+   border-radius:20px;
+   width:100px;
+   height:35px;
+   font-size:17px;  
+   }
    
+   .submit-button:hover{
+   background-color:#F195B2;
+   border:1px solid #F195B2;
+   }
   
    </style>
 </head>
@@ -57,21 +69,24 @@
 		</div>
 
 		<div class="form-group">
-        <label for="reserDate">訂位日期:<span class="red">*</span></label>
-        <input type="date" id="reserDate" name="reserDate" value="${order.reserDate}"><br>
+    	<label for="reserDate">訂位日期:<span class="red">*</span></label>
+    	<input type="date" id="reserDate" name="reserDate" value="${order.reserDate}">
+    	<span id="dateErrorMsg" style="color: red; display: none;">請輸入訂位日期</span><br>
 		</div>
-		
+
 		<div class="form-group">
-        <label for="reserTime">訂位時間:<span class="red">*</span></label>
-        <input type="time" id="reserTime" name="reserTime" value="${order.formattedReserTime}"><br>
+    	<label for="reserTime">訂位時間:<span class="red">*</span></label>
+    	<input type="time" id="reserTime" name="reserTime" value="${order.formattedReserTime}">
+    	<span id="timeErrorMsg" style="color: red; display: none;">請輸入訂位時間</span><br>
 		</div>
-		
+
 		<div class="form-group">
-        <label for="reserPeopleNumber">人數:<span class="red">*</span><c:if test="${not empty errorMessage}">
-        <span class="error-message">${errorMessage}</span>
-    	</c:if></label>
-        <input type="number" id="reserPeopleNumber" name="reserPeopleNumber" value="${order.reserPeopleNumber}" min="1"><br>
+    	<label for="reserPeopleNumber">人數:<span class="red">*</span></label>
+    	<input type="number" id="reserPeopleNumber" name="reserPeopleNumber" 
+           value="${order.reserPeopleNumber}" min="1" max="${order.event.maxSeat}">
+    	<span id="numErrorMsg" style="color: red; display: none;">請輸入訂位人數，不得超過 ${order.event.maxSeat} 人</span><br>
 		</div>
+
 	
 		<div class="form-group">
         <label for="reserNote">備註:</label>
@@ -79,7 +94,7 @@
 		</div>
 		
 		 <div class="form-group">
-        <input type="submit" value="更新訂單">
+       <button type="submit" id="submitButton" class="submit-button" disabled>更新訂單</button>
         </div>
     </form>
     
@@ -110,6 +125,105 @@
             errorMessageDiv.style.display = 'block';
         }
     </script>
+
+
+<script>
+   
+    var reserDateInput = document.getElementById('reserDate');
+    var reserTimeInput = document.getElementById('reserTime');
+    var reserPeopleNumberInput = document.getElementById('reserPeopleNumber');
+    var submitButton = document.getElementById('submitButton');
+
+    var dateErrorMsg = document.getElementById('dateErrorMsg');
+    var timeErrorMsg = document.getElementById('timeErrorMsg');
+    var numErrorMsg = document.getElementById('numErrorMsg');
+
+    function validateForm() {
+        var isValid = true;
+
+        
+        if (!reserDateInput.value) {
+            dateErrorMsg.style.display = 'inline';
+            isValid = false;
+        } else {
+            dateErrorMsg.style.display = 'none';
+        }
+
+      
+        if (!reserTimeInput.value) {
+            timeErrorMsg.style.display = 'inline';
+            isValid = false;
+        } else {
+            timeErrorMsg.style.display = 'none';
+        }
+
+     
+        if (!reserPeopleNumberInput.value) {
+            numErrorMsg.style.display = 'inline';
+            isValid = false;
+        } else {
+            numErrorMsg.style.display = 'none';
+        }
+
+    
+        submitButton.disabled = !isValid;
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        validateForm();
+    });
+
+
+    reserDateInput.addEventListener('input', validateForm);
+    reserTimeInput.addEventListener('input', validateForm);
+    reserPeopleNumberInput.addEventListener('input', validateForm);
+	</script>
+
+
+	<script>
+    function getMinDate() {
+        var today = new Date();
+        today.setDate(today.getDate() + 3); 
+
+   
+        var day = ("0" + today.getDate()).slice(-2);
+        var month = ("0" + (today.getMonth() + 1)).slice(-2);
+        var year = today.getFullYear();
+
+        return year + "-" + month + "-" + day;
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var reserDateInput = document.getElementById('reserDate');
+        reserDateInput.setAttribute('min', getMinDate());
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var reserPeopleNumberInput = document.getElementById('reserPeopleNumber');
+        var numErrorMsg = document.getElementById('numErrorMsg');
+        var submitButton = document.getElementById('submitButton');
+        var maxSeat = ${order.event.maxSeat}; 
+
+        reserPeopleNumberInput.setAttribute('max', maxSeat);
+
+    
+        reserPeopleNumberInput.addEventListener('input', function() {
+            var currentValue = parseInt(reserPeopleNumberInput.value, 10);
+
+            if (currentValue > maxSeat) {
+                numErrorMsg.style.display = 'inline'; 
+                submitButton.disabled = true; 
+            } else {
+                numErrorMsg.style.display = 'none'; 
+                submitButton.disabled = false; 
+            }
+        });
+    });
+</script>
 
 
 </body>

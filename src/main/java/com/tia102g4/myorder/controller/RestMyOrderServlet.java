@@ -76,15 +76,14 @@ public class RestMyOrderServlet extends HttpServlet {
 	    String page = req.getParameter("page");
 	    int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 	    int recordsPerPage = 7; 
-//	    Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
-	   
-	    Long restId = 1L; 
+	    Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
+
 
 	    PageInfo<MyOrder> pageInfo = orderService.getAllMyOrdersByRest(restId, currentPage, recordsPerPage);
 
-	    req.setAttribute("orderList", pageInfo.getItems());
-	    req.setAttribute("currentPage", pageInfo.getCurrentPage());
-	    req.setAttribute("totalPages", pageInfo.getTotalPages());
+	    req.getSession().setAttribute("orderList", pageInfo.getItems());
+	    req.getSession().setAttribute("currentPage", pageInfo.getCurrentPage());
+	    req.getSession().setAttribute("totalPages", pageInfo.getTotalPages());
 
 	    return "/frontstage/restaurantFrontend/myorder/restaurant_listAllOrders.jsp";
 	}
@@ -92,14 +91,13 @@ public class RestMyOrderServlet extends HttpServlet {
 
 //	    ====================================屬於餐廳的復合查詢訂單=============================================
 	private String getCompositeOrdersQuery(HttpServletRequest req, HttpServletResponse res) {
-		// 測試
-		Long restId = 1L;
+		Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
 
 		Map<String, String[]> map = req.getParameterMap();
 		List<MyOrder> orderList = orderService.getCompositeOrdersQueryByRestId(map, restId);
 
 		if (orderList != null) {
-			req.setAttribute("orderList", orderList);
+			req.getSession().setAttribute("orderList", orderList);
 		} else {
 			req.setAttribute("error", "error");
 		}
@@ -113,13 +111,13 @@ public class RestMyOrderServlet extends HttpServlet {
 	    String page = req.getParameter("page");
 	    int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 	    int recordsPerPage = 7;
-	    Long restId = 1L; 
+	    Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
 
 	    PageInfo<MyOrder> pageInfo = orderService.getOrderStatus1Rest(restId, currentPage, recordsPerPage);
 
-	    req.setAttribute("orderList", pageInfo.getItems());
-	    req.setAttribute("currentPage", pageInfo.getCurrentPage());
-	    req.setAttribute("totalPages", pageInfo.getTotalPages());
+	    req.getSession().setAttribute("orderList", pageInfo.getItems());
+	    req.getSession().setAttribute("currentPage", pageInfo.getCurrentPage());
+	    req.getSession().setAttribute("totalPages", pageInfo.getTotalPages());
 
 	    return "/frontstage/restaurantFrontend/myorder/restaurant_orderStatus1.jsp";
 	}
@@ -129,16 +127,14 @@ public class RestMyOrderServlet extends HttpServlet {
 		String page = req.getParameter("page");
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		int recordsPerPage = 7;
-
-		// 測試
-		Long restId = 1L;
+		Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
 
 		PageInfo<MyOrder> pageInfo = orderService.getOrderStatus2Rest(restId, currentPage, recordsPerPage);
 
 		if (pageInfo != null) {
-			req.setAttribute("orderList", pageInfo.getItems());
-			req.setAttribute("currentPage", pageInfo.getCurrentPage());
-			req.setAttribute("totalPages", pageInfo.getTotalPages());
+			req.getSession().setAttribute("orderList", pageInfo.getItems());
+			req.getSession().setAttribute("currentPage", pageInfo.getCurrentPage());
+			req.getSession().setAttribute("totalPages", pageInfo.getTotalPages());
 		} else {
 			req.setAttribute("error", "error");
 		}
@@ -152,15 +148,14 @@ public class RestMyOrderServlet extends HttpServlet {
 		int currentPage = (page == null) ? 1 : Integer.parseInt(page);
 		int recordsPerPage = 7;
 
-		// 測試
-		Long restId = 1L;
+		Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
 
 		PageInfo<MyOrder> pageInfo = orderService.getOrderStatus3Rest(restId, currentPage, recordsPerPage);
 
 		if (pageInfo != null) {
-			req.setAttribute("orderList", pageInfo.getItems());
-			req.setAttribute("currentPage", pageInfo.getCurrentPage());
-			req.setAttribute("totalPages", pageInfo.getTotalPages());
+			req.getSession().setAttribute("orderList", pageInfo.getItems());
+			req.getSession().setAttribute("currentPage", pageInfo.getCurrentPage());
+			req.getSession().setAttribute("totalPages", pageInfo.getTotalPages());
 		} else {
 			req.setAttribute("error", "error");
 		}
@@ -170,7 +165,7 @@ public class RestMyOrderServlet extends HttpServlet {
 
 	private String updateOrderStatus2Rest(HttpServletRequest req, HttpServletResponse res) throws InterruptedException {
 	    String action = req.getParameter("action");
-	    Long restId = 1L;
+	    Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
 
 	    if ("updateOrderStatus2Rest".equals(action)) {
 	        Long orderId = Long.parseLong(req.getParameter("orderId"));
@@ -183,7 +178,7 @@ public class RestMyOrderServlet extends HttpServlet {
 	
 	private String updateOrderStatus3Rest(HttpServletRequest req, HttpServletResponse res) throws InterruptedException {
 		 String action = req.getParameter("action");
-		    Long restId = 1L;
+		 Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
 
 		    if ("updateOrderStatus3Rest".equals(action)) {
 		        Long orderId = Long.parseLong(req.getParameter("orderId"));
@@ -204,7 +199,7 @@ public class RestMyOrderServlet extends HttpServlet {
 		            req.setAttribute("successMsg", "已完成這筆訂單");
 		            return getOrderStatus1Rest(req, res);
 		        } else {
-		            req.setAttribute("errorMsg", "訂位時間還沒到，無法完成該筆訂單");
+		        	req.setAttribute("errorMsg", "訂位時間還沒到，無法完成該筆訂單");
 		            return getOrderStatus1Rest(req, res); 
 		        }
 		    }

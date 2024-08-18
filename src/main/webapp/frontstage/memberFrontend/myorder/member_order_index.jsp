@@ -121,6 +121,36 @@
 	/* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
 	border-radius: 10px;
 }
+
+
+#errorMsg {
+	color: red;
+	font-weight: bold;
+	margin: 20px 0;
+	border: 1px solid black;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #ffc107;
+	color: white;
+	width: 400px;
+	height: 200px;
+	border: 2px solid #ffc107;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	border-radius: 8px;
+	text-align: center;
+	z-index: 1000;
+	font-size: 23px;
+	font-weight: 1000;
+	padding-top: 80px;
+	display: none;
+}
+
+#successMsg {
+	font-size: 32px;
+	
+}
 </style>
 </head>
 <body style="background-color: #F3F6FF;">
@@ -148,7 +178,10 @@
 			</div>
 		</div>
 
-
+		
+		<div id="errorMsg" style="display: ${not empty errorMsg ? 'block' : 'none'};">
+	    ${errorMsg}
+		</div>
 
 	</div>
 	<div class="right_content1"></div>

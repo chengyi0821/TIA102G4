@@ -106,20 +106,20 @@ public class MyOrderServlet extends HttpServlet {
         Long orderId = Long.parseLong(req.getParameter("orderId"));
         MyOrder myOrder = orderService.getMyOrderByOrderId(orderId);
         if (myOrder != null) {
-            req.setAttribute("myOrder", myOrder);
+        	req.getSession().setAttribute("myOrder", myOrder);
         }
         return "/frontstage/restaurantFrontend/blacklist/listAllBlackList.jsp";
     }
     
     private String getMyOrderByOrderId1(HttpServletRequest req, HttpServletResponse res) {
  	   Long orderId = Long.parseLong(req.getParameter("orderId"));
- 	    Long restId = 1L; 
+ 	   Long restId = ((Number) req.getSession().getAttribute("restId")).longValue();
 
  	    MyOrder myOrder = orderService.getMyOrderByOrderId1(orderId, restId);
  	    if (myOrder != null) {
- 	        req.setAttribute("myOrder", myOrder);
+ 	    	req.setAttribute("myOrder", myOrder);
  	    } else {
- 	        req.setAttribute("orderIdError", "訂單編號錯誤");
+ 	    	req.setAttribute("orderIdError", "訂單編號錯誤");
  	    }
  	    return "/frontstage/restaurantFrontend/blacklist/listAllBlackList.jsp";
  }
