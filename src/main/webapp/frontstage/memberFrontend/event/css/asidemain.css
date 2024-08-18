@@ -1,6 +1,12 @@
 @charset "UTF-8";
-#main-content2 {
-/* 	border: 1px solid black; */
+
+#main-content2{
+	background-color:#fff3e0;
+}
+
+#input_btn{
+	position:relative;
+	bottom: -130px;
 }
 
 #main-content2 aside.aside {
@@ -16,32 +22,9 @@
 #main-content2 aside.aside table tr td,
 #main-content2 main.main table tr td{
 	display: block;
-/* 	border: 1px solid orange; */
 	width: 100%;
 	text-align: left;
 	vertical-align: top; word-wrap: break-word; padding: 10px;
-}
-
-#main-content2 main.main {
-	width: 500px;
-	display: block;
-	height: 300px
-}
-
-#main-content2 aside.aside, #main-content2 main.main {
-/* 	border: 1px solid green; */
-	display: inline-block;
-	vertical-align: top;
-	font-size: 30px;
-}
-#main-content2 {
-	border: 1px solid black;
-}
-
-#main-content2 aside.aside {
-	width: 400px;
-	height: 300px;
-	display: block;
 }
 
 #main-content2 main.main {

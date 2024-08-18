@@ -20,20 +20,7 @@ List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("resta
 	href="<%=request.getContextPath()%>/frontstage/memberFrontend/vote/css/orderlist.css"
 	rel="stylesheet" />
 <style>
-table {
-	border-collapse: collapse;
-	width: 100%;
-}
 
-th, td {
-	border: 1px solid black;
-	padding: 8px;
-	text-align: left;
-}
-
-th {
-	background-color: #f2f2f2;
-}
 </style>
 </head>
 <body>
@@ -69,29 +56,17 @@ th {
 					id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a>
+							<a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberHome/memberHome.html" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">會員登入</a></li>
-								<li><a style="color: black;" href="#">最新消息</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberlogin.jsp">會員登入</a></li>
+								<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">會員專區</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">會員資料</a></li>
-								<li><a style="color: black;" href="#">查看收藏</a></li>
-							</ul>
-
-
-						</div>
-						<div class="orderblock">
-							<a href="#" class="nav-item nav-link ">店家介紹</a>
-							<ul class="orderlist">
-								<li><a style="color: black;" href="#">查看店家</a></li>
-								<li><a style="color: black;" href="#">查看評價</a></li>
-								<li><a style="color: black;" href="#">營業資訊</a></li>
-								<li><a style="color: black;" href="#">類別搜尋</a></li>
-
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favorite.jsp">查看收藏</a></li>
 							</ul>
 						</div>
 					</div>
@@ -100,23 +75,19 @@ th {
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link active">揪團系統</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">發起揪團</a></li>
-								<li><a style="color: black;" href="#">參與揪團</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/room/inviteroom.jsp">發起揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">訂單管理</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">編輯訂單</a></li>
-								<li><a style="color: black;" href="#">取消訂單</a></li>
-								<li><a style="color: black;" href="#">餐後評論</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/member_orderStatus1.jsp">編輯訂單</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">聯絡客服</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">客服信箱</a></li>
-								<li><a style="color: black;" href="#">Q&A</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
 
 
 							</ul>
@@ -141,16 +112,25 @@ th {
 				method="post">
 				<input type="hidden" name="action" value="choice">
 				<table>
+					<tr>
+						<th>餐廳名稱</th>
+						<th>餐廳簡介</th>
+						<th>餐廳地址</th>
+						<th>餐廳電話</th>
+						<th>選取</th>
+					</tr>
 					<c:forEach var="rest" items="${restaurantList }">
 						<tr>
-							<td>${rest.restId}</td>
 							<td>${rest.restName}</td>
 							<td>${rest.description}</td>
 							<td>${rest.location}</td>
 							<td>${rest.phone}</td>
-							<td><label> <input type="checkbox" name="restchoice"
-									value="option:${rest.restId}">
+							<td><label> 
+									<input type="checkbox" name="restchoice" 
+      								value="option:${rest.restId}"
+       						${param['restchoice'].contains('option:'.concat(rest.restId)) ? 'checked' : ''}/>
 							</label></td>
+							
 						</tr>
 					</c:forEach>
 				</table>
@@ -171,6 +151,7 @@ th {
 			<h5 class="footerh5">隱私權條款</h5>
 			<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 		</footer>
+		<script src="<%=request.getContextPath() %>/frontstage/memberFrontend/memberLogout/memberLogout.js"></script>
 		<script>
 			const contextPath = "<%=request.getContextPath()%>
 			";
