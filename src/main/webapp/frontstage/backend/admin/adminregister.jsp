@@ -1,23 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     
-<%@ page import="com.tia102g4.room.model.*" %>
+<%@ page import="com.tia102g4.admin.model.*" %>
 <%
-    Room entity = (Room) request.getAttribute("room");
+    Admin entity = (Admin) request.getAttribute("admin");
 %>    
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="UTF-8">
 	<title>我要揪團</title>
 	<!-- 載入 jQuery -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<link href="../css/style.css" rel="stylesheet">
-	<link href="css/room.css" rel="stylesheet">
+	<link href="<%=request.getContextPath() %>/frontstage/backend/css/style.css" rel="stylesheet" />
+    <link href="<%=request.getContextPath() %>/frontstage/backend/admin/css/admin.css" rel="stylesheet" />
 	<script src="js/main.js"></script>
 	
-
 </head>
 
 <body>
@@ -54,6 +53,7 @@
 						<ul class="orderlist">
 							<li><a style="color: black;" href="#">會員登入</a></li>
 							<li><a style="color: black;" href="#">最新消息</a></li>
+							<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
 						</ul>
 					  </div>
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">會員專區</a>
@@ -104,17 +104,29 @@
 
 	<div id="main-content1"></div>
 	<div id="main-content2">
-		<div class="invite-code-container">
-			<h2>我要跟團</h2>
-			<p>輸入邀請碼加入</p>
-			<form action="<%=request.getContextPath()%>/event/event.do" method="post">
-				<input type="hidden" name="action" value="getInfo">
-				<input type="text" id="inviteCode" name="inviteCode" placeholder="請輸入驗證碼" oninput="checkInviteCodeLength()" required>
-				<p id="lengthMessage"></p> <!-- 提示訊息顯示區域 -->
-				<button type="submit" class="confirm-btn">確認</button>
-				<button type="button" class="back-btn" onclick="window.history.back()">返回</button>
-			</form>
-		</div>
+		<h2>後台註冊</h2>
+    <form action="<%=request.getContextPath()%>/admin/admin.do" method="post">
+        <input type="hidden" name="action" value="register"/>
+        <label for="name">姓名:</label>
+        <input type="text" id="name" name="name" required><br>
+        
+        <label for="account">帳號:</label>
+        <input type="text" id="account" name="account" required><br>
+        
+        <label for="password">密碼:</label>
+        <input type="password" id="password" name="password" required><br>
+        
+        <label for="permission">權限:</label>
+        <input type="text" id="permission" name="permission" required><br>
+    
+        
+        <input type="submit" value="註冊" >
+        
+    </form>
+    
+    <c:if test="${not empty errorMessage}">
+        <p style="color:red;">${errorMessage}</p>
+    </c:if>
 	</div>
 	<div class="table-container">
 
@@ -134,6 +146,7 @@
 		</footer>
 	<!-- Footer end -->
 		<script src="js/main.js"></script>
+		<script src="../memberLogout/memberLogout.js"></script>
 </body>
 
 </html>
