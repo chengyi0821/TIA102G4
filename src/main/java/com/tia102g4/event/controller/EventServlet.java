@@ -51,6 +51,12 @@ public class EventServlet extends HttpServlet{
 		case "compositeQuery":
 			forwardPath = getCompositeQuery(req,res);
 			break;
+		case "noshow":
+			forwardPath = "/frontstage/memberFrontend/myorder/member_orderStatus1.jsp";
+			break;
+		case "getIn":
+			forwardPath = "/frontstage/memberFrontend/myorder/member_orderStatus1.jsp";
+			break;
 		default:
 			forwardPath = "/frontstage/memberFrontend/event/gate.jsp";
 		}
@@ -66,11 +72,13 @@ public class EventServlet extends HttpServlet{
 		String timeSteap =time+":00";
 		String code = CodeMaker.invitationCode();
 		Time mealtime = Time.valueOf(timeSteap);
+		Member member = (Member) req.getSession().getAttribute("loggedInMember");
+		
 		Event entity = new Event();
 		entity.setName(String.valueOf(req.getParameter("name").trim()));
 		entity.setInfo(String.valueOf(req.getParameter("info").trim()));
 		entity.setDate(Date.valueOf(req.getParameter("date")));
-		entity.setMemberId(1L);
+		entity.setMemberId(member.getMemberId());//取得會員ID
 		entity.setTime(mealtime);
 		entity.setMaxseat(Integer.valueOf(req.getParameter("maxseat")));
 		entity.setCode(code);
@@ -78,8 +86,9 @@ public class EventServlet extends HttpServlet{
 		List<Event> eventList = new ArrayList<Event>();
 		eventList.add(entity);
 		MakeFriends friends = new MakeFriends();
-		List<Member> memberList = friends.ImaginaryFriend(4);
+		List<Member> memberList = friends.ImaginaryFriend(3);
 		req.getSession().setAttribute("eventList", eventList);
+		req.getSession().setAttribute("buildingEvnet", entity);
 		req.getSession().setAttribute("memberList", memberList);
 		return "/frontstage/memberFrontend/event/fellow.jsp";
 	}
@@ -88,7 +97,7 @@ public class EventServlet extends HttpServlet{
 		String code = req.getParameter("code");
 		List<Event> eventList = evtsvc.getInfo(code);
 		MakeFriends friends = new MakeFriends();
-		List<Member> memberList = friends.ImaginaryFriend(4);
+		List<Member> memberList = friends.ImaginaryFriend(3);
 		req.getSession().setAttribute("eventList", eventList);		
 		req.getSession().setAttribute("memberList", memberList);
 		return "/frontstage/memberFrontend/event/fellow.jsp";
@@ -96,6 +105,14 @@ public class EventServlet extends HttpServlet{
 	private String getAllRestaurant(HttpServletRequest req, HttpServletResponse res) {
 		List<Restaurant> restaurantList = evtsvc.getAllRestaurant(new Restaurant());
         req.getSession().setAttribute("restaurantList", restaurantList);
+      //保存選中的餐廳ID
+		String[] selectedRest = req.getParameterValues("restchoice");
+		if(selectedRest != null) {
+			req.setAttribute("selectedRest", selectedRest);
+			for(String item : selectedRest) {
+				System.out.println(item);
+			}
+		}
 		
 		return "/frontstage/memberFrontend/vote/preparing_voting.jsp";
 		
@@ -105,7 +122,25 @@ public class EventServlet extends HttpServlet{
 		if (map !=null) {
 			List<Restaurant> restaurantList = evtsvc.getByCompositeQuery(map);
 			req.setAttribute("restaurantList", restaurantList);
+			
+			//保存選中的餐廳ID
+			String[] selectedRest = req.getParameterValues("restchoice");
+			if(selectedRest != null) {
+				for(String item : selectedRest) {
+					System.out.println(item);
+				}
+				req.setAttribute("selectedRest", selectedRest);
+			}
+			
 		}else {
+			//保存選中的餐廳ID
+			String[] selectedRest = req.getParameterValues("restchoice");
+			if(selectedRest != null) {
+				for(String item : selectedRest) {
+					System.out.println(item);
+				}
+				req.setAttribute("selectedRest", selectedRest);
+			}
 			return "/frontstage/memberFrontend/vote/preparing_voting.jsp";
 		}
 	    return "/frontstage/memberFrontend/vote/preparing_voting.jsp";

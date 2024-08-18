@@ -51,51 +51,34 @@
 				
 				<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
-					  <div class="orderblock">  <a href="#" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a> 
+					  <div class="orderblock">  <a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberHome/memberHome.html" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a> 
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">會員登入</a></li>
-							<li><a style="color: black;" href="#">最新消息</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberlogin.jsp">會員登入</a></li>
+							<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
 						</ul>
 					  </div>
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">會員專區</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">會員資料</a></li>
-							<li><a style="color: black;" href="#">查看收藏</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favorite.jsp">查看收藏</a></li>
 						</ul>
-	
-	
 					   </div>
-					  <div class="orderblock"> <a href="#" class="nav-item nav-link">店家介紹</a>
-						<ul class="orderlist">
-							<li><a style="color: black;" href="#">查看店家</a></li>
-							<li><a style="color: black;" href="#">查看評價</a></li>
-							<li><a style="color: black;" href="#">營業資訊</a></li>
-							<li><a style="color: black;" href="#">類別搜尋</a></li>
-							
-						</ul>
-					  </div> 
 					</div>
 				
 					<div class="navbar-nav mr-auto py-0">
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link active">揪團系統</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">發起揪團</a></li>
-							<li><a style="color: black;" href="#">參與揪團</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/room/inviteroom.jsp">發起揪團</a></li>
 						</ul>
 					   </div>
 					   <div class="orderblock"> <a href="#" class="nav-item nav-link">訂單管理</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">編輯訂單</a></li>
-							<li><a style="color: black;" href="#">取消訂單</a></li>
-							<li><a style="color: black;" href="#">餐後評論</a></li>
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/member_orderStatus1.jsp">編輯訂單</a></li>
 						</ul>
 					</div>
 					<div class="orderblock"> <a href="#" class="nav-item nav-link">聯絡客服</a>
 						<ul class="orderlist">
-							<li><a style="color: black;" href="#">客服信箱</a></li>
-							<li><a style="color: black;" href="#">Q&A</a></li>
-						
-							
+							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
 						</ul>
 				</div>
 			</nav>
@@ -108,11 +91,11 @@
 	 <div class="square-container">
             <div class="square">
                 <p>團主</p>
-                <button onclick="location.href='/room/room1.do?action=createRoom'">發起揪團</button>
+                <button onclick="location.href='<%=request.getContextPath() %>/frontstage/memberFrontend/event/create.jsp'">發起揪團</button>
             </div>
             <div class="square">
                 <p>跟團</p>
-                <button onclick="location.href='/room/room1.do?action=Room1.jsp'">我要跟團</button>
+                <button onclick="location.href='<%=request.getContextPath() %>/frontstage/memberFrontend/event/gate.jsp'">我要跟團</button>
             </div>
         </div>
     </div>
@@ -135,6 +118,7 @@
 		</footer>
 	<!-- Footer end -->
 		<script src="js/main.js"></script>
+		<script src="<%=request.getContextPath() %>/frontstage/memberFrontend/memberLogout/memberLogout.js"></script>
 </body>
 
 </html>

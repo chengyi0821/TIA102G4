@@ -45,30 +45,20 @@
 				<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a>
+							<a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberHome/memberHome.html" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">會員登入</a></li>
-								<li><a style="color: black;" href="#">最新消息</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberlogin.jsp">會員登入</a></li>
+								<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">會員專區</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">會員資料</a></li>
-								<li><a style="color: black;" href="#">查看收藏</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favorite.jsp">查看收藏</a></li>
 							</ul>
 
 
-						</div>
-						<div class="orderblock">
-							<a href="#" class="nav-item nav-link ">店家介紹</a>
-							<ul class="orderlist">
-								<li><a style="color: black;" href="#">查看店家</a></li>
-								<li><a style="color: black;" href="#">查看評價</a></li>
-								<li><a style="color: black;" href="#">營業資訊</a></li>
-								<li><a style="color: black;" href="#">類別搜尋</a></li>
-
-							</ul>
 						</div>
 					</div>
 
@@ -76,25 +66,19 @@
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link active">揪團系統</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/create.jsp">發起揪團</a></li>
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/gate.jsp">參與揪團</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/room/inviteroom.jsp">發起揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">訂單管理</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">編輯訂單</a></li>
-								<li><a style="color: black;" href="#">取消訂單</a></li>
-								<li><a style="color: black;" href="#">餐後評論</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/member_orderStatus1.jsp">編輯訂單</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">聯絡客服</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">客服信箱</a></li>
-								<li><a style="color: black;" href="#">Q&A</a></li>
-
-
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
 							</ul>
 						</div>
 						</div>
@@ -110,23 +94,42 @@
 			method="post">
 			<!--/TIA102G4/event/event.do -->
 			<aside class="aside">
-				<label for="date" style="margin:10px;">訂餐日:(3天後~30天前)</label>
-				<br> 
-				<input type="date" id="dateRange"
-					name="date" max="2024-09-04" min="2024-08-04" required style="margin:10px;"/> 
-					<br> 
-					<label style="margin:10px;"
-					for="time">用餐時段:(11:00~21:00)</label> <input type="time" name="time" required min="11:00" max="21:00">
+				<table>
+					<tr>
+						<td><label for="date" style="margin:10px;">訂餐日:(3天後~30天前)</label><td>
+						<td><input type="date" id="dateRange"
+						name="date" max="2024-09-04" min="2024-08-04" required style="margin:10px;"/> <td>
+					</tr>
+					<tr>
+						<td><label style="margin:10px;"
+						for="time">用餐時段:(11:00~21:00)</label></td>
+						<td><input type="time" name="time" required min="11:00" max="21:00"></td>
+					</tr>
+					<tr>
+						<td><label for="maxseat" style="margin:10px;">最大參與人數(2~20人)</label></td>
+						<td><input
+					type="number" name="maxseat" min=2 max=20 style="margin:10px;"></td>
+					</tr>
+				</table>	
 			</aside>
 			<main class="main">
-				<label for="name" style="margin:10px;">活動名稱:</label> <br> <input type="text"
-					id="name" name="name" required style="margin:10px;"/> <br> <label for="info" style="margin:10px;">活動詳細資訊:</label>
+			<table>
+				<tr>
+					<td><label for="name" style="margin:10px;">活動名稱:</label></td>
+					<td><input type="text"
+					id="name" name="name" required style="margin:10px;"/></td>
+				</tr>
+				<tr>
+					<td><label for="info" style="margin:10px;">活動詳細資訊:</label></td>
+					<td><textarea id="info" name="info" rows="4" cols="50" required style="margin:10px;"></textarea></td>
+				</tr>
+			</table>
+				 <br>  <br> 
 				<br>
-				<textarea id="info" name="info" rows="4" cols="50" required style="margin:10px;"></textarea>
-				<br> <label for="maxseat" style="margin:10px;">最大參與人數(2~20人)</label><br> <input
-					type="number" name="maxseat" min=2 max=20 style="margin:10px;"> <br>
+				
+				<br> <br>  <br>
 			</main>
-			<div>
+			<div id="input_btn" style="">
 				<input type="hidden" name="action" value="add"> <input
 					type="submit" value="創立揪團">
 			</div>
@@ -146,6 +149,6 @@
 		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 	</footer>
 	<script src="<%=request.getContextPath() %>/frontstage/memberFrontend/event/js/daterange.js"></script>
-	
+	<script src="<%=request.getContextPath() %>/frontstage/memberFrontend/memberLogout/memberLogout.js"></script>
 </body>
 </html>

@@ -118,26 +118,17 @@ List<Member> memberList = (List<Member>) request.getSession().getAttribute("memb
 					id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a>
+							<a href="#" class="<%=request.getContextPath() %>/frontstage/memberFrontend/memberHome/memberHome.html">&nbsp&nbsp&nbsp首頁 </a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">會員登入</a></li>
-								<li><a style="color: black;" href="#">最新消息</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberlogin.jsp">會員登入</a></li>
+								<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">會員專區</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">會員資料</a></li>
-								<li><a style="color: black;" href="#">查看收藏</a></li>
-							</ul>
-						</div>
-						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">店家介紹</a>
-							<ul class="orderlist">
-								<li><a style="color: black;" href="#">查看店家</a></li>
-								<li><a style="color: black;" href="#">查看評價</a></li>
-								<li><a style="color: black;" href="#">營業資訊</a></li>
-								<li><a style="color: black;" href="#">類別搜尋</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favorite.jsp">查看收藏</a></li>
 							</ul>
 						</div>
 					</div>
@@ -146,23 +137,19 @@ List<Member> memberList = (List<Member>) request.getSession().getAttribute("memb
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link active">揪團系統</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">發起揪團</a></li>
-								<li><a style="color: black;" href="#">參與揪團</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/room/inviteroom.jsp">發起揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">訂單管理</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">編輯訂單</a></li>
-								<li><a style="color: black;" href="#">取消訂單</a></li>
-								<li><a style="color: black;" href="#">餐後評論</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/member_orderStatus1.jsp">編輯訂單</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">聯絡客服</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">客服信箱</a></li>
-								<li><a style="color: black;" href="#">Q&A</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
 							</ul>
 						</div>
 					</div>
@@ -201,7 +188,9 @@ List<Member> memberList = (List<Member>) request.getSession().getAttribute("memb
 				</tr>
 			</c:forEach>
 			<!-- 下面的票數即時統計要從redis撈資料 -->
-			<div class="count"
+			
+		</table>
+		<div class="count"
 				style="display: flex; justify-content: space-between;">
 				<c:forEach var="rest" items="${voteOptions}">
 					<div style="width: 30%;" class="voteResults">
@@ -214,7 +203,6 @@ List<Member> memberList = (List<Member>) request.getSession().getAttribute("memb
 
 				</c:forEach>
 			</div>
-		</table>
 
 		<div class="confirm-box">
 			內容:確定後進行位置確認,如不想參加可取消揪團(需要登入,刪除請到訂單管理)!!</div>
@@ -222,8 +210,8 @@ List<Member> memberList = (List<Member>) request.getSession().getAttribute("memb
 		<div class="orderrest" style="display: none;">
 			<div id="selectedRestName"></div>
 			<div class="button-container">
-				<form action="<%=request.getContextPath()%>/myorder/membermyorder.do" method="post">
-				<input type="hidden" name="action" value="addOrder"> <input
+				<form action="<%=request.getContextPath()%>/event/event.do" method="post">
+				<input type="hidden" name="action" value="getIn"> <input
 					type="submit" value="出席" style="display: none;">
 				</form>
 			
@@ -232,8 +220,8 @@ List<Member> memberList = (List<Member>) request.getSession().getAttribute("memb
 					type="submit" value="婉拒" style="display: none;">
 				</form>
 				
-				<button onclick="submitForm('addOrder')">出席</button>
-<button onclick="submitForm('noshow')">婉拒</button>
+				<button onclick="submitForm('getIn')">出席</button>
+				<button onclick="submitForm('noshow')">婉拒</button>
 			</div>
 		</div>
 
@@ -251,10 +239,11 @@ List<Member> memberList = (List<Member>) request.getSession().getAttribute("memb
 	</footer>
 	<!-- Footer End -->
 	<script src="<%= request.getContextPath() %>/frontstage/memberFrontend/room/js/main.js"></script>
+	<script src="<%=request.getContextPath() %>/frontstage/memberFrontend/memberLogout/memberLogout.js"></script>
 	<script>
 	function submitForm(action) {
-	    if (action === 'addOrder') {
-	        document.querySelector('form[action*="/myorder/membermyorder.do"]').submit();
+	    if (action === 'getIn') {
+	        document.querySelector('form[action*="/event/event.do"]').submit();
 	    } else if (action === 'noshow') {
 	        document.querySelector('form[action*="/event/event.do"]').submit();
 	    }

@@ -23,11 +23,6 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 <link
 	href="<%=request.getContextPath()%>/frontstage/memberFrontend/vote/css/orderlist.css"
 	rel="stylesheet" />
-<style>
-#main-content2{
-	width:1000px;
-}
-</style>
 </head>
 <body>
 	<div class="container-fluid bg-primary py-3 d-none d-md-block">
@@ -62,30 +57,20 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 					id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a>
+							<a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberHome/memberHome.html" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">會員登入</a></li>
-								<li><a style="color: black;" href="#">最新消息</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberlogin.jsp">會員登入</a></li>
+								<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">會員專區</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">會員資料</a></li>
-								<li><a style="color: black;" href="#">查看收藏</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favorite.jsp">查看收藏</a></li>
 							</ul>
 
 
-						</div>
-						<div class="orderblock">
-							<a href="#" class="nav-item nav-link ">店家介紹</a>
-							<ul class="orderlist">
-								<li><a style="color: black;" href="#">查看店家</a></li>
-								<li><a style="color: black;" href="#">查看評價</a></li>
-								<li><a style="color: black;" href="#">營業資訊</a></li>
-								<li><a style="color: black;" href="#">類別搜尋</a></li>
-
-							</ul>
 						</div>
 					</div>
 
@@ -93,20 +78,19 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link active">揪團系統</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">發起揪團</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/room/inviteroom.jsp">發起揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">訂單管理</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">編輯訂單</a></li>
-								<li><a style="color: black;" href="#">餐後評論</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/member_orderStatus1.jsp">編輯訂單</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">聯絡客服</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="#">客服信箱</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
 
 							</ul>
 						</div>
@@ -123,10 +107,8 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 			<c:forEach var="restaurant" items="${voteOptions}" varStatus="status">
 				<div style="width: 30%;" class="option">
 					<h3>餐廳名稱：${restaurant.restName}</h3>
-					<p>ID： ${restaurant.restId}</p>
 					<p>簡介：${restaurant.description}</p>
-					<p></p>
-					<input type="radio" name="selectedOption" value="option:${restaurant.restId}" required>
+					<input type="radio" name="selectedOption" value="option:${restaurant.restId}" required style="display:none;">
 				</div>
 				<c:if test="${status.count % 3 == 0 || status.last}">
 		</div>
@@ -135,8 +117,11 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 			</c:forEach>
 		</div>
 		
-		<input type="hidden" name="action" value="choose">
-			<input type="submit" value="投票">
+			<input type="hidden" name="action" value="choose">
+<!-- 			<input type="submit" value="投票"> -->
+			<div id="submitButton" class="submit-button" style="display: none">
+				投票
+			</div>
 		
 		</form>
 	</div>
@@ -151,5 +136,40 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 		<h5 class="footerh5">隱私權條款</h5>
 		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 	</footer>
+	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const options = document.querySelectorAll(".option");
+		const submitButton = document.getElementById("submitButton");
+
+		options.forEach((option) => {
+			option.addEventListener("click", function () {
+				const radio = this.querySelector('input[type="radio"]');
+
+				if (radio.checked) {
+					radio.checked = false;
+					this.classList.remove("selected");
+					submitButton.style.display = "none";
+				} else {
+					options.forEach((opt) => {
+						opt.classList.remove("selected");
+						opt.querySelector('input[type="radio"]').checked = false;
+					});
+
+					radio.checked = true;
+					this.classList.add("selected");
+					submitButton.style.display = "block";
+				}
+			});
+		});
+
+		submitButton.addEventListener("click", function () {
+			const form = document.querySelector("form");
+			if (form) {
+				form.submit();
+			}
+		});
+	});
+	</script>
+	<script src="<%=request.getContextPath() %>/frontstage/memberFrontend/memberLogout/memberLogout.js"></script>
 </body>
 </html>
