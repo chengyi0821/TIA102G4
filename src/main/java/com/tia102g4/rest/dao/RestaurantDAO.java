@@ -3,6 +3,8 @@ package com.tia102g4.rest.dao;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.constraints.Email;
+
 import org.apache.tomcat.util.descriptor.web.LoginConfig;
 
 import com.tia102g4.rest.model.Restaurant;
@@ -28,4 +30,6 @@ public interface RestaurantDAO {
 	Restaurant findIdByUser(Long restId);
 
 	long getTotal();
+	
+	Restaurant resetPassword(String email, String password);
 }
