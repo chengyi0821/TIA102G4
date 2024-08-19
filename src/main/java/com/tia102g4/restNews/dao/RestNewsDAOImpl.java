@@ -119,7 +119,7 @@ public class RestNewsDAOImpl implements RestNewsDAO {
 	@Override
 	public boolean isOverlappingPeriods(RestaurantNews restaurantNews, Long restId) {
 		return getSession().createQuery("SELECT count(1) FROM RestaurantNews WHERE restaurant.restId = :restId "
-										+ "AND (:newsId IS NULL OR newsId = :newsId) "
+										+ "AND (:newsId IS NULL OR newsId != :newsId) "
 										+ "AND (((startDate BETWEEN :startDate AND :endDate) OR (endDate BETWEEN :startDate AND :endDate)) "
 										+ "OR (startDate <= :startDate AND endDate >= :endDate)) "
 										+ "AND deleted = false", Long.class)
