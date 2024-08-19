@@ -105,7 +105,7 @@
                 <p><input type="submit" value="送出"></p>
                 <input type="hidden" name="action" value="compositeQuery">
             </form>
-            <a href="<%=request.getContextPath()%>/frontstage/memberFrontend/member/memberupdate.jsp">更新會員</a>
+            
         </div>
         <!-- 會員管理功能內容結束 -->
     </div>

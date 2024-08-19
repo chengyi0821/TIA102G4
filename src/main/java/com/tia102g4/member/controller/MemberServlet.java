@@ -185,7 +185,7 @@ public class MemberServlet extends HttpServlet {
 	        res.sendRedirect(req.getContextPath() + "/frontstage/memberFrontend/memberHome/memberHome.html");
 	    } else {
 	        // 登录失败的情况
-	        req.setAttribute("errorMessage", "登入失敗,請檢查您的帳號和密碼 !");
+	        req.setAttribute("errorMessage", "登入失敗,請檢查您的信箱和密碼 !");
 	        req.getRequestDispatcher("/frontstage/memberFrontend/member/memberlogin.jsp").forward(req, res);
 	    }
 	}
@@ -210,7 +210,7 @@ public class MemberServlet extends HttpServlet {
 			memberService.updatePassword(email, newPassword);
 			req.setAttribute("successMessage", "密碼變更成功，請重新登入 !");
 			req.getSession().removeAttribute("resetMember");
-			return "/frontstage/memberFrontend/member/memberindex.jsp";
+			return "/frontstage/memberFrontend/member/memberlogin.jsp";
 		} else {
 			req.setAttribute("errorMessage", "密碼不能為空，請重新輸入 !");
 			return "/frontstage/memberFrontend/member/memberrestpassword.jsp";
@@ -234,7 +234,7 @@ public class MemberServlet extends HttpServlet {
 		} else {
 			memberService.addMember(member);
 			req.getSession().setAttribute("loggedInMember", member);
-			return "/frontstage/memberFrontend/member/memberindex.jsp";
+			return "/frontstage/memberFrontend/member/memberlogin.jsp";
 		}
 	}
 

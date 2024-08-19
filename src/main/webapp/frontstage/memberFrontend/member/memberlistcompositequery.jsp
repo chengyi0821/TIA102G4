@@ -115,7 +115,7 @@ display-4 text-primary">Chugether</h1>
 
 		<!-- 功能內容開始 -->
 
-		<h1>員工列表</h1>
+		<h1>會員列表</h1>
 		<form action="<%=request.getContextPath()%>/member/member.do" method="post">
 		<table style="width: 100%; text-align: center;">
 			

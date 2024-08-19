@@ -63,7 +63,7 @@ Admin entity = (Admin) request.getAttribute("admin");
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link active">會員管理</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/backend/admin/adminlistallmembers.jsp">會員列表</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberindex.jsp">會員列表</a></li>
 								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/backend/restaurant/restaurant.html">店家列表</a></li>
 							</ul>
 
