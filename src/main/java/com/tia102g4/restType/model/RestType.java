@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 //import com.tia102g4.model.Restaurant;
 
 @Entity
@@ -17,9 +19,11 @@ public class RestType implements java.io.Serializable {
 	@Id
 	@Column(name = "type_id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Expose
 	private Long typeId;
 
 	@Column(name = "type_name", nullable = false, unique = true)
+	@Expose
 	private String typeName;
 
 	public RestType() {
