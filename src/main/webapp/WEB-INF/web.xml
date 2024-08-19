@@ -35,7 +35,7 @@
 
 	<filter-mapping>
 		<filter-name>MemberLoginFilter</filter-name>
-		<url-pattern>/frontstage/memberFrontend/memberFeedback/memberFeedback.html</url-pattern>
+		<url-pattern>/frontstage/memberFrontend/memberFeedback/*</url-pattern>
 		<url-pattern>/frontstage/memberFrontend/myorder/*</url-pattern>
 		<url-pattern>/frontstage/memberFrontend/favorite/favoriteList.jsp</url-pattern>
 		<url-pattern>/frontstage/memberFrontend/event/*</url-pattern>
