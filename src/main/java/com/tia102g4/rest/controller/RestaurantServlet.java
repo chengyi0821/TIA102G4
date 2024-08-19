@@ -117,7 +117,7 @@ public class RestaurantServlet extends HttpServlet {
 		if (req.getSession().getAttribute("annoPageQty") == null) {
 			req.getSession().setAttribute("annoPageQty", totalPageQty);
 		}
-		return baseResponse.jsonResponse(List, currentPage, totalPageQty);
+		return baseResponse.gsonBuilderForJsonResponse(List, currentPage, totalPageQty);
 	}
 
 	private JsonObject getCompositeQuery(HttpServletRequest req) {
