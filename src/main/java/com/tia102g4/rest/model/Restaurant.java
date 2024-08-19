@@ -43,53 +43,69 @@ public class Restaurant {
 	private String restName; // 餐廳名稱
 
 	@Column(name = "description", nullable = false)
+	@Expose
 	private String description; // 餐廳描述
 
 	@Column(name = "location", nullable = false)
+	@Expose
 	private String location; // 餐廳位置
 
 	@Column(name = "phone", nullable = false, unique = true)
+	@Expose
 	private String phone; // 餐廳電話
 
 	@Column(name = "regist_time", nullable = false, updatable = false)
+	@Expose
 	private Timestamp registTime = new Timestamp(System.currentTimeMillis());// 註冊時間
 
 	@Column(name = "email", nullable = false, unique = true)
+	@Expose
 	private String email; // 餐廳信箱
 
 	@Column(name = "open_day", nullable = false)
+	@Expose
 	private String openDay; // 營業日: 0.公休 1.營業
 
 	@Column(name = "open_time1", nullable = false)
+	@Expose
 	private Time openTime1; // 營業時段1
 
 	@Column(name = "close_time1", nullable = false)
+	@Expose
 	private Time closeTime1; // 打烊時間1
 
 	@Column(name = "open_time2")
+	@Expose
 	private Time openTime2; // 營業時段2
 
 	@Column(name = "close_time2")
+	@Expose
 	private Time closeTime2; // 打烊時間2
 
 	@Column(name = "password", nullable = false)
+	@Expose
 	private String password; // 餐廳密碼
 
 	@Column(name = "rating_pnum")
+	@Expose
 	private Integer ratingPnum; // 評分總人數
 
 	@Column(name = "rating_star")
+	@Expose
 	private Integer ratingStar; // 評分總星星數
 
 	@Column(name = "deleted", nullable = false)
+	@Expose
 	private Boolean deleted = false; // 刪除狀態
 
 	@Size(max = 2147483647, message = "圖片大小不得超過2GB")
 	@Column(name = "image", columnDefinition = "LONGBLOB")
+	@Expose
 	private Byte[] image; // 餐廳圖片
 
 	@ManyToOne
 	@JoinColumn(name = "type_id", nullable = false)
+	@Expose
 	private RestType restType; // 餐廳類型
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)

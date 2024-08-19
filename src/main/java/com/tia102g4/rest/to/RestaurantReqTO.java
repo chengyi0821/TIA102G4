@@ -1,19 +1,35 @@
 package com.tia102g4.rest.to;
 
+import com.google.gson.annotations.Expose;
+
 public class RestaurantReqTO {
+	@Expose
 	private Long restId;
+	@Expose
 	private String restName;
+	@Expose
 	private String description;
+	@Expose
 	private String location;
+	@Expose
 	private String phone;
+	@Expose
 	private String email;
+	@Expose
 	private String openDay;
+	@Expose
 	private String openTime1;
+	@Expose
 	private String closeTime1;
+	@Expose
 	private String openTime2;
+	@Expose
 	private String closeTime2;
+	@Expose
 	private String password;
+	@Expose
 	private String image;
+	@Expose
 	private Long restType;
 	
 	public RestaurantReqTO() {
