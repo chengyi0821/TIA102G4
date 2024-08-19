@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.rest.service.RestaurantService;
@@ -28,7 +29,7 @@ import com.tia102g4.util.BaseResponse;
 public class RestaurantServlet extends HttpServlet {
 	private RestaurantService restService;
 	private BaseResponse baseResponse = new BaseResponse();
-	private Gson gson = new Gson();
+	private Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
 	@Override
 	public void init() throws ServletException {

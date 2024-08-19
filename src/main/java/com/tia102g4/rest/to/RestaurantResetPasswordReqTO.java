@@ -1,6 +1,9 @@
 package com.tia102g4.rest.to;
 
+import com.google.gson.annotations.Expose;
+
 public class RestaurantResetPasswordReqTO {
+	@Expose
 	private String email;
 	
 	public RestaurantResetPasswordReqTO() {
