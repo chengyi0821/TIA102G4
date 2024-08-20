@@ -15,6 +15,7 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
 	<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/css/member.css" rel="stylesheet" />
+	<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/css/memberRegister.css" rel="stylesheet" />
 	<script src="js/main.js"></script>
 	
 </head>
@@ -38,55 +39,25 @@
 	<!-- Topbar End -->
 
 	<!-- Navbar Start -->
-
 	<div class="container-fluid position-relative nav-bar p-0">
-		<style>
-            .container-fluid.position-relative.nav-bar.p-0 li {
-                color: black !important;
-            }
-			</style>
-		<div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
-			<nav class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
-				
-				<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-					<div class="navbar-nav ml-auto py-0">
-					  <div class="orderblock">  <a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberHome/memberHome.html" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a> 
-						<ul class="orderlist">
-							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberlogin.jsp">會員登入</a></li>
-							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
-							<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
-						</ul>
-					  </div>
-					   <div class="orderblock"> <a href="#" class="nav-item nav-link">會員專區</a>
-						<ul class="orderlist">
+		<div class="container-lg position-relative p-0 px-lg-3"
+			style="z-index: 9;">
+			<nav
+				class="navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
 
-							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favoriteList.jsp">查看收藏</a></li>
-						</ul>
-	
-	
-					   </div>
-					
+				<div class="collapse navbar-collapse justify-content-between"
+					id="navbarCollapse">
+					<div class="navbar-nav ml-auto py-0">
+						<div class="orderblock">
+							<a
+								href="<%=request.getContextPath()%>/frontstage/memberFrontend/member/memberlogin.jsp"
+								class="nav-item nav-link">會員登入 </a>
+						</div>
+						<div class="orderblock">
+							<a href="<%=request.getContextPath()%>/frontstage/memberFrontend/member/memberregister.jsp" class="nav-item nav-link active">註冊會員</a>
+						</div>
+
 					</div>
-				
-					<div class="navbar-nav mr-auto py-0">
-					   <div class="orderblock"> <a href="#" class="nav-item nav-link active">揪團系統</a>
-						<ul class="orderlist">
-							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/room/inviteroom.jsp">發起揪團</a></li>
-						</ul>
-					   </div>
-					   <div class="orderblock"> <a href="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/my_order_index.jsp" class="nav-item nav-link">訂單管理</a>
-						<ul class="orderlist">
-							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/member_orderStatus1.jsp">編輯訂單</a></li>
-							<li><a style="color: black;" href="#">取消訂單</a></li>
-						</ul>
-					</div>
-					<div class="orderblock"> <a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html" class="nav-item nav-link">聯絡客服</a>
-						<ul class="orderlist">
-							<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
-							
-						
-							
-						</ul>
 				</div>
 			</nav>
 		</div>

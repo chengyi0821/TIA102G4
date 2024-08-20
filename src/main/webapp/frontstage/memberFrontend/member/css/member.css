@@ -146,16 +146,6 @@ footer {
     background: transparent;
 }
 
-#main-content2 {
-    background: #ffdf7e;
-    text-align: center;
-    border-radius: 5px;
-    padding: 40px 20px;
-    margin: 50px auto;
-    width: 60%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 #main-content2 h1 {
     color: #C57F00;
     font-size: 32px;
