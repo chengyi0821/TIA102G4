@@ -1,0 +1,90 @@
+/* 基本樣式 */
+#main-content2 {
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+/* 表單標題樣式 */
+#main-content2 h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* 表格樣式 */
+#main-content2 table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#main-content2 th, #main-content2 td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#main-content2 th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#main-content2 tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#main-content2 tr:hover {
+    background-color: #ddd;
+}
+
+/* 分頁連結樣式 */
+#main-content2 a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#main-content2 a:hover {
+    text-decoration: underline;
+}
+
+#main-content2 .pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#main-content2 .pagination a {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+#main-content2 .pagination a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* 表單內容 */
+#main-content2 form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 返回首頁連結樣式 */
+#main-content2 a[href*="memberindex.jsp"] {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+#main-content2 a[href*="memberindex.jsp"]:hover {
+    background-color: #0056b3;
+}

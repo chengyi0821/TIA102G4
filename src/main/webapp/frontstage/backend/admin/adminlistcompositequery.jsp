@@ -23,7 +23,7 @@ Admin entity = (Admin) request.getAttribute("admin");
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <link href="<%=request.getContextPath() %>/frontstage/backend/css/style.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/backend/admin/css/admin.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/frontstage/backend/admin/css/compositequery.css" rel="stylesheet" />
 
 <style>
 .container-fluid.position-relative.nav-bar.p-0 li {
@@ -75,7 +75,7 @@ display-4 text-primary">Chugether</h1>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link active">會員管理</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberindex.jsp">會員列表</a></li>
+								<li><a style="color: black;" href="<%=request.getContextPath()%>/frontstage/backend/admin/memberindex.jsp">會員列表</a></li>
 								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/backend/restaurant/restaurant.html">店家列表</a></li>
 							</ul>
 

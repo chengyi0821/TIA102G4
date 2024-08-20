@@ -1,0 +1,66 @@
+#main-content2 {
+    background-color: #f8f9fa; /* 背景顏色 */
+    padding: 20px;             /* 內距 */
+    border-radius: 8px;        /* 圓角 */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+    margin: 20px auto;         /* 上下邊距 */
+    width: 80%;                /* 寬度，可以調整 */
+    max-width: 1200px;         /* 最大寬度 */
+    text-align: center;        /* 文字置中 */
+}
+
+#main-content2 h1 {
+    font-size: 24px;           /* 標題字體大小 */
+    color: #343a40;            /* 標題顏色 */
+    margin-bottom: 20px;       /* 與下方元素的間距 */
+}
+
+#main-content2 table {
+    width: 100%;               /* 表格寬度 */
+    border-collapse: collapse; /* 移除邊框間距 */
+    margin-bottom: 20px;       /* 與下方元素的間距 */
+}
+
+#main-content2 th, 
+#main-content2 td {
+    padding: 12px;             /* 單元格內距 */
+    border: 1px solid #dee2e6; /* 單元格邊框 */
+    text-align: center;        /* 文字置中 */
+}
+
+#main-content2 th {
+    background-color: #007bff; /* 表頭背景顏色 */
+    color: #fff;               /* 表頭文字顏色 */
+    font-weight: bold;         /* 表頭文字加粗 */
+}
+
+#main-content2 td a {
+    color: #007bff;            /* 連結顏色 */
+    text-decoration: none;     /* 移除底線 */
+}
+
+#main-content2 td a:hover {
+    text-decoration: underline; /* 滑鼠移入時加底線 */
+}
+
+#main-content2 input[type="submit"] {
+    background-color: #dc3545; /* 按鈕背景顏色 */
+    color: #fff;               /* 按鈕文字顏色 */
+    padding: 8px 16px;         /* 內距 */
+    border: none;              /* 移除邊框 */
+    border-radius: 4px;        /* 圓角 */
+    cursor: pointer;           /* 滑鼠指標變為手型 */
+}
+
+#main-content2 input[type="submit"]:hover {
+    background-color: #c82333; /* 滑鼠移入時按鈕顏色 */
+}
+
+#main-content2 a {
+    color: #007bff;            /* 連結顏色 */
+    text-decoration: none;     /* 移除底線 */
+}
+
+#main-content2 a:hover {
+    text-decoration: underline; /* 滑鼠移入時加底線 */
+}

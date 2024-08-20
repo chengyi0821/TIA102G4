@@ -1,0 +1,75 @@
+/* main-content2 的樣式 */
+#main-content2 {
+    background-color: #f8f9fa !important; /* 背景顏色 */
+    padding: 20px !important; /* 內邊距 */
+    border-radius: 8px !important; /* 圓角邊框 */
+    margin: 20px 0 !important; /* 外邊距 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important; /* 投影效果 */
+}
+
+/* form-container 的樣式 */
+.form-container {
+    background-color: #ffffff; /* 背景顏色 */
+    padding: 20px; /* 內邊距 */
+    border-radius: 8px; /* 圓角邊框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 投影效果 */
+    max-width: 600px; /* 最大寬度 */
+    margin: 0 auto; /* 水平置中 */
+}
+
+/* 標題樣式 */
+.form-container h1 {
+    font-size: 24px; /* 字體大小 */
+    color: #333; /* 字體顏色 */
+    margin-bottom: 10px; /* 下邊距 */
+}
+
+.form-container h2 {
+    font-size: 20px; /* 字體大小 */
+    color: #555; /* 字體顏色 */
+    margin-bottom: 15px; /* 下邊距 */
+}
+
+.form-container h3 {
+    font-size: 18px; /* 字體大小 */
+    color: #666; /* 字體顏色 */
+    margin-bottom: 15px; /* 下邊距 */
+}
+
+/* 表單元素樣式 */
+.form-container form {
+    display: flex;
+    flex-direction: column; /* 垂直排列 */
+}
+
+.form-container form p {
+    margin-bottom: 10px; /* 下邊距 */
+}
+
+.form-container form label {
+    font-weight: bold; /* 字體加粗 */
+    margin-bottom: 5px; /* 下邊距 */
+    display: block; /* 占滿整行 */
+}
+
+.form-container form input[type="text"] {
+    padding: 10px; /* 內邊距 */
+    border: 1px solid #ccc; /* 邊框顏色 */
+    border-radius: 4px; /* 圓角邊框 */
+    font-size: 16px; /* 字體大小 */
+    width: 100%; /* 寬度 100% */
+}
+
+.form-container form input[type="submit"] {
+    background-color: #007bff; /* 按鈕背景顏色 */
+    color: #fff; /* 字體顏色 */
+    border: none; /* 去掉邊框 */
+    padding: 10px 20px; /* 內邊距 */
+    border-radius: 4px; /* 圓角邊框 */
+    cursor: pointer; /* 鼠標變為手形 */
+    font-size: 16px; /* 字體大小 */
+}
+
+.form-container form input[type="submit"]:hover {
+    background-color: #0056b3; /* 滑鼠懸停顏色 */
+}
