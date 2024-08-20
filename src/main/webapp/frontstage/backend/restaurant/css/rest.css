@@ -8,13 +8,13 @@
 }
 
 div#announcement-form {
-	margin-top: 5% !important;
-	margin-left: -1% !important;
+    margin-top: 10% !important;
+    margin-left: 0% !important;
 }
 
 div#buttons-Edit {
 	margin-right: 0px !important;
-	margin-top: 58px !important;
+	margin-top: 75px !important;
 }
 
 #data-table th, #data-table td {

@@ -77,8 +77,6 @@ $(document).ready(function() {
 											<input type="text" id="restName" class="rest" name="heading" value="${restName}"><br>
 											<label for="heading" class="label">信箱</label>
 											<input type="text" id="email" class="rest" name="heading" value="${email}"><br>
-											<label for="heading" class="label">密碼</label>
-											<input type="text" id="password" class="rest" name="heading" value="${password}"><br>
 											<label for="heading" class="label">電話號碼</label>
 											<input type="text" id="phone" class="rest" name="heading" value="${phone}"><br>
 											<label for="heading" class="label">地址</label>
