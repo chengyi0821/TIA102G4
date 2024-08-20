@@ -123,7 +123,8 @@
                                 <input type="hidden" name="adminId" value="${admin.adminId}">
                                 <input type="submit" value="刪除" onclick="return confirm('確定要刪除這個管理員嗎？');">
                             </form>
-                             <a href="<%=request.getContextPath()%>/frontstage/backend/admin/adminupdate.jsp">修改後台員工</a>   
+                             <a href="<%=request.getContextPath()%>/frontstage/backend/admin/adminupdate.jsp">修改後台員工</a> 
+                              
                         </td>
                     </tr>
                 </c:forEach>

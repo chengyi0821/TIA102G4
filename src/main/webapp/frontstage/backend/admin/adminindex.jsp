@@ -16,7 +16,7 @@ Admin entity = (Admin) request.getAttribute("admin");
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <link href="<%=request.getContextPath() %>/frontstage/backend/css/style.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/backend/admin/css/admin.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/frontstage/backend/admin/css/adminIndex.css" rel="stylesheet" />
 
 <style>
 .container-fluid.position-relative.nav-bar.p-0 li {
@@ -114,11 +114,16 @@ Admin entity = (Admin) request.getAttribute("admin");
     <!-- 功能內容開始 -->
     <h2>管理員首頁</h2>
     <p>歡迎, ${loggedInAdmin.name}</p>
-    <ul>
-        <li><a href="<%=request.getContextPath()%>/admin/admin.do?action=getAll">查看所有管理員</a></li>
-        <li><a href="<%=request.getContextPath()%>/frontstage/backend/admin/adminregister.jsp">新增後台員工</a></li>
-        
-    </ul>
+   <ul>
+    <li>
+        <button class="btn" onclick="location.href='<%=request.getContextPath()%>/admin/admin.do?action=getAll'">查看所有管理員</button>
+    </li>
+    <li>
+        <button class="btn" onclick="location.href='<%=request.getContextPath()%>/frontstage/backend/admin/adminregister.jsp'">新增後台員工</button>
+    </li>
+</ul>
+   
+
     <c:if test="${not empty successMessage}">
         <p style="color: green;">${successMessage}</p>
     </c:if>
