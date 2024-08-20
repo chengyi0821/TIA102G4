@@ -14,6 +14,7 @@
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/orderlist.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/asidemain.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/create.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -124,10 +125,6 @@
 					<td><textarea id="info" name="info" rows="4" cols="50" required style="margin:10px;"></textarea></td>
 				</tr>
 			</table>
-				 <br>  <br> 
-				<br>
-				
-				<br> <br>  <br>
 			</main>
 			<div id="input_btn" style="">
 				<input type="hidden" name="action" value="add"> <input

@@ -14,6 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.tia102g4.event.model.Event;
+import com.tia102g4.member.model.Member;
 import com.tia102g4.rest.model.Restaurant;
 import com.tia102g4.util.HibernateUtil;
 
@@ -95,6 +96,12 @@ public class EventDAOImpl implements EventDAO{
 	@Override
 	public long getTotal() {
 		return getSession().createQuery("select count(*) from Restaurant", Long.class).uniqueResult();
+	}
+
+	@Override
+	public boolean isEvent(String code) {
+		return !getSession().createQuery("from Event where code = :code", Event.class)
+				.setParameter("code", code).getResultList().isEmpty();
 	}
 
 }

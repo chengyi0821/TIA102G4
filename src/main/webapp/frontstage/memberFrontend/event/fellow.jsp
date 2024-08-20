@@ -18,7 +18,12 @@
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/orderlist.css" rel="stylesheet" />
 <link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/asidemain.css" rel="stylesheet" />
-
+<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/fellow.css" rel="stylesheet" />
+<style>
+.container-fluid.position-relative.nav-bar.p-0 li {
+	color: black !important;
+}
+</style>
 </head>
 <body>
 	<div class="container-fluid bg-primary py-3 d-none d-md-block">
@@ -39,11 +44,7 @@
 
 	<!-- Navbar Start -->
 	<div class="container-fluid position-relative nav-bar p-0">
-		<style>
-.container-fluid.position-relative.nav-bar.p-0 li {
-	color: black !important;
-}
-</style>
+		
 		<div class="container-lg position-relative p-0 px-lg-3"
 			style="z-index: 9;">
 			<nav
@@ -87,15 +88,16 @@
 								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
 							</ul>
 						</div>
+					</div>
+						
+				</div>
 			</nav>
 		</div>
 	</div>
 	<!-- Navbar End -->
 	<div id="main-content1"></div>
 	<div id="main-content2">
-		<h2 style="margin-top: 40px">等待室</h2>
-		<br>
-		<h2 >等待其他成員進入</h2>
+		<h2 style="margin-top: 40px">等待其他成員進入</h2>
 
 		<form action="<%=request.getContextPath()%>/event/event.do"
 			method="post">

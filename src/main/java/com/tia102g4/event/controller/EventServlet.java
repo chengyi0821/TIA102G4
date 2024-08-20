@@ -95,13 +95,19 @@ public class EventServlet extends HttpServlet{
 	
 	private String getEventInfo(HttpServletRequest req, HttpServletResponse res) {
 		String code = req.getParameter("code");
+		if (!evtsvc.validateCode(code)) {
+			req.setAttribute("errMsg", "查無此活動!請聯絡主揪者拿到正確邀請碼!");
+		    return "/frontstage/memberFrontend/event/gate.jsp"; // 或者返回一個錯誤訊息頁面
+		}else {
 		List<Event> eventList = evtsvc.getInfo(code);
 		MakeFriends friends = new MakeFriends();
 		List<Member> memberList = friends.ImaginaryFriend(3);
 		req.getSession().setAttribute("eventList", eventList);		
 		req.getSession().setAttribute("memberList", memberList);
 		return "/frontstage/memberFrontend/event/fellow.jsp";
+		}
 	}
+	
 	private String getAllRestaurant(HttpServletRequest req, HttpServletResponse res) {
 		List<Restaurant> restaurantList = evtsvc.getAllRestaurant(new Restaurant());
         req.getSession().setAttribute("restaurantList", restaurantList);
