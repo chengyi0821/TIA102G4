@@ -1,0 +1,22 @@
+/* 設定按鈕的基本樣式 */
+#main-content2 .btn {
+    padding: 10px 20px;
+    background-color: yellow; /* 背景顏色設為黃色 */
+    color: black; /* 文字顏色設為黑色 */
+    border: 2px solid black; /* 添加黑色邊框 */
+    border-radius: 5px; /* 圓角邊框 */
+    cursor: pointer; /* 滑鼠移到按鈕上時顯示為指標 */
+    margin: 5px; /* 按鈕之間的間距 */
+    font-size: 16px; /* 字體大小 */
+}
+
+/* 設定按鈕被點擊時的效果 */
+#main-content2 .btn:active {
+    background-color: orange; /* 點擊時背景顏色變為橙色 */
+}
+
+/* 將兩個按鈕水平排列 */
+#main-content2 .button-container {
+    display: flex;
+    gap: 10px; /* 按鈕之間的間距 */
+}
