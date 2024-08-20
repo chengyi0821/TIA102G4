@@ -70,21 +70,22 @@ $(document).ready(function() {
                                     <p><strong>電話:</strong> ${restaurant.phone}</p>
                                     <p><strong>營業日:</strong> ${openDayStr}</p>
                                     <p><strong>營業時間:</strong>
-                                        ${times.openTime1} - ${times.closeTime1} (上午), 
-                                        ${times.openTime2} - ${times.closeTime2} (下午)
+                                        ${times.openTime1} - ${times.closeTime1} , 
+                                        ${times.openTime2} - ${times.closeTime2} 
                                     </p>
                                 </div>
                             </div>
                         `);
                     }
+                    console.log(response.totalPageQty);
                     // 顯示當前頁數和總頁數
                     $('#current-page').text(currentPage);  // 更新當前頁碼顯示
-					if (restaurant.currentPage) {//如果頁數跟最後一頁相等關閉下一頁按鈕
+					if (response.currentPage == response.totalPageQty) {//如果頁數跟最後一頁相等關閉下一頁按鈕
 						$('#next-page').prop('disabled', true);
 					} else {
 						$('#next-page').prop('disabled', false);
 					}
-					if (restaurant.currentPage == 1) {//頁數跟1相等關閉上一頁按鈕
+					if (response.currentPage == 1) {//頁數跟1相等關閉上一頁按鈕
 						$('#prev-page').prop('disabled', true);
 					} else {
 						$('#prev-page').prop('disabled', false);
