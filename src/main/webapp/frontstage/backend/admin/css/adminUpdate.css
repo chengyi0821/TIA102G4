@@ -1,77 +1,50 @@
-/* 標題樣式 */
+#main-content2 {
+    max-width: 800px; /* 限制內容區域的最大寬度 */
+    margin: 20px auto; /* 自動左右居中，並添加垂直邊距 */
+    padding: 20px; /* 內邊距 */
+    background-color: #f9f9f9; /* 淺灰色背景 */
+    border-radius: 8px; /* 圓角邊框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 盒子陰影 */
+}
+
 #main-content2 h2 {
-	margin-top: 57px;
-	text-align: center;
-	font-size: 24px;
-	font-weight: bold;
-	color: #333;
-	margin-bottom: 20px;
+    text-align: center; /* 標題居中 */
+    margin-bottom: 20px; /* 標題下方邊距 */
+    color: #333; /* 標題文字顏色 */
 }
 
-/* 表單容器樣式 */
 #main-content2 form {
-	max-width: 500px;
-	margin: 0 auto;
-	padding: 20px;
-	background-color: #f9f9f9;
-	border-radius: 10px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex; /* 使用 flexbox 來排版表單 */
+    flex-direction: column; /* 垂直方向排列表單項目 */
 }
 
-/* 標籤樣式 */
-#main-content2 form label {
-	display: block;
-	font-size: 16px;
-	color: #333;
-	margin-bottom: 5px;
+#main-content2 label {
+    font-weight: bold; /* 粗體標籤文字 */
+    margin-bottom: 5px; /* 標籤下方邊距 */
 }
 
-/* 輸入框和選擇框樣式 */
-#main-content2 form input[type="text"], #main-content2 form input[type="password"],
-	#main-content2 form input[type="email"], #main-content2 form select {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 15px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	font-size: 14px;
-	box-sizing: border-box;
+#main-content2 input[type="text"],
+#main-content2 input[type="password"],
+#main-content2 input[type="number"] {
+    width: 100%; /* 輸入框寬度為 100% */
+    padding: 10px; /* 內邊距 */
+    margin-bottom: 15px; /* 輸入框下方邊距 */
+    border: 1px solid #ddd; /* 邊框顏色 */
+    border-radius: 4px; /* 圓角邊框 */
+    box-sizing: border-box; /* 包括邊框和內邊距在內的總寬度 */
 }
 
-/* 按鈕樣式 */
-#main-content2 form input[type="submit"] {
-	width: 100%;
-	padding: 10px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+#main-content2 button {
+    padding: 10px 20px; /* 按鈕內邊距 */
+    border: none; /* 無邊框 */
+    border-radius: 4px; /* 圓角邊框 */
+    background-color: #007bff; /* 藍色背景 */
+    color: #fff; /* 白色文字 */
+    font-size: 16px; /* 字體大小 */
+    cursor: pointer; /* 鼠標指針變為手形 */
+    transition: background-color 0.3s ease; /* 背景顏色過渡效果 */
 }
 
-
-#main-content2 form input[type="submit"]:hover {
-	background-color: #0056b3;
-}
-
-/* 錯誤訊息樣式 */
-#main-content2 form p {
-	color: red;
-	font-size: 14px;
-	text-align: center;
-}
-
-/* 表單元素間距 */
-#main-content2 form input, #main-content2 form select {
-	margin-bottom: 10px;
-}
-
-.ml-auto, .mx-auto {
-    margin-left: 300px !important;
-}
-
-.navbar-light .navbar-nav .nav-link {
-    padding: 50px 86px !important;
+#main-content2 button:hover {
+    background-color: #0056b3; /* 鼠標懸停時的背景顏色 */
 }

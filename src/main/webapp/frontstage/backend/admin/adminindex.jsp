@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="com.tia102g4.admin.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
-Admin entity = (Admin) request.getAttribute("admin");
+Admin entity = (Admin) request.getAttribute("adminId");
 %>
 
 <!DOCTYPE html>
@@ -15,8 +16,12 @@ Admin entity = (Admin) request.getAttribute("admin");
 <!-- 載入 jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<link href="<%=request.getContextPath() %>/frontstage/backend/css/style.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/backend/admin/css/adminIndex.css" rel="stylesheet" />
+<link
+	href="<%=request.getContextPath()%>/frontstage/backend/css/style.css"
+	rel="stylesheet" />
+<link
+	href="<%=request.getContextPath()%>/frontstage/backend/admin/css/adminIndex.css"
+	rel="stylesheet" />
 
 <style>
 .container-fluid.position-relative.nav-bar.p-0 li {
@@ -33,7 +38,8 @@ Admin entity = (Admin) request.getAttribute("admin");
 				<div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
 					<div class="d-inline-flex align-items-center">
 						<a href="page1.html" class="navbar-brand mx-5 d-none d-lg-block">
-							<img class="logo" src="<%=request.getContextPath() %>/frontstage/backend/image/logo.png" /> 
+							<img class="logo"
+							src="<%=request.getContextPath()%>/frontstage/backend/image/logo.png" />
 						</a>
 						<h1 class="m-0 display-4 text-primary">Chugether</h1>
 					</div>
@@ -44,7 +50,7 @@ Admin entity = (Admin) request.getAttribute("admin");
 	<!-- Topbar End -->
 
 	<!-- Navbar Start -->
-		<div class="container-fluid position-relative nav-bar p-0">
+	<div class="container-fluid position-relative nav-bar p-0">
 		<div class="container-lg position-relative p-0 px-lg-3"
 			style="z-index: 9;">
 			<nav
@@ -54,27 +60,31 @@ Admin entity = (Admin) request.getAttribute("admin");
 					id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link">後台帳戶</a>
+							<a href="#" class="nav-item nav-link active">後台帳戶</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/backend/admin/adminindex.jsp">後台帳戶</a></li>
+								<li><a style="color: black;"
+									href="<%=request.getContextPath()%>/frontstage/backend/admin/adminindex.jsp">後台帳戶</a></li>
 								<li><a id="logout" style="color: black;" href="#">後台登出</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link active">會員管理</a>
+							<a href="#" class="nav-item nav-link">會員管理</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberindex.jsp">會員列表</a></li>
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/backend/restaurant/restaurant.html">店家列表</a></li>
+								<li><a style="color: black;"
+									href="<%=request.getContextPath()%>/frontstage/backend/admin/memberindex.jsp">會員列表</a></li>
+								<li><a style="color: black;"
+									href="<%=request.getContextPath()%>/frontstage/backend/restaurant/restaurant.html">店家列表</a></li>
 							</ul>
 
 
 						</div>
 						<div class="orderblock">
-							<a href="<%=request.getContextPath() %>/frontstage/backend/announcement/announcement.html"
+							<a
+								href="<%=request.getContextPath()%>/frontstage/backend/announcement/announcement.html"
 								class="nav-item nav-link">公告管理</a>
 							<ul class="orderlist">
 								<li><a style="color: black;"
-									href="<%=request.getContextPath() %>/frontstage/backend/announcement/announcement.html">系統公告</a></li>
+									href="<%=request.getContextPath()%>/frontstage/backend/announcement/announcement.html">系統公告</a></li>
 							</ul>
 						</div>
 					</div>
@@ -82,21 +92,22 @@ Admin entity = (Admin) request.getAttribute("admin");
 					<div class="navbar-nav mr-auto py-0">
 						<div class="orderblock">
 							<a
-								href="<%=request.getContextPath() %>/frontstage/backend/admin_order_index.jsp"
+								href="<%=request.getContextPath()%>/frontstage/backend/admin_order_index.jsp"
 								class="nav-item nav-link">訂單管理</a>
 							<ul class="orderlist">
 								<li><a style="color: black;"
-									href="<%=request.getContextPath() %>/frontstage/backend/myorder/admin_order_index.jsp">訂單列表</a></li>
+									href="<%=request.getContextPath()%>/frontstage/backend/myorder/admin_order_index.jsp">訂單列表</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
-							<a href="<%=request.getContextPath() %>/frontstage/backend/customerService/member-reply.html"
+							<a
+								href="<%=request.getContextPath()%>/frontstage/backend/customerService/member-reply.html"
 								class="nav-item nav-link">客服管理</a>
 							<ul class="orderlist">
 								<li><a style="color: black;"
-									href="<%=request.getContextPath() %>/frontstage/backend/customerService/member-reply.html">會員信件</a></li>
+									href="<%=request.getContextPath()%>/frontstage/backend/customerService/member-reply.html">會員信件</a></li>
 								<li><a style="color: black;"
-									href="<%=request.getContextPath() %>/frontstage/backend/customerService/restaurant-reply.html">餐廳信件</a></li>
+									href="<%=request.getContextPath()%>/frontstage/backend/customerService/restaurant-reply.html">餐廳信件</a></li>
 
 							</ul>
 						</div>
@@ -111,29 +122,29 @@ Admin entity = (Admin) request.getAttribute("admin");
 	<div id="main-content1"></div>
 	<div id="main-content2">
 
-    <!-- 功能內容開始 -->
-    <h2>管理員首頁</h2>
-    <p>歡迎, ${loggedInAdmin.name}</p>
-   <ul>
-    <li>
-        <button class="btn" onclick="location.href='<%=request.getContextPath()%>/admin/admin.do?action=getAll'">查看所有管理員</button>
-    </li>
-    <li>
-        <button class="btn" onclick="location.href='<%=request.getContextPath()%>/frontstage/backend/admin/adminregister.jsp'">新增後台員工</button>
-    </li>
-</ul>
-   
+		<!-- 功能內容開始 -->
+		<h2>管理員首頁</h2>
+		<p>歡迎, ${loggedInAdmin.name}</p>
+		<ul>
+			<li>
+				<button class="btn"
+					onclick="location.href='<%=request.getContextPath()%>/admin/admin.do?action=getAll'">查看所有管理員</button>
+			</li>
+			<li>
+				<button class="btn"
+					onclick="location.href='<%=request.getContextPath()%>/frontstage/backend/admin/adminregister.jsp'">新增後台員工</button>
+			</li>
+		</ul>
+		<c:if test="${not empty successMessage}">
+			<p style="color: green;">${successMessage}</p>
+		</c:if>
 
-    <c:if test="${not empty successMessage}">
-        <p style="color: green;">${successMessage}</p>
-    </c:if>
-   
 	</div>
 	<!-- 功能內容結束 -->
 
 	<div class="table-container"></div>
 	<div id="main-content3"></div>
-   
+
 
 	<!-- Footer Start -->
 	<footer id="footer">

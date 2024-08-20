@@ -160,9 +160,9 @@ public class MemberServlet extends HttpServlet {
 			List<Member> memberList = memberService.getMembersByCompositeQuery(map);
 			req.setAttribute("memberList", memberList);
 		} else {
-			return "/frontstage/memberFrontend/member/memberindex.jsp";
+			return "/frontstage/backend/admin/memberindex.jsp";
 		}
-		return "/frontstage/memberFrontend/member/memberlistcompositequery.jsp";
+		return "/frontstage/backend/admin/memberlistcompositequery.jsp";
 	}
 
 	private void login(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {

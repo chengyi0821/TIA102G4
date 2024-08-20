@@ -1,0 +1,66 @@
+/* 主要內容區域樣式 */
+#main-content2 {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px; /* 限制最大寬度 */
+    background-color: #f9f9f9; /* 淺灰色背景 */
+    border-radius: 8px; /* 邊角圓角 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 輕微陰影效果 */
+}
+
+/* 標題樣式 */
+#main-content2 h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333; /* 深色文字 */
+}
+
+/* 表格樣式 */
+#main-content2 table {
+    width: 100%;
+    border-collapse: collapse; /* 移除表格邊距 */
+}
+
+#main-content2 th,
+#main-content2 td {
+    padding: 12px;
+    border: 1px solid #ddd; /* 淺灰色邊框 */
+}
+
+#main-content2 th {
+    background-color: #007bff; /* 藍色背景 */
+    color: #fff; /* 白色文字 */
+}
+
+#main-content2 td {
+    background-color: #fff; /* 白色背景 */
+}
+
+/* 表格行 hover 效果 */
+#main-content2 tr:nth-child(even) {
+    background-color: #f2f2f2; /* 淺灰色背景 */
+}
+
+#main-content2 tr:hover {
+    background-color: #e2e2e2; /* 更深的灰色背景 */
+}
+
+/* 回首頁連結樣式 */
+#main-content2 a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#main-content2 a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
