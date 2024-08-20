@@ -134,8 +134,33 @@ textarea:focus {
     outline: none; /* 去掉預設的聚焦外框 */
 }
 
+#sear-bar {
+    text-align: center !important;
+    margin: 20px 0 !important;
+}
 
+#sear-input {
+    width: 300px !important;
+    padding: 10px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    font-size: 16px !important;
+}
 
+#sear-button {
+    padding: 10px 20px !important;
+    margin-left: 10px !important;
+    background-color: #007bff !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+}
+
+#sear-button:hover {
+    background-color: #0056b3 !important;
+}
 
 /* ==============================下拉式選單CSS start================================================== */
 .orderlist {

@@ -47,15 +47,18 @@
 							<a href="memberHome.html" class="nav-item nav-link active">&nbsp&nbsp&nbsp首頁
 							</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="../member/memberlogin.jsp">會員登入</a></li>
+								<li><a style="color: black;"
+									href="../member/memberlogin.jsp">會員登入</a></li>
 								<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
-								<li><a style="color: black;" href="../memberNews/memberNews.html">最新消息</a></li>
+								<li><a style="color: black;"
+									href="../memberNews/memberNews.html">最新消息</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">會員專區</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="../favorite/favoriteList.jsp">查看收藏</a></li>
+								<li><a style="color: black;"
+									href="../favorite/favoriteList.jsp">查看收藏</a></li>
 							</ul>
 
 
@@ -94,11 +97,18 @@
 
 	<div id="main-content1"></div>
 	<div id="main-content2">
+		<!-- 新增的搜尋條 -->
+		<div id="sear-bar">
+			<input type="text" id="sear-input" placeholder="搜尋餐廳...">
+			<button id="sear-button">搜尋</button>
+		</div>
+
 		<!-- 餐廳資訊顯示區 -->
 		<div id="restaurant-info">
 			<!-- 餐廳資料會在這裡動態插入 -->
 		</div>
 	</div>
+
 	<div id="pagination-controls">
 		<button id="prev-page">上一頁</button>
 		<span id="current-page">頁數 1</span>
@@ -117,6 +127,7 @@
 	</footer>
 	<!-- Footer end -->
 	<script src="js/restaurant-get-all.js"></script>
+	<script src="js/restaurant-composite-query.js"></script>
 	<script src="../memberLogout/memberLogout.js"></script>
 </body>
 
