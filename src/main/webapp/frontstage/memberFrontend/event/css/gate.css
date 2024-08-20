@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+#main-content2 {
+	background-color: #fff3e0;
+}
+
+#gate {
+	width: 600px;
+	position: relative;
+	left: 220px;
+	top: 50px;
+	border: 5px solid rgb(221, 118, 28);
+	border-radius: 20px;
+}
+
+#gate h2 {
+	color: #333;
+	margin-bottom: 20px;
+}
+
+#gate h2.typing {
+	text-align: left;
+	margin-left: 96px;
+}
+
+#gate form {
+	margin-top: 20px;
+}
+
+#gate label {
+	display: block;
+	margin-bottom: 5px;
+	color: #666;
+}
+
+#gate input[type="text"] {
+	width: 50%;
+	padding: 10px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+#gate    input[type="submit"] {
+	background-color: rgb(253, 192, 1);
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+#gate    input[type="submit"]:hover {
+	background-color: rgb(221, 118, 28);
+}
+
+#gate    .error-message {
+	color: #ff0000;
+	margin-top: 20px;
+}

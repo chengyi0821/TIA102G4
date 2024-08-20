@@ -9,7 +9,6 @@ import com.tia102g4.rest.model.Restaurant;
 public interface EventService {
 	
 	void addEvent(Event evt);
-		
 	
 	List<Event> getInfo(String code);
 	
@@ -21,5 +20,6 @@ public interface EventService {
 	
 	long getPageTotal();
 	
+	boolean validateCode(String code);
 	
 }

@@ -68,4 +68,9 @@ public class EventServiceImpl implements EventService{
 		return pageQty;		
 	}
 
+	@Override
+	public boolean validateCode(String code) {
+		return dao.isEvent(code);
+	}
+
 }

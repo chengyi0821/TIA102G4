@@ -19,6 +19,9 @@ List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("resta
 <link
 	href="<%=request.getContextPath()%>/frontstage/memberFrontend/vote/css/orderlist.css"
 	rel="stylesheet" />
+<link
+	href="<%=request.getContextPath()%>/frontstage/memberFrontend/vote/css/preparing.css"
+	rel="stylesheet" />
 <style>
 
 </style>
@@ -42,11 +45,6 @@ List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("resta
 
 	<!-- Navbar Start -->
 	<div class="container-fluid position-relative nav-bar p-0">
-		<style>
-.container-fluid.position-relative.nav-bar.p-0 li {
-	color: black !important;
-}
-</style>
 		<div class="container-lg position-relative p-0 px-lg-3"
 			style="z-index: 9;">
 			<nav
@@ -88,10 +86,10 @@ List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("resta
 							<a href="#" class="nav-item nav-link">聯絡客服</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
-
-
 							</ul>
 						</div>
+					</div>
+				</div>
 			</nav>
 		</div>
 	</div>
@@ -134,10 +132,8 @@ List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("resta
 						</tr>
 					</c:forEach>
 				</table>
-				<br /> <input type="submit" value="選這些餐廳">
+				<br /> <input type="submit" value="選這些餐廳" id="btn_choose">
 			</form>
-
-			
 
 		</div>
 		<div class="table-container"></div>
@@ -158,35 +154,6 @@ List<Restaurant> restaurantList = (List<Restaurant>) request.getAttribute("resta
 		</script>
 		<script
 			src="<%=request.getContextPath()%>/frontstage/memberFrontend/vote/js/restaurant_selector.js"></script>
-		<script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
-		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-		    const maxAllowed = 3;
-
-		    checkboxes.forEach(function(checkbox) {
-		        checkbox.addEventListener('change', function() {
-		            const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
-		            
-		            if (checkedCount >= maxAllowed) {
-		                checkboxes.forEach(function(cb) {
-		                    if (!cb.checked) {
-		                        cb.disabled = true;
-		                    }
-		                });
-		            } else {
-		                checkboxes.forEach(function(cb) {
-		                    cb.disabled = false;
-		                });
-		            }
-		        });
-
-		        // 新增點擊事件監聽器
-		        checkbox.addEventListener('click', function(event) {
-		            if (this.disabled) {
-		                event.preventDefault(); // 阻止默認行為
-		                alert('最多選擇三家餐廳，如要新增請取消不需要的選項');
-		            }
-		        });
-		    });
-		});</script>
+		
 </body>
 </html>

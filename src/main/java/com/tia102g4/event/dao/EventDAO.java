@@ -18,4 +18,6 @@ public interface EventDAO {
     List<Restaurant> getAll(int currentPage);
     
     long getTotal();
+    
+    boolean isEvent(String code);
 }

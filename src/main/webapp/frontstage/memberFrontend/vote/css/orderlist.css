@@ -148,23 +148,27 @@ div.option.selected {
 
 .submit-button {
 	display: block;
-	width: 100%;
+	width: 20%;
 	padding: 10px;
-	margin-top: 20px;
-	background-color: #4caf50;
-	color: white;
+	margin: 20px auto;
+	background-color:rgb(253, 192, 1);
+	color:black;
 	border: none;
 	border-radius: 5px;
-	font-size: 16px;
+	font-size: 20px;
 	cursor: pointer;
 	transition: background-color 0.3s;
 }
 
 .submit-button:hover {
-	background-color: #45a049;
+	background-color:rgb(221, 118, 28);
 }
 
 .submit-button:disabled {
 	background-color: #cccccc;
 	cursor: not-allowed;
+}
+
+#voteh1{
+	margin: 60px auto;
 }

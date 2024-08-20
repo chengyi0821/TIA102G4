@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.tia102g4.event.model.*" %>
+<%@ page import="com.tia102g4.event.model.*"%>
 <%
-	Event entity = (Event) request.getAttribute("event");
+Event entity = (Event) request.getAttribute("event");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,11 +11,19 @@
 <title>尋找房間</title>
 <!-- 載入 jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/css/style.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/orderlist.css" rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/frontstage/memberFrontend/event/css/asidemain.css" rel="stylesheet" />
+<link
+	href="<%=request.getContextPath()%>/frontstage/memberFrontend/css/style.css"
+	rel="stylesheet" />
+<link
+	href="<%=request.getContextPath()%>/frontstage/memberFrontend/event/css/orderlist.css"
+	rel="stylesheet" />
+<link
+	href="<%=request.getContextPath()%>/frontstage/memberFrontend/event/css/gate.css"
+	rel="stylesheet" />
 <style>
-
+.container-fluid.position-relative.nav-bar.p-0 li {
+	color: black !important;
+}
 </style>
 </head>
 <body>
@@ -26,7 +34,7 @@
 					<div class="d-inline-flex align-items-center">
 						<a href="../announcement/anno.html"
 							class="navbar-brand mx-5 d-none d-lg-block"></a> <img id="logo"
-							src="<%=request.getContextPath() %>/frontstage/memberFrontend/image/logo.png" />
+							src="<%=request.getContextPath()%>/frontstage/memberFrontend/image/logo.png" />
 						<h1 class="m-0 display-4 text-primary">Chugether</h1>
 					</div>
 				</div>
@@ -37,11 +45,7 @@
 
 	<!-- Navbar Start -->
 	<div class="container-fluid position-relative nav-bar p-0">
-		<style>
-.container-fluid.position-relative.nav-bar.p-0 li {
-	color: black !important;
-}
-</style>
+		
 		<div class="container-lg position-relative p-0 px-lg-3"
 			style="z-index: 9;">
 			<nav
@@ -50,60 +54,74 @@
 					id="navbarCollapse">
 					<div class="navbar-nav ml-auto py-0">
 						<div class="orderblock">
-							<a href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberHome/memberHome.html" class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a>
+							<a
+								href="<%=request.getContextPath()%>/frontstage/memberFrontend/memberHome/memberHome.html"
+								class="nav-item nav-link">&nbsp&nbsp&nbsp首頁 </a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/member/memberlogin.jsp">會員登入</a></li>
+								<li><a style="color: black;"
+									href="<%=request.getContextPath()%>/frontstage/memberFrontend/member/memberlogin.jsp">會員登入</a></li>
 								<li><a id="logout" style="color: black;" href="#">登出會員</a></li>
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
+								<li><a style="color: black;"
+									href="<%=request.getContextPath()%>/frontstage/memberFrontend/memberNews/memberNews.html">最新消息</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">會員專區</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favoriteList.jsp">查看收藏</a></li>
+								<li><a style="color: black;"
+									href="<%=request.getContextPath()%>/frontstage/memberFrontend/favorite/favoriteList.jsp">查看收藏</a></li>
 							</ul>
 						</div>
 					</div>
 
 					<div class="navbar-nav mr-auto py-0">
 						<div class="orderblock">
-							<a href="#" class="nav-item nav-link active" >揪團系統</a>
+							<a href="#" class="nav-item nav-link active">揪團系統</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/room/inviteroom.jsp">發起揪團</a></li>
+								<li><a style="color: black;"
+									href="<%=request.getContextPath()%>/frontstage/memberFrontend/room/inviteroom.jsp">發起揪團</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">訂單管理</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/myorder/member_orderStatus1.jsp">編輯訂單</a></li>
+								<li><a style="color: black;"
+									href="<%=request.getContextPath()%>/frontstage/memberFrontend/myorder/member_orderStatus1.jsp">編輯訂單</a></li>
 							</ul>
 						</div>
 						<div class="orderblock">
 							<a href="#" class="nav-item nav-link">聯絡客服</a>
 							<ul class="orderlist">
-								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
+								<li><a style="color: black;"
+									href="<%=request.getContextPath()%>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
 							</ul>
 						</div>
+					</div>
+				</div>
 			</nav>
 		</div>
 	</div>
 	<!-- Navbar End -->
 	<div id="main-content1"></div>
 	<div id="main-content2">
-		<h2 style="margin-top: 40px">我要跟團</h2>
-		<br>
-		<h2 >請輸入邀請碼</h2>
+		<div id="gate">
+			<h2 style="margin-top: 40px">我要跟團</h2>
+			<br>
+			<h2 class="typing">請輸入邀請碼</h2>
 
-		<form action="<%=request.getContextPath()%>/event/event.do"
-			method="post">
-			<!--/TIA102G4/event/event.do -->
-			<label for="code">邀請碼(7位英數字)</label>
-			<input type="text" name="code" minlength="7" maxlength="7" required>
-			<input type="hidden" name="action" value="getInfo"> 
-			<input type="submit" value="加入揪團">
+			<form action="<%=request.getContextPath()%>/event/event.do"
+				method="post">
+			<label for="code">邀請碼(7位英數字)</label> <input type="text" name="code"
+				minlength="7" maxlength="7" required> <input type="hidden"
+				name="action" value="getInfo"> <input type="submit"
+				value="加入揪團">
 
-		</form>
-
+			</form>
+			
+			<c:if test="${not empty errMsg}">
+				<p style="color: red;">${errMsg}</p>
+			</c:if>
+		</div>
 	</div>
 	<div class="table-container"></div>
 
@@ -117,6 +135,7 @@
 		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 	</footer>
 	<script src="js/main.js"></script>
-	<script src="<%=request.getContextPath() %>/frontstage/memberFrontend/memberLogout/memberLogout.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontstage/memberFrontend/memberLogout/memberLogout.js"></script>
 </body>
 </html>

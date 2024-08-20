@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+#main-content2 {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: 'Arial', sans-serif;
+}
+
+#main-content2 h2 {
+	color: #333;
+	font-size: 40px;
+	margin-bottom: 20px;
+	border-bottom: 2px solid rgb(221, 118, 28);
+	padding-bottom: 10px;
+}
+
+#main-content2 h3 {
+	color: #444;
+	font-size: 20px;
+	margin-top: 30px;
+	margin-bottom: 15px;
+}
+
+#main-content2 table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+#main-content2 th, #main-content2 td {
+	padding: 12px;
+	text-align: left;
+}
+
+#main-content2 th {
+	background-color: #f8f9fa;
+	font-weight: bold;
+}
+
+#main-content2 tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#main-content2 div.aside {
+	float: left;
+	width: 30%;
+	background-color: #f8f9fa;
+	padding: 15px;
+	border: 5px solid rgb(221, 118, 28); border-radius : 20px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	border-radius: 20px;
+}
+
+#main-content2 div.main {
+	float: right;
+	width: 65%;
+	padding: 15px;
+	background-color: #fff;
+	border: 5px solid rgb(221, 118, 28); border-radius : 20px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	border-radius: 20px;
+}
+
+#main-content2 input[type="submit"] {
+	background-color: rgb(253, 192, 1);
+	color: black;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s;
+	position: relative;
+	bottom:-100px;
+}
+
+#main-content2 input[type="submit"]:hover {
+	background-color: rgb(221, 118, 28);
+}

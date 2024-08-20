@@ -43,11 +43,6 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 
 	<!-- Navbar Start -->
 	<div class="container-fluid position-relative nav-bar p-0">
-		<style>
-.container-fluid.position-relative.nav-bar.p-0 li {
-	color: black !important;
-}
-</style>
 		<div class="container-lg position-relative p-0 px-lg-3"
 			style="z-index: 9;">
 			<nav
@@ -69,8 +64,6 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 							<ul class="orderlist">
 								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/favorite/favoriteList.jsp">查看收藏</a></li>
 							</ul>
-
-
 						</div>
 					</div>
 
@@ -91,16 +84,17 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 							<a href="#" class="nav-item nav-link">聯絡客服</a>
 							<ul class="orderlist">
 								<li><a style="color: black;" href="<%=request.getContextPath() %>/frontstage/memberFrontend/memberFeedback/memberFeedback.html">客服信箱</a></li>
-
 							</ul>
 						</div>
+					</div>
+				</div>
 			</nav>
 		</div>
 	</div>
 	<!-- Navbar End -->
 	<div id="main-content1"></div>
 	<div id="main-content2">
-		<h1>請選擇餐廳</h1>
+		<h1 id="voteh1">請選擇餐廳</h1>
 		<form action="option.do" method="post">
 			
 		<div style="display: flex; justify-content: space-between;">
@@ -119,7 +113,7 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 		
 			<input type="hidden" name="action" value="choose">
 <!-- 			<input type="submit" value="投票"> -->
-			<div id="submitButton" class="submit-button" style="display: none">
+			<div id="submitButton" class="submit-button" style="display: none;">
 				投票
 			</div>
 		
@@ -136,40 +130,7 @@ List<Restaurant> restList = (List<Restaurant>) request.getAttribute("restList");
 		<h5 class="footerh5">隱私權條款</h5>
 		<h5 class="footerh5_2">Copyright © 2024 Chugether</h5>
 	</footer>
-	<script>
-	document.addEventListener("DOMContentLoaded", function () {
-		const options = document.querySelectorAll(".option");
-		const submitButton = document.getElementById("submitButton");
-
-		options.forEach((option) => {
-			option.addEventListener("click", function () {
-				const radio = this.querySelector('input[type="radio"]');
-
-				if (radio.checked) {
-					radio.checked = false;
-					this.classList.remove("selected");
-					submitButton.style.display = "none";
-				} else {
-					options.forEach((opt) => {
-						opt.classList.remove("selected");
-						opt.querySelector('input[type="radio"]').checked = false;
-					});
-
-					radio.checked = true;
-					this.classList.add("selected");
-					submitButton.style.display = "block";
-				}
-			});
-		});
-
-		submitButton.addEventListener("click", function () {
-			const form = document.querySelector("form");
-			if (form) {
-				form.submit();
-			}
-		});
-	});
-	</script>
 	<script src="<%=request.getContextPath() %>/frontstage/memberFrontend/memberLogout/memberLogout.js"></script>
+	<script src="<%=request.getContextPath() %>/frontstage/memberFrontend/vote/js/voting.js"></script>
 </body>
 </html>
